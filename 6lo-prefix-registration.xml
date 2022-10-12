@@ -21,7 +21,7 @@ docName="draft-thubert-6lo-prefix-registration-00" >
 
 <front>
 
-   <title abbrev="Multicast Address Registration">IPv6 Neighbor Discovery Multicast Address Listener Subscription</title>
+   <title abbrev="Prefix Registration">IPv6 Neighbor Discovery Prefix Registration</title>
    <author initials="P" surname="Thubert" fullname="Pascal Thubert" role="editor">
       <organization abbrev="Cisco Systems">Cisco Systems, Inc</organization>
       <address>
@@ -42,16 +42,15 @@ docName="draft-thubert-6lo-prefix-registration-00" >
 
    <abstract>
    <t>
-    This document updates RFC 8505 to enable a node that owns a prefix to
-    register the prefix to neighbor routers. Since the prefix is used inside the
-    advrtising node, or directly connected to the advertising router, it can be
-    reached via the advertising nodewithout a loop and without the need of a
-    routing protocol.
+    This document updates RFC 8505 to enable a node that owns or is directly
+    connected to a prefix register that prefix to neighbor routers, the
+    prefix registration indicates that prefix can be reached via the advertising
+    node without a loop.
     The prefix registration also provides a protocol-independant interface for
-    the node to request the neighbor router(s) to redistribute the prefix to
-    the outside using their specific routing protocols.
-    This document extends RFC 9010 to enable the 6LR to inject the registered
-    prefix in RPL.
+    the node to request neighbor router(s) to redistribute the prefix to
+    the larger routing domain using their specific routing protocols.
+    As an example, this document extends RFC 9010 to enable the 6LR to inject
+    the registered prefix in RPL.
    </t>
    </abstract>
 </front>
@@ -87,9 +86,6 @@ docName="draft-thubert-6lo-prefix-registration-00" >
    inconsistency discovery, which avoids wasting energy in the proactive repair
    of unused paths.
 </t><t>
-   Section 12 of <xref target="RFC6550"/> details the "Storing Mode of
-   Operation with multicast support" with source-independent multicast routing in RPL.
-</t><t>
    The classical "IPv6 Neighbor Discovery (IPv6 ND) Protocol"
    <xref target="RFC4861"/> <xref target="RFC4862"/> was defined for serial
    links and shared transit media such as Ethernet at a time when broadcast
@@ -120,10 +116,10 @@ docName="draft-thubert-6lo-prefix-registration-00" >
    request that the router injects a unicast IPv6 address in the local routing
    protocol and provide return reachability for that address.
 </t><t>
-   <xref target="I-D.ietf-6lo-multicast-registration"/>
+   <xref target="I-D.ietf-6lo-multicast-registration">
    "IPv6 Neighbor Discovery Multicast Address Listener Subscription"</xref>
-   updates <xref target="RFC8505"/> to enable a listener to subscribe an
-   IPv6 anycast or and subscribe to an IPv6 multicast address; the draft
+   updates <xref target="RFC8505"/> to enable a listener to register an IPv6
+   anycast address or subscribe to an IPv6 multicast address; the draft
    also extends <xref target="RFC9010"/> to enable the 6LR to inject the
    anycast and multicast addresses in RPL.
 </t><t>
@@ -1567,7 +1563,7 @@ docName="draft-thubert-6lo-prefix-registration-00" >
 	<!-- RFC  -->
 
     <!-- I-D -->
-    <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3810.xml"/>
+
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4919.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6282.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7731.xml"/>
