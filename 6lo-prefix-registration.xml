@@ -17,7 +17,7 @@
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
 submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 8505, 9010"
-docName="draft-thubert-6lo-prefix-registration-01" >
+docName="draft-thubert-6lo-prefix-registration-03" >
 
 <front>
 
@@ -614,9 +614,12 @@ docName="draft-thubert-6lo-prefix-registration-01" >
    Registering Node can relay packets that are sourced in the Registered Prefix
    to the outside, and the packets will be topologically correct with regard to
    <xref target="RFC2827"/>. The receiver should forward packets to the sender's
-   address when the source address of the packets derives from the prefix, and
-   the sender. Note that to avoid loops, the receiver must be inside so packets
+   address when the source address of the packets derives from the prefix.
+   Note that to avoid loops, the receiver must be in the inside so packets
    sent by the sender towards the outside may never reach the receiver.
+   The notion of inside and outside are administratively defined, e.g., inside
+   is a particular Layer-2 network such as an Ethernet fabric.
+
 </t>
 <t>
   The Status Field that is
