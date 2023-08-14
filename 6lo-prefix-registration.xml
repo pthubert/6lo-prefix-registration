@@ -38,11 +38,7 @@ docName="draft-ietf-6lo-prefix-registration-01" >
    </author>
    <area>Internet</area>
 
-<!--
 
-   chalmle 8928, any add in prefix in NA. The registerng node does the NS for prefix.
-   may inject in EVPN
--->
    <workgroup>6lo</workgroup>
 
    <abstract>
@@ -816,9 +812,29 @@ docName="draft-ietf-6lo-prefix-registration-01" >
    </t>
    </li>
    <li>
+   <t>
    Registration for prefixes is now supported. The value of 3 in the P field of
    the EARO and the EDAR message signals when the registration is for a prefix
-   as opposed to an address.
+   as opposed to an address. DAD for prefixes and addresses becomes a prefix
+   overlap match. Whether overlapping addresses and prefixes may be registered
+   is a network policy decision and out of scope.
+   The same prefix may be injected twice (multiple routes) as long as they use
+   the same value of the ROVR.
+   </t>
+   <t>
+   Overlaps may be desirable. It may happen for instance that a proxy
+   registers a prefix while a host using an address from that prefix also
+   registers.
+   It might also occur that an aggregated prefix is owned as a catch all, and
+   subdivised into subnets that are allocated to and then registered by other
+   nodes.
+   </t>
+   <t>
+   In case of an overlapping registration, the longest match wins, meaning that
+   if the  network policy allows for overlapping registrations, then the
+   registration the routes are installed towards the node that registered with
+   the longest match, all the way to /128.
+   </t>
    </li>
    <li>
    If the 6LR acts as a router to prefixes or owns the prefixes entirely, it
@@ -933,9 +949,10 @@ docName="draft-ietf-6lo-prefix-registration-01" >
     steps in <xref target="RFC8928"/> to register the prefix.
 </t>
 <t>
-    Upon a NA Message with the status set to  5 "Validation Requested", the
+    Upon a NA Message with the status set to 5 "Validation Requested", the
     node that registered addresses or prefixes with use the longest matching
-    address or prefix
+    address or prefix and perform the proof of ownership based on that
+    longest match.
 </t>
 </section>  <!-- Leveraging RFC 8929 -->
 

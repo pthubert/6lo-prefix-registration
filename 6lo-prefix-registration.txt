@@ -87,17 +87,17 @@ Table of Contents
      7.2.  New EARO Prefix Length Field and F Flag . . . . . . . . .  13
      7.3.  New EDAR Prefix Length Field  . . . . . . . . . . . . . .  15
      7.4.  Registering Extensions  . . . . . . . . . . . . . . . . .  15
-   8.  Updating RFC 9010 . . . . . . . . . . . . . . . . . . . . . .  17
+   8.  Updating RFC 9010 . . . . . . . . . . . . . . . . . . . . . .  18
    9.  Updating RFC 8928 . . . . . . . . . . . . . . . . . . . . . .  18
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  19
-   11. Backward Compatibility  . . . . . . . . . . . . . . . . . . .  19
-   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
+   11. Backward Compatibility  . . . . . . . . . . . . . . . . . . .  20
+   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  20
      12.1.  Updated P-Field Registry . . . . . . . . . . . . . . . .  20
      12.2.  New 6LoWPAN Capability Bit . . . . . . . . . . . . . . .  20
-   13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  20
-   14. Normative References  . . . . . . . . . . . . . . . . . . . .  20
+   13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  21
+   14. Normative References  . . . . . . . . . . . . . . . . . . . .  21
    15. Informative References  . . . . . . . . . . . . . . . . . . .  22
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  23
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  24
 
 
 
@@ -908,7 +908,24 @@ Internet-Draft             Prefix Registration               August 2023
 
    *  Registration for prefixes is now supported.  The value of 3 in the
       P field of the EARO and the EDAR message signals when the
-      registration is for a prefix as opposed to an address.
+      registration is for a prefix as opposed to an address.  DAD for
+      prefixes and addresses becomes a prefix overlap match.  Whether
+      overlapping addresses and prefixes may be registered is a network
+      policy decision and out of scope.  The same prefix may be injected
+      twice (multiple routes) as long as they use the same value of the
+      ROVR.
+
+      Overlaps may be desirable.  It may happen for instance that a
+      proxy registers a prefix while a host using an address from that
+      prefix also registers.  It might also occur that an aggregated
+      prefix is owned as a catch all, and subdivised into subnets that
+      are allocated to and then registered by other nodes.
+
+      In case of an overlapping registration, the longest match wins,
+      meaning that if the network policy allows for overlapping
+      registrations, then the registration the routes are installed
+      towards the node that registered with the longest match, all the
+      way to /128.
 
    *  If the 6LR acts as a router to prefixes or owns the prefixes
       entirely, it SHOULD register all those prefixes on all interface
@@ -929,6 +946,14 @@ Internet-Draft             Prefix Registration               August 2023
    *  The 6LR MUST maintain a registration state per tuple (IPv6 prefix/
       length, ROVR) for all registered prefix.  It SHOULD notify the
       6LBR with an EDAR message, unless it determined that the 6LBR is
+
+
+
+Thubert                 Expires 15 February 2024               [Page 17]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
       legacy and does not support this specification.  In turn, the 6LBR
       MUST maintain a registration state per tuple (IPv6 prefix, ROVR)
       for all prefixes.
@@ -946,13 +971,6 @@ Internet-Draft             Prefix Registration               August 2023
       has an active registration, the 6LR delivers the packet as a
       unicast layer-2 frame to the LLA the nodes that registered the
       unicast address.
-
-
-
-Thubert                 Expires 15 February 2024               [Page 17]
-
-Internet-Draft             Prefix Registration               August 2023
-
 
    This specification adds the following behavior:
 
@@ -982,6 +1000,16 @@ Internet-Draft             Prefix Registration               August 2023
    perform source address validation on packets coming from the sender
    node (the 6LN).
 
+
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 18]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
    Prefixes are not always owned by one node.  Multiple nodes may
    register the same prefix.  In that context, the method specified in
    [RFC8928] cannot be used with node-local autoconfigured keypairs
@@ -1002,17 +1030,10 @@ Internet-Draft             Prefix Registration               August 2023
    register the prefix or a prefix within, so the node can follow the
    steps in [RFC8928] to register the prefix.
 
-
-
-
-Thubert                 Expires 15 February 2024               [Page 18]
-
-Internet-Draft             Prefix Registration               August 2023
-
-
    Upon a NA Message with the status set to 5 "Validation Requested",
    the node that registered addresses or prefixes with use the longest
-   matching address or prefix
+   matching address or prefix and perform the proof of ownership based
+   on that longest match.
 
 10.  Security Considerations
 
@@ -1036,6 +1057,15 @@ Internet-Draft             Prefix Registration               August 2023
    over a period of time, and switch the traffic to that address when
    the migration is complete.
 
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 19]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
 11.  Backward Compatibility
 
    A legacy 6LN will not register prefixess and the service will be the
@@ -1054,17 +1084,6 @@ Internet-Draft             Prefix Registration               August 2023
    once it is allocated.  Also, the I Field is defined in [RFC9010] but
    is missing from the registry, so the bit positions must be added for
    completeness.
-
-
-
-
-
-
-
-Thubert                 Expires 15 February 2024               [Page 19]
-
-Internet-Draft             Prefix Registration               August 2023
-
 
    IANA is requested to make changes under the "Internet Control Message
    Protocol version 6 (ICMPv6) Parameters" [IANA.ICMP] and the "Routing
@@ -1095,6 +1114,14 @@ Internet-Draft             Prefix Registration               August 2023
    Message Protocol version 6 (ICMPv6) Parameters" as indicated in
    Table 3:
 
+
+
+
+Thubert                 Expires 15 February 2024               [Page 20]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
          +----------------+--------------------------+-----------+
          | Capability Bit | Meaning                  | Reference |
          +----------------+--------------------------+-----------+
@@ -1113,14 +1140,6 @@ Internet-Draft             Prefix Registration               August 2023
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
-
-
-
-
-Thubert                 Expires 15 February 2024               [Page 20]
-
-Internet-Draft             Prefix Registration               August 2023
-
 
    [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
               "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
@@ -1150,6 +1169,15 @@ Internet-Draft             Prefix Registration               August 2023
               (6LoWPANs)", RFC 7400, DOI 10.17487/RFC7400, November
               2014, <https://www.rfc-editor.org/info/rfc7400>.
 
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 21]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
@@ -1169,14 +1197,6 @@ Internet-Draft             Prefix Registration               August 2023
               "Address-Protected Neighbor Discovery for Low-Power and
               Lossy Networks", RFC 8928, DOI 10.17487/RFC8928, November
               2020, <https://www.rfc-editor.org/info/rfc8928>.
-
-
-
-
-Thubert                 Expires 15 February 2024               [Page 21]
-
-Internet-Draft             Prefix Registration               August 2023
-
 
    [RFC9010]  Thubert, P., Ed. and M. Richardson, "Routing for RPL
               (Routing Protocol for Low-Power and Lossy Networks)
@@ -1203,6 +1223,17 @@ Internet-Draft             Prefix Registration               August 2023
               Address Spoofing", BCP 38, RFC 2827, DOI 10.17487/RFC2827,
               May 2000, <https://www.rfc-editor.org/info/rfc2827>.
 
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 22]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
    [RFC4919]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
               over Low-Power Wireless Personal Area Networks (6LoWPANs):
               Overview, Assumptions, Problem Statement, and Goals",
@@ -1227,13 +1258,6 @@ Internet-Draft             Prefix Registration               August 2023
               <https://datatracker.ietf.org/doc/html/draft-kuehlewind-
               update-tag-04>.
 
-
-
-Thubert                 Expires 15 February 2024               [Page 22]
-
-Internet-Draft             Prefix Registration               August 2023
-
-
    [I-D.heile-lpwan-wisun-overview]
               Robert, H., Liu, B. R., Zhang, M., and C. E. Perkins, "Wi-
               SUN FAN Overview", Work in Progress, Internet-Draft,
@@ -1254,6 +1278,17 @@ Internet-Draft             Prefix Registration               August 2023
               Internet-Draft, draft-ietf-6lo-multicast-registration-15,
               30 May 2023, <https://datatracker.ietf.org/doc/html/draft-
               ietf-6lo-multicast-registration-15>.
+
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 23]
+
+Internet-Draft             Prefix Registration               August 2023
+
 
    [IEEE802154]
               IEEE standard for Information Technology, "IEEE Std
@@ -1281,15 +1316,6 @@ Internet-Draft             Prefix Registration               August 2023
 
 Author's Address
 
-
-
-
-
-Thubert                 Expires 15 February 2024               [Page 23]
-
-Internet-Draft             Prefix Registration               August 2023
-
-
    Pascal Thubert (editor)
    Cisco Systems, Inc
    Emerald Square, Batiment C
@@ -1299,32 +1325,6 @@ Internet-Draft             Prefix Registration               August 2023
 
    Phone: +33 497 23 26 34
    Email: pthubert@cisco.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
