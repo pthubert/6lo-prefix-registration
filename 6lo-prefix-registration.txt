@@ -4,27 +4,27 @@
 
 6lo                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
-Updates: 4861, 6550, 6553, 8505, 9010 (if                 3 January 2023
+Updates: 4861, 6550, 6553, 8505, 8928, 9010 (if           14 August 2023
          approved)                                                      
 Intended status: Standards Track                                        
-Expires: 7 July 2023
+Expires: 15 February 2024
 
 
               IPv6 Neighbor Discovery Prefix Registration
-                draft-thubert-6lo-prefix-registration-01
+                 draft-ietf-6lo-prefix-registration-01
 
 Abstract
 
-   This document updates the 6LoWPAN extensions to IPv6 Neighbor
-   Discovery (RFC 8505) to enable a node that owns or is directly
-   connected to a prefix to register that prefix to neighbor routers.
-   The registration indicates that the registered prefix can be reached
-   via the advertising node without a loop.  The prefix registration
-   also provides a protocol-independent interface for the node to
-   request neighbor router(s) to redistribute the prefix to the larger
-   routing domain using their specific routing protocols.  As an
-   example, this document extends RFC 9010 to enable the 6LR to inject
-   the registered prefix in RPL.
+   This document updates IPv6 Neighbor Discovery [RFC4861] and the
+   6LoWPAN extensions [RFC8505][RFC8928] to enable a node that owns or
+   is directly connected to a prefix to register that prefix to neighbor
+   routers.  The registration indicates that the registered prefix can
+   be reached via the advertising node without a loop.  The prefix
+   registration also provides a protocol-independent interface for the
+   node to request neighbor router(s) to redistribute the prefix to the
+   larger routing domain using their specific routing protocols.  This
+   document extends RPL [RFC6550][RFC6553][RFC9010] to enable the 6LR to
+   inject the registered prefix in RPL.
 
 Status of This Memo
 
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 July 2023.
+   This Internet-Draft will expire on 15 February 2024.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thubert                    Expires 7 July 2023                  [Page 1]
+Thubert                 Expires 15 February 2024                [Page 1]
 
-Internet-Draft             Prefix Registration              January 2023
+Internet-Draft             Prefix Registration               August 2023
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -73,31 +73,31 @@ Table of Contents
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   4
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
      2.2.  References  . . . . . . . . . . . . . . . . . . . . . . .   4
-     2.3.  Glossary  . . . . . . . . . . . . . . . . . . . . . . . .   5
-     2.4.  New terms . . . . . . . . . . . . . . . . . . . . . . . .   5
+     2.3.  Acronyms  . . . . . . . . . . . . . . . . . . . . . . . .   5
+     2.4.  New terms . . . . . . . . . . . . . . . . . . . . . . . .   6
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     3.1.  LLN Mesh Network  . . . . . . . . . . . . . . . . . . . .   6
+     3.1.  LLN Mesh Network  . . . . . . . . . . . . . . . . . . . .   7
      3.2.  Shared Link . . . . . . . . . . . . . . . . . . . . . . .   8
      3.3.  Hub Link  . . . . . . . . . . . . . . . . . . . . . . . .   9
-   4.  Updating RFC 4861 . . . . . . . . . . . . . . . . . . . . . .  10
-   5.  Extending RFC 7400  . . . . . . . . . . . . . . . . . . . . .  10
-   6.  Updating RFC 6550 . . . . . . . . . . . . . . . . . . . . . .  11
-   7.  Updating RFC 8505 . . . . . . . . . . . . . . . . . . . . . .  12
-     7.1.  New P field value . . . . . . . . . . . . . . . . . . . .  12
-     7.2.  New EARO Prefix Length Field  . . . . . . . . . . . . . .  12
-     7.3.  New EDAR Prefix Length Field  . . . . . . . . . . . . . .  13
-     7.4.  Registering Extensions  . . . . . . . . . . . . . . . . .  14
-   8.  Updating RFC 9010 . . . . . . . . . . . . . . . . . . . . . .  16
-   9.  Leveraging RFC 8928 . . . . . . . . . . . . . . . . . . . . .  17
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  17
-   11. Backward Compatibility  . . . . . . . . . . . . . . . . . . .  18
-   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
-     12.1.  Updated P-Field Registry . . . . . . . . . . . . . . . .  18
-     12.2.  New 6LoWPAN Capability Bit . . . . . . . . . . . . . . .  19
-   13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  19
-   14. Normative References  . . . . . . . . . . . . . . . . . . . .  19
-   15. Informative References  . . . . . . . . . . . . . . . . . . .  21
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  22
+   4.  Updating RFC 4861 . . . . . . . . . . . . . . . . . . . . . .  11
+   5.  Extending RFC 7400  . . . . . . . . . . . . . . . . . . . . .  11
+   6.  Updating RFC 6550 . . . . . . . . . . . . . . . . . . . . . .  12
+   7.  Updating RFC 8505 . . . . . . . . . . . . . . . . . . . . . .  13
+     7.1.  New P field value . . . . . . . . . . . . . . . . . . . .  13
+     7.2.  New EARO Prefix Length Field and F Flag . . . . . . . . .  13
+     7.3.  New EDAR Prefix Length Field  . . . . . . . . . . . . . .  15
+     7.4.  Registering Extensions  . . . . . . . . . . . . . . . . .  15
+   8.  Updating RFC 9010 . . . . . . . . . . . . . . . . . . . . . .  17
+   9.  Updating RFC 8928 . . . . . . . . . . . . . . . . . . . . . .  18
+   10. Security Considerations . . . . . . . . . . . . . . . . . . .  19
+   11. Backward Compatibility  . . . . . . . . . . . . . . . . . . .  19
+   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
+     12.1.  Updated P-Field Registry . . . . . . . . . . . . . . . .  20
+     12.2.  New 6LoWPAN Capability Bit . . . . . . . . . . . . . . .  20
+   13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  20
+   14. Normative References  . . . . . . . . . . . . . . . . . . . .  20
+   15. Informative References  . . . . . . . . . . . . . . . . . . .  22
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  23
 
 
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thubert                    Expires 7 July 2023                  [Page 2]
+Thubert                 Expires 15 February 2024                [Page 2]
 
-Internet-Draft             Prefix Registration              January 2023
+Internet-Draft             Prefix Registration               August 2023
 
 
 1.  Introduction
@@ -140,17 +140,35 @@ Internet-Draft             Prefix Registration              January 2023
    on dataplane inconsistency discovery, which avoids wasting energy in
    the proactive repair of unused paths.
 
-   The classical "IPv6 Neighbor Discovery (IPv6 ND) Protocol" [RFC4861]
-   [RFC4862] was defined for serial links and shared transit media such
-   as Ethernet at a time when broadcast was cheap on those media while
+   The "IPv6 Neighbor Discovery (IPv6 ND) Protocol" [RFC4861] [RFC4862]
+   was defined for serial links and shared transit media such as
+   Ethernet at a time when broadcast was cheap on those media while
    memory for neighbor cache was expensive.  It was thus designed as a
    reactive protocol that relies on caching and multicast operations for
-   the Address Discovery (aka Lookup) and Duplicate Address Detection
-   (DAD) of IPv6 unicast addresses.  Those multicast operations
-   typically impact every node on-link when at most one is really
-   targeted, which is a waste of energy, and imply that all nodes are
-   awake to hear the request, which is inconsistent with power saving
-   (sleeping) modes.
+   the Address Resolution (AR, aka Address Discovery or Address Lookup)
+   and Duplicate Address Detection (DAD) of IPv6 unicast addresses.
+   Those multicast operations typically impact every node on-link when
+   at most one is really targeted, which is a waste of energy, and imply
+   that all nodes are awake to hear the request, which is inconsistent
+   with power saving (sleeping) modes.
+
+   The "Architecture and Framework for IPv6 over Non-Broadcast Access"
+   (NBMA) [I-D.ietf-6man-ipv6-over-wireless] introduces an evolution of
+   IPv6 ND towards a proactive AR method also called Stateful Address
+   Autoconfiguration (SFAAC).  Because the IPv6 model for NBMA depends
+   on a routing protocol to reach inside the Subnet, the IPv6 ND
+   extension for NBMA is refered to as Subnet Neighbor Discovery (SND).
+   SND is based on work done in the context of IoT, known as 6LoWPAN ND.
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024                [Page 3]
+
+Internet-Draft             Prefix Registration               August 2023
+
 
    The original 6LoWPAN ND, "Neighbor Discovery Optimizations for
    6LoWPAN networks" [RFC6775], was introduced to avoid the excessive
@@ -162,13 +180,6 @@ Internet-Draft             Prefix Registration              January 2023
    defines a new Address Registration Option (ARO) that is placed in
    unicast Neighbor Solicitation (NS) and Neighbor Advertisement (NA)
    messages between the 6LN and the 6LR.
-
-
-
-Thubert                    Expires 7 July 2023                  [Page 3]
-
-Internet-Draft             Prefix Registration              January 2023
-
 
    "Registration Extensions for 6LoWPAN Neighbor Discovery" [RFC8505]
    updates [RFC6775] into a generic Address Registration mechanism that
@@ -208,6 +219,13 @@ Internet-Draft             Prefix Registration              January 2023
    *  "Neighbor Discovery for IP version 6" [RFC4861] and "IPv6
       Stateless address Autoconfiguration" [RFC4862],
 
+
+
+Thubert                 Expires 15 February 2024                [Page 4]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
    *  Neighbor Discovery Optimization for Low-Power and Lossy Networks
       [RFC6775], as well as
 
@@ -217,46 +235,54 @@ Internet-Draft             Prefix Registration              January 2023
    *  "Using RPI Option Type, Routing Header for Source Routes, and
       IPv6-in-IPv6 Encapsulation in the RPL Data Plane" [RFC9008].
 
+2.3.  Acronyms
+
+   This document uses the following abbreviations:
+
+   6BBR:  Backbone Router
+   6LN:  (6LoWPAN) Node
+   6LR:  (6LoWPAN) Router
+   ARO:  address Registration Option
+   DAC:  Duplicate address Confirmation (message)
+   DAD:  Duplicate address Detection
+   DAR:  Duplicate address Request (message)
+   EDAC:  Extended Duplicate address Confirmation
+   EDAR:  Extended Duplicate address Request
+   LLN:  Low-Power and Lossy Network
+   LLA:  link-local address
+   LoWPAN:  Low-Power WPAN
+   MAC:  Medium Access Control
+   MLSN:  Multi-link Subnet
+   MLD:  multicast Listener Discovery
+   NA:  Neighbor Advertisement (message)
+   NBMA:  Non-Broadcast Multi-Access (full mesh)
+   NCE:  Neighbor Cache Entry
+   ND:  Neighbor Discovery (protocol)
+   NDP:  Neighbor Discovery Protocol
+   NS:  Neighbor Solicitation (message)
+   P2P:  Point-to-Point
+   P2MP:  Point-to-Multipoint (partial mesh)
+   RPL:  IPv6 Routing Protocol for LLNs
+   RA:  Router Advertisement (message)
+   RS:  Router Solicitation (message)
+   SGP:  Subnet Gateway Protocol
+   SPL:  Subnet Prefix Length
+   ULP:  Upper-Layer Protocol
+   VLAN:  Virtual LAN
+   VxLAN:  Virtual Extensible LAN
+   VPN:  Virtual Private Network
+   WAN:  Wide Area Network
+   SND:  Subnet Neighbor Discovery (protocol)
+   WLAN:  Wireless Local Area Network
 
 
 
-
-Thubert                    Expires 7 July 2023                  [Page 4]
+Thubert                 Expires 15 February 2024                [Page 5]
 
-Internet-Draft             Prefix Registration              January 2023
+Internet-Draft             Prefix Registration               August 2023
 
 
-2.3.  Glossary
-
-   This document uses the following acronyms:
-
-   6BBR   6LoWPAN Backbone Router
-   6BBR   6LoWPAN Border Router
-   6LN    6LoWPAN Node
-   6LR    6LoWPAN Router
-   6CIO   Capability Indication Option
-   AMC    Address Mapping Confirmation
-   AMR    Address Mapping Request
-   ARO    Address Registration Option
-   DAC    Duplicate Address Confirmation
-   DAD    Duplicate Address Detection
-   DAR    Duplicate Address Request
-   EARO   Extended Address Registration Option
-   EDAC   Extended Duplicate Address Confirmation
-   EDAR   Extended Duplicate Address Request
-   DODAG  Destination-Oriented Directed Acyclic Graph
-   IR     Ingress Replication
-   LLN    Low-Power and Lossy Network
-   NA     Neighbor Advertisement
-   NCE    Neighbor Cache Entry
-   ND     Neighbor Discovery
-   NS     Neighbor Solicitation
-   ROVR   Registration Ownership Verifier
-   RTO    RPL Target Option
-   RA     Router Advertisement
-   RS     Router Solicitation
-   TID    Transaction ID
-   TIO    Transit Information Option
+   WPAN:  Wireless Personal Area Network
 
 2.4.  New terms
 
@@ -273,14 +299,6 @@ Internet-Draft             Prefix Registration              January 2023
           advertisement.  A RPL router that merges becomes the origin of
           the merged advertisement and uses its own values for the Path
           Sequence and ROVR fields.
-
-
-
-
-Thubert                    Expires 7 July 2023                  [Page 5]
-
-Internet-Draft             Prefix Registration              January 2023
-
 
 3.  Overview
 
@@ -309,6 +327,17 @@ Internet-Draft             Prefix Registration              January 2023
    Multiple 6LN may register the same prefix to the same 6LR or to
    different 6LRs.
 
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024                [Page 6]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
    If the R flag is set in the registration of one or more 6LNs for the
    same prefix, the 6LR is requested to redistributes the prefix in
    other routing protocol (e.g., RPL), based on the longest registration
@@ -331,13 +360,6 @@ Internet-Draft             Prefix Registration              January 2023
    support in both Storing and Non-Storing modes.  A 6LR that implements
    the RPL extensions specified therein MUST also implement [RFC9010].
 
-
-
-Thubert                    Expires 7 July 2023                  [Page 6]
-
-Internet-Draft             Prefix Registration              January 2023
-
-
    Figure 1 illustrates the classical situation of an LLN as a single
    IPv6 Subnet, with a 6LoWPAN Border Router (6LBR) that acts as Root
    for RPL operations and maintains a registry of the active
@@ -349,6 +371,28 @@ Internet-Draft             Prefix Registration              January 2023
    LLN such as the Wi-SUN and 6TiSCH meshes
    [I-D.heile-lpwan-wisun-overview] that leverages 6LoWPAN
    [RFC4919][RFC6282] and RPL [RFC6550] over [IEEE802154].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024                [Page 7]
+
+Internet-Draft             Prefix Registration               August 2023
+
 
                      |
          ----+-------+------------
@@ -382,18 +426,6 @@ Internet-Draft             Prefix Registration              January 2023
    is not a RPL router may also register those prefixes with the R flag
    set, to enable reachability via the RPL domain.  As usual
 
-
-
-
-
-
-
-
-Thubert                    Expires 7 July 2023                  [Page 7]
-
-Internet-Draft             Prefix Registration              January 2023
-
-
 3.2.  Shared Link
 
    A shared link is a situation where more than one Prefix is deployed
@@ -402,6 +434,21 @@ Internet-Draft             Prefix Registration              January 2023
    such a situation, with 2 routers 6LR1 and 6LR2 that own respective
    prefixes P1:: and P2::, and expose those in their RA messages over
    the same link.
+
+
+
+
+
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024                [Page 8]
+
+Internet-Draft             Prefix Registration               August 2023
+
 
       +-----+   +-----+   +-----+   +-----+   +-----+
       |P1::c|   |P2::d|   |P2::e|   |P1::f|   |P1::g|
@@ -434,22 +481,6 @@ Internet-Draft             Prefix Registration              January 2023
    situation, e.g., through configuration, it is probably safer for 6LR2
    to set the R flag requesting 6LR1 to advertise P2:: to the outside.
 
-
-
-
-
-
-
-
-
-
-
-
-Thubert                    Expires 7 July 2023                  [Page 8]
-
-Internet-Draft             Prefix Registration              January 2023
-
-
 3.3.  Hub Link
 
    A hub link is a situation where stub links are deployed around a hub
@@ -459,6 +490,21 @@ Internet-Draft             Prefix Registration              January 2023
    to the hub link.  In this example, say that the there is one prefix
    on each link, P1:: on the hub link and P2::, P3::, etc. on the stub
    links.
+
+
+
+
+
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024                [Page 9]
+
+Internet-Draft             Prefix Registration               August 2023
+
 
       +-----+   +-----+   +-----+   +-----+   +-----+
       |P2::s|   |P2::d|   |P2::e|   |P2::f|   |P2::g|
@@ -497,20 +543,24 @@ Internet-Draft             Prefix Registration              January 2023
    then 6LR2.  The same goes for 6LR3 and all other routers serving stub
    links.
 
-
-
-
-
-Thubert                    Expires 7 July 2023                  [Page 9]
-
-Internet-Draft             Prefix Registration              January 2023
-
-
    If P2 was delegated by 6LR1, then the expectation is that 6LR1
    aggregates P1:: and P2:: in its advertisements to the outside, and
    the is no need to set the R flag.  But unless 6LR2 knows about such a
    situation, e.g., through configuration, it is probably safer for 6LR2
    to set the R flag requesting 6LR1 to advertise P2:: to the outside.
+
+
+
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 10]
+
+Internet-Draft             Prefix Registration               August 2023
+
 
 4.  Updating RFC 4861
 
@@ -554,15 +604,19 @@ Internet-Draft             Prefix Registration              January 2023
 
    New Option Field:
 
-
-
-
-Thubert                    Expires 7 July 2023                 [Page 10]
-
-Internet-Draft             Prefix Registration              January 2023
-
-
    X  1-bit flag: "Registration for prefixes Supported"
+
+
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 11]
+
+Internet-Draft             Prefix Registration               August 2023
+
 
 6.  Updating RFC 6550
 
@@ -613,9 +667,11 @@ Internet-Draft             Prefix Registration              January 2023
 
 
 
-Thubert                    Expires 7 July 2023                 [Page 11]
+
+
+Thubert                 Expires 15 February 2024               [Page 12]
 
-Internet-Draft             Prefix Registration              January 2023
+Internet-Draft             Prefix Registration               August 2023
 
 
    Note that the Registration Lifetime, TID and ROVR fields are also
@@ -630,8 +686,13 @@ Internet-Draft             Prefix Registration              January 2023
 
    [I-D.ietf-6lo-multicast-registration] defines a P-field of 2 bits and
    defines the values 0 to 2, leaving the value of 3 reserved.  This
-   specification assigns the value of 3, resulting in the complete tabel
-   as follows:
+   specification adds a new value to the P field to signal that the
+   Registered Address is a prefix.  The receiver should install a route
+   to the prefix via the sender's address used as source address in the
+   NS(EARO) registration message.
+
+   This specification assigns the value of 3, resulting in the complete
+   tabel as follows:
 
              +-------+--------------------------------------+
              | Value | Meaning                              |
@@ -647,64 +708,68 @@ Internet-Draft             Prefix Registration              January 2023
 
                          Table 1: P-field Values
 
-7.2.  New EARO Prefix Length Field
+7.2.  New EARO Prefix Length Field and F Flag
 
    Section 4.1 of [RFC8505] defines the EARO as an extension to the ARO
    option defined in [RFC6775].
 
-   This specification adds a new value to the P field to signal that the
-   Registered Address is a prefix.  This means that the sender owns the
-   prefix and will deliver packets to the destination if the destination
-   address derives from the prefix.  The receiver should install a route
-   to the prefix via the sender's address used as source address in the
-   NS(EARO) registration message.
-
-
-
-
-
-
-
-
-
-
-
-Thubert                    Expires 7 July 2023                 [Page 12]
-
-Internet-Draft             Prefix Registration              January 2023
-
-
-   This specification also adds a new F flag to signal that the
-   Registered Prefix is externally reachable through the Registering
-   Node.  This means that the Registering Node can relay packets that
-   are sourced in the Registered Prefix to the outside, and the packets
-   will be topologically correct with regard to [BCP38].  The receiver
-   should forward packets to the sender's address when the source
-   address of the packets derives from the prefix, and the sender.  Note
-   that to avoid loops, the receiver must be inside so packets sent by
-   the sender towards the outside may never reach the receiver.
-
    The Status Field that is used only when the EARO is placed in an NA
-   message is repurposed to carry the prefix length when the EARO is
-   placed in an NS message.
+   message.  This specification repurposes that field to carry the
+   prefix length (plen) when the EARO is placed in an NS message as
+   illustrated in Figure 5.  The plen is expressed as 7 bits and the
+   most significant bit of the field is reserved.  A 7-bit value of 0 is
+   understood as a truncated 128, meaning that this registration is for
+   an address as opposed to a prefix.  This approach is backward
+   compatible with [RFC8505] and spans both addresses and prefixes.
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 13]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
+   This specification adds a new F flag to signal that the Registered
+   Prefix is topologically correct through the Registering Node.  This
+   means that the Registering Node can relay packets that are sourced in
+   the Registered Prefix to the outside, and the packets will be not be
+   filtered by the application of [BCP38].  The receiver should forward
+   packets to the Registering Node address when the source address of
+   the packets derives from the Registered Prefix.  Note that to avoid
+   loops, the receiver must be in the inside so packets sent by the
+   sender towards the outside may never reach the receiver.  The notion
+   of inside and outside are administratively defined, e.g., inside is a
+   particular Layer-2 network such as an Ethernet fabric.
+
+   When the F flag is not set, the Registering Node owns the prefix and
+   will deliver packets to the destination if the destination address
+   derives from the prefix.  Conversely, if the F flag is set, the
+   Registering Node will forward traffic which source address derives
+   from the Registered Prefix into a network location (e.g., to an ISP
+   Provider Edge) where this source address is topologically correct
+   (e.g., derives from a prefix assigned by that ISP).  The F flag is
+   encoded in the most significant bit of the EARO status field when the
+   status field is used to transport a Prefix Length as shown in
+   Figure 5.
 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |     Type      |     Length    |  plen/Status  |    Opaque     |
+     |     Type      |     Length    |F|PrefixLength |    Opaque     |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     | |F| P | I |R|T|     TID       |     Registration Lifetime     |
+     |   | P | I |R|T|     TID       |     Registration Lifetime     |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                                                               |
     ...             Registration Ownership Verifier                 ...
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                        Figure 5: EARO Option Format
+                Figure 5: EARO Option Format in NS messages
 
    New and updated Option Fields:
 
-   plen/Status  8-bit field: This field contains a prefix Length
+   PrefixLength  8-bit field: This field contains a prefix Length
       expressed in bits if the P field is set to 3 and the EARO is
       placed in an NS message.  The field contains a Status if the EARO
       is placed in an NA message regardless of the setting of the P
@@ -712,6 +777,15 @@ Internet-Draft             Prefix Registration              January 2023
       by the sender and ignored by the receiver.
 
    F:  1-bit flag; set to 1 to indicate that the sender expects other
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 14]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
       routers to forward packets to self when the packets are sourced
       with the registered prefix.
 
@@ -721,14 +795,6 @@ Internet-Draft             Prefix Registration              January 2023
    that the Registered Address is a prefix.  When that is the case, the
    prefix length is assumed to be less than 112 bits and the last 8 bits
    are dedicated to the prefix length.
-
-
-
-
-Thubert                    Expires 7 July 2023                 [Page 13]
-
-Internet-Draft             Prefix Registration              January 2023
-
 
    Figure 6 illustrates the EDAR message when the value of the P field
    is 3.
@@ -768,6 +834,14 @@ Internet-Draft             Prefix Registration              January 2023
 
    With [RFC8505]:
 
+
+
+
+Thubert                 Expires 15 February 2024               [Page 15]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
    *  A router that expects to reboot may send a final RA message, upon
       which nodes should register elsewhere or redo the registration to
       the same router upon reboot.  In all other cases, a node reboot is
@@ -778,13 +852,6 @@ Internet-Draft             Prefix Registration              January 2023
    *  Only unicast addresses can be registered.
 
    *  The 6LN must register all its ULA and GUA with a NS(EARO).
-
-
-
-Thubert                    Expires 7 July 2023                 [Page 14]
-
-Internet-Draft             Prefix Registration              January 2023
-
 
    *  The 6LN may set the R flag in the EARO to obtain return
       reachability services by the 6LR, e.g., through ND proxy
@@ -822,6 +889,15 @@ Internet-Draft             Prefix Registration              January 2023
       was exposed previously by this node to accept registrations, and
       the TID MUST be set to 0.
 
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 16]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
       In an unreliable environment, the multicast NA(EARO) message may
       be resent in a fast sequence, in which case the TID must be
       incremented each time.  A 6LN that has recently processed the
@@ -833,14 +909,6 @@ Internet-Draft             Prefix Registration              January 2023
    *  Registration for prefixes is now supported.  The value of 3 in the
       P field of the EARO and the EDAR message signals when the
       registration is for a prefix as opposed to an address.
-
-
-
-
-Thubert                    Expires 7 July 2023                 [Page 15]
-
-Internet-Draft             Prefix Registration              January 2023
-
 
    *  If the 6LR acts as a router to prefixes or owns the prefixes
       entirely, it SHOULD register all those prefixes on all interface
@@ -879,23 +947,18 @@ Internet-Draft             Prefix Registration              January 2023
       unicast layer-2 frame to the LLA the nodes that registered the
       unicast address.
 
+
+
+Thubert                 Expires 15 February 2024               [Page 17]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
    This specification adds the following behavior:
 
    *  Upon a registration with the R flag set to 1 and the P field set
       to 3 in the EARO, the 6LR injects the prefix in RPL using a prefix
       RTO.  The P field in the RTP MUST be set to 3.
-
-
-
-
-
-
-
-
-
-Thubert                    Expires 7 July 2023                 [Page 16]
-
-Internet-Draft             Prefix Registration              January 2023
 
 
    *  Upon receiving a packet directed to an address that derives from a
@@ -904,7 +967,7 @@ Internet-Draft             Prefix Registration              January 2023
       LLA of exactly one of the nodes that registered to that prefix,
       using the longest match derivation to find the best 6LN.
 
-9.  Leveraging RFC 8928
+9.  Updating RFC 8928
 
    Address-Protected Neighbor Discovery for Low-Power and Lossy Networks
    [RFC8928] was defined to protect the ownership of unicast IPv6
@@ -921,20 +984,35 @@ Internet-Draft             Prefix Registration              January 2023
 
    Prefixes are not always owned by one node.  Multiple nodes may
    register the same prefix.  In that context, the method specified in
-   [RFC8928] cannot be used with autoconfigured keypairs to protect a
-   single ownership.
+   [RFC8928] cannot be used with node-local autoconfigured keypairs
+   which protect a single ownership only.
 
    For a prefix, as for an anycast or a multicast address, it is still
    possible to leverage [RFC8928] to enforce the right to register.  If
-   [RFC8928] is used, a keypair MUST be associated with the prefix
-   before it is deployed, and a ROVR MUST be generated from that keypair
-   as specified in [RFC8928].  The prefix and the ROVR MUST then be
-   installed in the 6LBR so it can recognize the prefix and compare the
-   ROVR on the first registration to validate the right to register.
+   [RFC8928] is used, a keypair MUST be created and associated with the
+   prefix before the prefix is deployed, and a ROVR MUST be generated
+   from that keypair as specified in [RFC8928].  The prefix and the ROVR
+   MUST then be installed in the 6LBR at the first registration, or by
+   an external mechanism such as IPAM or DHCPv6 snooping prior to the
+   first registration.  This way, the 6LBR can recognize the prefix on
+   the future registrations and validate the right to register based on
+   the ROVR.
 
    The keypair MUST then be provisioned in each node that needs to
    register the prefix or a prefix within, so the node can follow the
    steps in [RFC8928] to register the prefix.
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 18]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
+   Upon a NA Message with the status set to 5 "Validation Requested",
+   the node that registered addresses or prefixes with use the longest
+   matching address or prefix
 
 10.  Security Considerations
 
@@ -946,14 +1024,6 @@ Internet-Draft             Prefix Registration              January 2023
    unicast address that it does not own.  The mechanism could be
    extended to anycast and multicast addresses if the values of the ROVR
    they use is known in advance, but how this is done is not in scope
-
-
-
-Thubert                    Expires 7 July 2023                 [Page 17]
-
-Internet-Draft             Prefix Registration              January 2023
-
-
    for this specification.  One way would be to authorize in a advance
    the ROVR of the valid users.  A less preferred way could be to
    synchronize the ROVR and TID values across the valid registering
@@ -985,6 +1055,17 @@ Internet-Draft             Prefix Registration              January 2023
    is missing from the registry, so the bit positions must be added for
    completeness.
 
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 19]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
    IANA is requested to make changes under the "Internet Control Message
    Protocol version 6 (ICMPv6) Parameters" [IANA.ICMP] and the "Routing
    Protocol for Low Power and Lossy Networks (RPL)" [IANA.RPL] registry
@@ -998,17 +1079,6 @@ Internet-Draft             Prefix Registration              January 2023
    that effect, IANA is requested to update the "P-field values"
    registry under the heading "Internet Control Message Protocol version
    6 (ICMPv6) Parameters" as indicated in Table 2:
-
-
-
-
-
-
-
-Thubert                    Expires 7 July 2023                 [Page 18]
-
-Internet-Draft             Prefix Registration              January 2023
-
 
              +-------+---------------------------+-----------+
              | Value | Meaning                   | Reference |
@@ -1032,95 +1102,86 @@ Internet-Draft             Prefix Registration              January 2023
          |                | prefixes Supported (F)   |           |
          +----------------+--------------------------+-----------+
 
-                    Table 3: New 6LoWPAN Capability Bits
+                    Table 3: New 6LoWPAN Capability Bit
 
 13.  Acknowledgments
 
 
 14.  Normative References
 
-   [RFC2119]  Bradner, S. and RFC Publisher, "Key words for use in RFCs
-              to Indicate Requirement Levels", BCP 14, RFC 2119,
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC4861]  Narten, T., Nordmark, E., Simpson, W., Soliman, H., and
-              RFC Publisher, "Neighbor Discovery for IP version 6
-              (IPv6)", RFC 4861, DOI 10.17487/RFC4861, September 2007,
+
+
+
+Thubert                 Expires 15 February 2024               [Page 20]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
+   [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
+              "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
+              DOI 10.17487/RFC4861, September 2007,
               <https://www.rfc-editor.org/info/rfc4861>.
 
-   [RFC4862]  Thomson, S., Narten, T., Jinmei, T., and RFC Publisher,
-              "IPv6 Stateless Address Autoconfiguration", RFC 4862,
+   [RFC4862]  Thomson, S., Narten, T., and T. Jinmei, "IPv6 Stateless
+              Address Autoconfiguration", RFC 4862,
               DOI 10.17487/RFC4862, September 2007,
               <https://www.rfc-editor.org/info/rfc4862>.
 
-
-
-
-
-
-
-
-Thubert                    Expires 7 July 2023                 [Page 19]
-
-Internet-Draft             Prefix Registration              January 2023
-
-
    [RFC6550]  Winter, T., Ed., Thubert, P., Ed., Brandt, A., Hui, J.,
               Kelsey, R., Levis, P., Pister, K., Struik, R., Vasseur,
-              JP., Alexander, R., and RFC Publisher, "RPL: IPv6 Routing
-              Protocol for Low-Power and Lossy Networks", RFC 6550,
+              JP., and R. Alexander, "RPL: IPv6 Routing Protocol for
+              Low-Power and Lossy Networks", RFC 6550,
               DOI 10.17487/RFC6550, March 2012,
               <https://www.rfc-editor.org/info/rfc6550>.
 
-   [RFC6775]  Shelby, Z., Ed., Chakrabarti, S., Nordmark, E., Bormann,
-              C., and RFC Publisher, "Neighbor Discovery Optimization
-              for IPv6 over Low-Power Wireless Personal Area Networks
-              (6LoWPANs)", RFC 6775, DOI 10.17487/RFC6775, November
-              2012, <https://www.rfc-editor.org/info/rfc6775>.
+   [RFC6775]  Shelby, Z., Ed., Chakrabarti, S., Nordmark, E., and C.
+              Bormann, "Neighbor Discovery Optimization for IPv6 over
+              Low-Power Wireless Personal Area Networks (6LoWPANs)",
+              RFC 6775, DOI 10.17487/RFC6775, November 2012,
+              <https://www.rfc-editor.org/info/rfc6775>.
 
-   [RFC7400]  Bormann, C. and RFC Publisher, "6LoWPAN-GHC: Generic
-              Header Compression for IPv6 over Low-Power Wireless
-              Personal Area Networks (6LoWPANs)", RFC 7400,
-              DOI 10.17487/RFC7400, November 2014,
-              <https://www.rfc-editor.org/info/rfc7400>.
+   [RFC7400]  Bormann, C., "6LoWPAN-GHC: Generic Header Compression for
+              IPv6 over Low-Power Wireless Personal Area Networks
+              (6LoWPANs)", RFC 7400, DOI 10.17487/RFC7400, November
+              2014, <https://www.rfc-editor.org/info/rfc7400>.
 
-   [RFC8174]  Leiba, B. and RFC Publisher, "Ambiguity of Uppercase vs
-              Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174,
-              DOI 10.17487/RFC8174, May 2017,
-              <https://www.rfc-editor.org/info/rfc8174>.
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-   [RFC8200]  Deering, S., Hinden, R., and RFC Publisher, "Internet
-              Protocol, Version 6 (IPv6) Specification", STD 86,
-              RFC 8200, DOI 10.17487/RFC8200, July 2017,
+   [RFC8200]  Deering, S. and R. Hinden, "Internet Protocol, Version 6
+              (IPv6) Specification", STD 86, RFC 8200,
+              DOI 10.17487/RFC8200, July 2017,
               <https://www.rfc-editor.org/info/rfc8200>.
 
-   [RFC8505]  Thubert, P., Ed., Nordmark, E., Chakrabarti, S., Perkins,
-              C., and RFC Publisher, "Registration Extensions for IPv6
-              over Low-Power Wireless Personal Area Network (6LoWPAN)
-              Neighbor Discovery", RFC 8505, DOI 10.17487/RFC8505,
-              November 2018, <https://www.rfc-editor.org/info/rfc8505>.
+   [RFC8505]  Thubert, P., Ed., Nordmark, E., Chakrabarti, S., and C.
+              Perkins, "Registration Extensions for IPv6 over Low-Power
+              Wireless Personal Area Network (6LoWPAN) Neighbor
+              Discovery", RFC 8505, DOI 10.17487/RFC8505, November 2018,
+              <https://www.rfc-editor.org/info/rfc8505>.
 
-   [RFC8928]  Thubert, P., Ed., Sarikaya, B., Sethi, M., Struik, R., and
-              RFC Publisher, "Address-Protected Neighbor Discovery for
-              Low-Power and Lossy Networks", RFC 8928,
-              DOI 10.17487/RFC8928, November 2020,
-              <https://www.rfc-editor.org/info/rfc8928>.
-
-   [RFC9010]  Thubert, P., Ed., Richardson, M., and RFC Publisher,
-              "Routing for RPL (Routing Protocol for Low-Power and Lossy
-              Networks) Leaves", RFC 9010, DOI 10.17487/RFC9010, April
-              2021, <https://www.rfc-editor.org/info/rfc9010>.
+   [RFC8928]  Thubert, P., Ed., Sarikaya, B., Sethi, M., and R. Struik,
+              "Address-Protected Neighbor Discovery for Low-Power and
+              Lossy Networks", RFC 8928, DOI 10.17487/RFC8928, November
+              2020, <https://www.rfc-editor.org/info/rfc8928>.
 
 
 
 
-
-
-Thubert                    Expires 7 July 2023                 [Page 20]
+Thubert                 Expires 15 February 2024               [Page 21]
 
-Internet-Draft             Prefix Registration              January 2023
+Internet-Draft             Prefix Registration               August 2023
 
+
+   [RFC9010]  Thubert, P., Ed. and M. Richardson, "Routing for RPL
+              (Routing Protocol for Low-Power and Lossy Networks)
+              Leaves", RFC 9010, DOI 10.17487/RFC9010, April 2021,
+              <https://www.rfc-editor.org/info/rfc9010>.
 
    [IANA.ICMP]
               IANA, "IANA Registry for ICMPv6", IANA,
@@ -1128,7 +1189,7 @@ Internet-Draft             Prefix Registration              January 2023
               icmpv6-parameters.xhtml.
 
    [IANA.ICMP.6CIO]
-              IANA, "IANA Sub-Registry for the 6LoWPAN Capability Bits",
+              IANA, "IANA Registry for the 6LoWPAN Capability Bits",
               IANA, https://www.iana.org/assignments/icmpv6-parameters/
               icmpv6-parameters.xhtml#sixlowpan-capability-bits.
 
@@ -1137,57 +1198,62 @@ Internet-Draft             Prefix Registration              January 2023
 
 15.  Informative References
 
-   [BCP38]    Ferguson, P., Senie, D., and RFC Publisher, "Network
-              Ingress Filtering: Defeating Denial of Service Attacks
-              which employ IP Source Address Spoofing", BCP 38,
-              RFC 2827, DOI 10.17487/RFC2827, May 2000,
-              <https://www.rfc-editor.org/info/rfc2827>.
+   [BCP38]    Ferguson, P. and D. Senie, "Network Ingress Filtering:
+              Defeating Denial of Service Attacks which employ IP Source
+              Address Spoofing", BCP 38, RFC 2827, DOI 10.17487/RFC2827,
+              May 2000, <https://www.rfc-editor.org/info/rfc2827>.
 
-   [RFC4919]  Kushalnagar, N., Montenegro, G., Schumacher, C., and RFC
-              Publisher, "IPv6 over Low-Power Wireless Personal Area
-              Networks (6LoWPANs): Overview, Assumptions, Problem
-              Statement, and Goals", RFC 4919, DOI 10.17487/RFC4919,
-              August 2007, <https://www.rfc-editor.org/info/rfc4919>.
+   [RFC4919]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
+              over Low-Power Wireless Personal Area Networks (6LoWPANs):
+              Overview, Assumptions, Problem Statement, and Goals",
+              RFC 4919, DOI 10.17487/RFC4919, August 2007,
+              <https://www.rfc-editor.org/info/rfc4919>.
 
-   [RFC6282]  Hui, J., Ed., Thubert, P., and RFC Publisher, "Compression
-              Format for IPv6 Datagrams over IEEE 802.15.4-Based
-              Networks", RFC 6282, DOI 10.17487/RFC6282, September 2011,
+   [RFC6282]  Hui, J., Ed. and P. Thubert, "Compression Format for IPv6
+              Datagrams over IEEE 802.15.4-Based Networks", RFC 6282,
+              DOI 10.17487/RFC6282, September 2011,
               <https://www.rfc-editor.org/info/rfc6282>.
 
-   [RFC9008]  Robles, M.I., Richardson, M., Thubert, P., and RFC
-              Publisher, "Using RPI Option Type, Routing Header for
-              Source Routes, and IPv6-in-IPv6 Encapsulation in the RPL
-              Data Plane", RFC 9008, DOI 10.17487/RFC9008, April 2021,
+   [RFC9008]  Robles, M.I., Richardson, M., and P. Thubert, "Using RPI
+              Option Type, Routing Header for Source Routes, and IPv6-
+              in-IPv6 Encapsulation in the RPL Data Plane", RFC 9008,
+              DOI 10.17487/RFC9008, April 2021,
               <https://www.rfc-editor.org/info/rfc9008>.
 
    [I-D.kuehlewind-update-tag]
               Kühlewind, M. and S. Krishnan, "Definition of new tags for
               relations between RFCs", Work in Progress, Internet-Draft,
               draft-kuehlewind-update-tag-04, 12 July 2021,
-              <https://www.ietf.org/archive/id/draft-kuehlewind-update-
-              tag-04.txt>.
+              <https://datatracker.ietf.org/doc/html/draft-kuehlewind-
+              update-tag-04>.
+
+
+
+Thubert                 Expires 15 February 2024               [Page 22]
+
+Internet-Draft             Prefix Registration               August 2023
+
 
    [I-D.heile-lpwan-wisun-overview]
               Robert, H., Liu, B. R., Zhang, M., and C. E. Perkins, "Wi-
               SUN FAN Overview", Work in Progress, Internet-Draft,
-
-
-
-Thubert                    Expires 7 July 2023                 [Page 21]
-
-Internet-Draft             Prefix Registration              January 2023
-
-
               draft-heile-lpwan-wisun-overview-00, 3 July 2017,
-              <https://www.ietf.org/archive/id/draft-heile-lpwan-wisun-
-              overview-00.txt>.
+              <https://datatracker.ietf.org/doc/html/draft-heile-lpwan-
+              wisun-overview-00>.
+
+   [I-D.ietf-6man-ipv6-over-wireless]
+              Thubert, P. and M. Richardson, "Architecture and Framework
+              for IPv6 over Non-Broadcast Access", Work in Progress,
+              Internet-Draft, draft-ietf-6man-ipv6-over-wireless-04, 27
+              June 2023, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-6man-ipv6-over-wireless-04>.
 
    [I-D.ietf-6lo-multicast-registration]
               Thubert, P., "IPv6 Neighbor Discovery Multicast and
               Anycast Address Listener Subscription", Work in Progress,
-              Internet-Draft, draft-ietf-6lo-multicast-registration-12,
-              22 November 2022, <https://www.ietf.org/archive/id/draft-
-              ietf-6lo-multicast-registration-12.txt>.
+              Internet-Draft, draft-ietf-6lo-multicast-registration-15,
+              30 May 2023, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-6lo-multicast-registration-15>.
 
    [IEEE802154]
               IEEE standard for Information Technology, "IEEE Std
@@ -1215,11 +1281,20 @@ Internet-Draft             Prefix Registration              January 2023
 
 Author's Address
 
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 23]
+
+Internet-Draft             Prefix Registration               August 2023
+
+
    Pascal Thubert (editor)
    Cisco Systems, Inc
-   Building D
-   45 Allee des Ormes - BP1200
-   06254 Mougins - Sophia Antipolis
+   Emerald Square, Batiment C
+   rue Evariste Galois
+   06410 BIOT - Sophia Antipolis
    France
 
    Phone: +33 497 23 26 34
@@ -1229,4 +1304,41 @@ Author's Address
 
 
 
-Thubert                    Expires 7 July 2023                 [Page 22]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert                 Expires 15 February 2024               [Page 24]
