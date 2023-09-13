@@ -22,20 +22,19 @@ docName="draft-ietf-6lo-prefix-registration-01" >
 <front>
 
    <title abbrev="Prefix Registration">IPv6 Neighbor Discovery Prefix Registration</title>
-   <author initials="P" surname="Thubert" fullname="Pascal Thubert" role="editor">
-      <organization abbrev="Cisco Systems">Cisco Systems, Inc</organization>
+
+   <author initials='P' surname='Thubert' fullname='Pascal Thubert' role='editor'>
+      <!-- <organization abbrev='Cisco Systems'>Cisco Systems, Inc</organization> -->
       <address>
-      <postal>
-            <street>Emerald Square, Batiment C</street>
-            <street>rue Evariste Galois </street>
-            <city>BIOT - Sophia Antipolis</city>
-            <code>06410</code>
+         <postal>
+            <city>Roquefort-les-Pins</city>
+            <code>06330</code>
           <country>France</country>
          </postal>
-         <phone>+33 497 23 26 34</phone>
-         <email>pthubert@cisco.com</email>
+         <email>pascal.thubert@gmail.com</email>
       </address>
    </author>
+
    <area>Internet</area>
 
 
