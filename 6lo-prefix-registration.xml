@@ -17,7 +17,7 @@
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
 submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 8505, 8928, 9010"
-docName="draft-ietf-6lo-prefix-registration-01" >
+docName="draft-ietf-6lo-prefix-registration-02" >
 
 <front>
 
@@ -558,7 +558,7 @@ docName="draft-ietf-6lo-prefix-registration-01" >
    advertisements and uses its own ROVR value. On the other hand, a parent that
    propagates an advertisement from a single origin uses the original ROVR in
    the propagated RTO, as it does for unicast address advertisements, so the
-   origin is recognised across multiple hops.
+   origin is recognized across multiple hops.
 
 </t><t>
    This specification Extends <xref target="RFC6550"/> to require that,
