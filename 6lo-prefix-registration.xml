@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
+<!--DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent"-->
 
 
 <?rfc toc="yes"?>
@@ -47,7 +47,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     connected to a prefix to register that prefix to neighbor routers. The
     registration indicates that the registered prefix can be reached via the
     advertising node without a loop.
-    The prefix registration also provides a protocol-independent interface for
+    The unicast prefix registration also provides a protocol-independent interface for
     the node to request neighbor router(s) to redistribute the prefix to
     the larger routing domain using their specific routing protocols.
     This document extends RPL [RFC6550][RFC6553][RFC9010] to enable the 6LR to
@@ -133,7 +133,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     anycast or multicast address; the draft also extends <xref target="RFC9010"/>
     to enable the 6LR to inject the anycast and multicast addresses in RPL.
     Similarly, this specification extends <xref target="RFC8505"/> and
-    <xref target="RFC9010"/> to add the capability for the 6LN to register
+    <xref target="RFC9010"/> to add the capability for the 6LN to register unicast
     prefixes as opposed to addresses, and to signal in a protocol-independant
     fashion to the 6LR that it is expected to redistribute the prefixes in
     their specific routing protocols.
@@ -194,12 +194,18 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     </t>
        <dl spacing='compact'>
        <dt>6BBR:</dt><dd>Backbone Router </dd>
+       <dt>6CIO</dt><dd> Capability Indication Option </dd>
        <dt>6LN:</dt><dd>(6LoWPAN) Node  </dd>
        <dt>6LR:</dt><dd>(6LoWPAN) Router </dd>
+       <dt>AMC</dt><dd> Address Mapping Confirmation </dd>
+       <dt>AMR</dt><dd> Address Mapping Request</dd>
        <dt>ARO:</dt><dd>address Registration Option</dd>
        <dt>DAC:</dt><dd>Duplicate address Confirmation (message)</dd>
        <dt>DAD:</dt><dd>Duplicate address Detection </dd>
+       <dt>DAO</dt><dd> Destination Advertisement Object </dd>
        <dt>DAR:</dt><dd>Duplicate address Request (message)</dd>
+       <dt>DIO</dt><dd> DODAG Information Object </dd>
+       <dt>DODAG</dt><dd> Destination-Oriented Directed Acyclic Graph </dd>
        <dt>EDAC:</dt><dd>Extended Duplicate address Confirmation  </dd>
        <dt>EDAR:</dt><dd>Extended Duplicate address Request</dd>
        <dt>LLN:</dt><dd>Low-Power and Lossy Network </dd>
@@ -208,6 +214,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
        <dt>MAC:</dt><dd>Medium Access Control</dd>
        <dt>MLSN:</dt><dd>Multi-link Subnet </dd>
        <dt>MLD:</dt><dd> multicast Listener Discovery </dd>
+       <dt>MOP</dt><dd>  Mode of Operation </dd>
        <dt>NA:</dt><dd> Neighbor Advertisement (message)</dd>
        <dt>NBMA:</dt><dd> Non-Broadcast Multi-Access (full mesh)</dd>
        <dt>NCE:</dt><dd> Neighbor Cache Entry  </dd>
@@ -216,9 +223,13 @@ docName="draft-ietf-6lo-prefix-registration-02" >
        <dt>NS:</dt><dd> Neighbor Solicitation (message) </dd>
        <dt>P2P:</dt><dd> Point-to-Point </dd>
        <dt>P2MP:</dt><dd> Point-to-Multipoint (partial mesh)</dd>
+       <dt>ROVR</dt><dd> Registration Ownership Verifier, pronounced "rover" </dd>
        <dt>RPL:</dt><dd>IPv6 Routing Protocol for LLNs </dd>
        <dt>RA:</dt><dd> Router Advertisement (message) </dd>
        <dt>RS:</dt><dd> Router Solicitation (message) </dd>
+       <dt>RTO</dt><dd> RPL Target Option </dd>
+       <dt>TID</dt><dd> Transaction ID </dd>
+       <dt>TIO</dt><dd> Transit Information Option </dd>
        <dt>SGP:</dt><dd> Subnet Gateway Protocol  </dd>
        <dt>SPL:</dt><dd> Subnet Prefix Length  </dd>
        <dt>ULP:</dt><dd> Upper-Layer Protocol  </dd>
@@ -510,7 +521,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    the R flag is set to 1.
     </t>
     <t>
-   <xref target="fig6CIO"/> illustrates the X flag in its suggested position
+   <xref target="fig6CIO"/> illustrates the F flag in its suggested position
    (7, counting 0 to 15 in network order in the 16-bit array), to be confirmed by IANA.
    </t>
    <figure anchor="fig6CIO"><name>New Capability Bit in the 6CIO</name>
@@ -699,7 +710,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 <t>
    This specification adds the new value of 3 to the P field to signal that the
    Registered Address is a prefix. When that is the case, the prefix length is
-   assumed to be less than 112 bits and the last 8 bits are dedicated to the
+   assumed to be less than 128 bits and the last 8 bits are dedicated to the
    prefix length.
 </t>
 <t>
@@ -722,7 +733,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
  |                                                               |
  +                           Prefix                              +
  |                                                               |
- +                 (up to 112 bits, padded with 0s)              +
+ +                 (up to 128 bits, padded with 0s)              +
  |                                                               |
  +                                               +-+-+-+-+-+-+-+-+
  |                                               | Prefix Length |
@@ -733,7 +744,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     <t> New and updated Option Fields:    </t>
 	<dl>
 	<dt>Reserved</dt><dd> 6-bit field: reserved, MUST be set to 0 and ignored by the receiver</dd>
-	<dt>Prefix</dt><dd> 15 bytes: up to 112 bits of prefix, padded with 0s</dd>
+	<dt>Prefix</dt><dd> 15 bytes: up to 128 bits of prefix, padded with 0s</dd>
 	<dt>Prefix Length</dt><dd> 1-bit flag: length of the prefix, in bits</dd>
 	</dl>
 
@@ -855,7 +866,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     The 6LR MUST maintain a registration state per tuple (IPv6 prefix/length, ROVR)
     for all registered prefix. It SHOULD notify the 6LBR
     with an EDAR message, unless it determined that the 6LBR is legacy and does
-    not support this specification. In turn, the 6LBR MUST maintain a
+	not support this specification (see <xref target="CIO"/>). In turn, the 6LBR MUST maintain a
     registration state per tuple (IPv6 prefix, ROVR) for all prefixes.
    </li>
 
@@ -1082,7 +1093,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 
 <section title="Acknowledgments">
 <t>
-
+MAny thanks to Dave Thaler for his early INT-DIR review.
 </t>
 </section> <!-- title="Acknowledgments" -->
 
@@ -1182,12 +1193,12 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4919.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6282.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9008.xml"/>
+    <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6lo-multicast-registration.xml"/>
 
 
       <xi:include href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.kuehlewind-update-tag.xml'/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.heile-lpwan-wisun-overview.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6man-ipv6-over-wireless.xml"/>
-    <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6lo-multicast-registration.xml"/>
       <reference anchor="IEEE802154">
          <front>
             <title>IEEE Std 802.15.4, Part. 15.4: Wireless Medium Access

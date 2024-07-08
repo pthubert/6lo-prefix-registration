@@ -3,11 +3,11 @@
 
 
 6lo                                                      P. Thubert, Ed.
-Internet-Draft                                          13 February 2024
+Internet-Draft                                               8 July 2024
 Updates: 4861, 6550, 6553, 8505, 8928, 9010 (if                         
          approved)                                                      
 Intended status: Standards Track                                        
-Expires: 16 August 2024
+Expires: 9 January 2025
 
 
               IPv6 Neighbor Discovery Prefix Registration
@@ -19,12 +19,12 @@ Abstract
    6LoWPAN extensions [RFC8505][RFC8928] to enable a node that owns or
    is directly connected to a prefix to register that prefix to neighbor
    routers.  The registration indicates that the registered prefix can
-   be reached via the advertising node without a loop.  The prefix
-   registration also provides a protocol-independent interface for the
-   node to request neighbor router(s) to redistribute the prefix to the
-   larger routing domain using their specific routing protocols.  This
-   document extends RPL [RFC6550][RFC6553][RFC9010] to enable the 6LR to
-   inject the registered prefix in RPL.
+   be reached via the advertising node without a loop.  The unicast
+   prefix registration also provides a protocol-independent interface
+   for the node to request neighbor router(s) to redistribute the prefix
+   to the larger routing domain using their specific routing protocols.
+   This document extends RPL [RFC6550][RFC6553][RFC9010] to enable the
+   6LR to inject the registered prefix in RPL.
 
 Status of This Memo
 
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 August 2024.
+   This Internet-Draft will expire on 9 January 2025.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thubert                  Expires 16 August 2024                 [Page 1]
+Thubert                  Expires 9 January 2025                 [Page 1]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thubert                  Expires 16 August 2024                 [Page 2]
+Thubert                  Expires 9 January 2025                 [Page 2]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                 [Page 3]
+Thubert                  Expires 9 January 2025                 [Page 3]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    The original 6LoWPAN ND, "Neighbor Discovery Optimizations for
@@ -195,9 +195,9 @@ Internet-Draft             Prefix Registration             February 2024
    also extends [RFC9010] to enable the 6LR to inject the anycast and
    multicast addresses in RPL.  Similarly, this specification extends
    [RFC8505] and [RFC9010] to add the capability for the 6LN to register
-   prefixes as opposed to addresses, and to signal in a protocol-
-   independant fashion to the 6LR that it is expected to redistribute
-   the prefixes in their specific routing protocols.
+   unicast prefixes as opposed to addresses, and to signal in a
+   protocol-independant fashion to the 6LR that it is expected to
+   redistribute the prefixes in their specific routing protocols.
 
 2.  Terminology
 
@@ -221,9 +221,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                 [Page 4]
+Thubert                  Expires 9 January 2025                 [Page 4]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    *  Neighbor Discovery Optimization for Low-Power and Lossy Networks
@@ -277,9 +277,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                 [Page 5]
+Thubert                  Expires 9 January 2025                 [Page 5]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    WPAN:  Wireless Personal Area Network
@@ -333,9 +333,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                 [Page 6]
+Thubert                  Expires 9 January 2025                 [Page 6]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    If the R flag is set in the registration of one or more 6LNs for the
@@ -389,9 +389,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                 [Page 7]
+Thubert                  Expires 9 January 2025                 [Page 7]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
                      |
@@ -445,9 +445,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                 [Page 8]
+Thubert                  Expires 9 January 2025                 [Page 8]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
       +-----+   +-----+   +-----+   +-----+   +-----+
@@ -501,9 +501,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                 [Page 9]
+Thubert                  Expires 9 January 2025                 [Page 9]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
       +-----+   +-----+   +-----+   +-----+   +-----+
@@ -557,9 +557,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 10]
+Thubert                  Expires 9 January 2025                [Page 10]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
 4.  Updating RFC 4861
@@ -587,7 +587,7 @@ Internet-Draft             Prefix Registration             February 2024
    prefix, and the route to the prefix will be redistributed if the R
    flag is set to 1.
 
-   Figure 4 illustrates the X flag in its suggested position (7,
+   Figure 4 illustrates the F flag in its suggested position (7,
    counting 0 to 15 in network order in the 16-bit array), to be
    confirmed by IANA.
 
@@ -613,9 +613,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 11]
+Thubert                  Expires 9 January 2025                [Page 11]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
 6.  Updating RFC 6550
@@ -669,9 +669,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 12]
+Thubert                  Expires 9 January 2025                [Page 12]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    Note that the Registration Lifetime, TID and ROVR fields are also
@@ -725,9 +725,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 13]
+Thubert                  Expires 9 January 2025                [Page 13]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    This specification adds a new F flag to signal that the Registered
@@ -781,9 +781,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 14]
+Thubert                  Expires 9 January 2025                [Page 14]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
       routers to forward packets to self when the packets are sourced
@@ -793,7 +793,7 @@ Internet-Draft             Prefix Registration             February 2024
 
    This specification adds the new value of 3 to the P field to signal
    that the Registered Address is a prefix.  When that is the case, the
-   prefix length is assumed to be less than 112 bits and the last 8 bits
+   prefix length is assumed to be less than 128 bits and the last 8 bits
    are dedicated to the prefix length.
 
    Figure 6 illustrates the EDAR message when the value of the P field
@@ -813,7 +813,7 @@ Internet-Draft             Prefix Registration             February 2024
      |                                                               |
      +                           Prefix                              +
      |                                                               |
-     +                 (up to 112 bits, padded with 0s)              +
+     +                 (up to 128 bits, padded with 0s)              +
      |                                                               |
      +                                               +-+-+-+-+-+-+-+-+
      |                                               | Prefix Length |
@@ -826,7 +826,7 @@ Internet-Draft             Prefix Registration             February 2024
    Reserved  6-bit field: reserved, MUST be set to 0 and ignored by the
       receiver
 
-   Prefix  15 bytes: up to 112 bits of prefix, padded with 0s
+   Prefix  15 bytes: up to 128 bits of prefix, padded with 0s
 
    Prefix Length  1-bit flag: length of the prefix, in bits
 
@@ -837,9 +837,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 15]
+Thubert                  Expires 9 January 2025                [Page 15]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    *  A router that expects to reboot may send a final RA message, upon
@@ -893,9 +893,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 16]
+Thubert                  Expires 9 January 2025                [Page 16]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
       In an unreliable environment, the multicast NA(EARO) message may
@@ -949,14 +949,14 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 17]
+Thubert                  Expires 9 January 2025                [Page 17]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
-      legacy and does not support this specification.  In turn, the 6LBR
-      MUST maintain a registration state per tuple (IPv6 prefix, ROVR)
-      for all prefixes.
+      legacy and does not support this specification (see Section 5).
+      In turn, the 6LBR MUST maintain a registration state per tuple
+      (IPv6 prefix, ROVR) for all prefixes.
 
 8.  Updating RFC 9010
 
@@ -1005,9 +1005,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 18]
+Thubert                  Expires 9 January 2025                [Page 18]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    Prefixes are not always owned by one node.  Multiple nodes may
@@ -1061,9 +1061,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 19]
+Thubert                  Expires 9 January 2025                [Page 19]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
 11.  Backward Compatibility
@@ -1117,9 +1117,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 20]
+Thubert                  Expires 9 January 2025                [Page 20]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
          +----------------+--------------------------+-----------+
@@ -1173,9 +1173,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 21]
+Thubert                  Expires 9 January 2025                [Page 21]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
@@ -1229,9 +1229,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 22]
+Thubert                  Expires 9 January 2025                [Page 22]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    [RFC4919]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
@@ -1251,6 +1251,13 @@ Internet-Draft             Prefix Registration             February 2024
               DOI 10.17487/RFC9008, April 2021,
               <https://www.rfc-editor.org/info/rfc9008>.
 
+   [I-D.ietf-6lo-multicast-registration]
+              Thubert, P., "IPv6 Neighbor Discovery Multicast and
+              Anycast Address Listener Subscription", Work in Progress,
+              Internet-Draft, draft-ietf-6lo-multicast-registration-19,
+              16 May 2024, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-6lo-multicast-registration-19>.
+
    [I-D.kuehlewind-update-tag]
               Kühlewind, M. and S. Krishnan, "Definition of new tags for
               relations between RFCs", Work in Progress, Internet-Draft,
@@ -1268,16 +1275,9 @@ Internet-Draft             Prefix Registration             February 2024
    [I-D.ietf-6man-ipv6-over-wireless]
               Thubert, P. and M. Richardson, "Architecture and Framework
               for IPv6 over Non-Broadcast Access", Work in Progress,
-              Internet-Draft, draft-ietf-6man-ipv6-over-wireless-05, 20
-              November 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-6man-ipv6-over-wireless-05>.
-
-   [I-D.ietf-6lo-multicast-registration]
-              Thubert, P., "IPv6 Neighbor Discovery Multicast and
-              Anycast Address Listener Subscription", Work in Progress,
-              Internet-Draft, draft-ietf-6lo-multicast-registration-16,
-              10 November 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-6lo-multicast-registration-16>.
+              Internet-Draft, draft-ietf-6man-ipv6-over-wireless-06, 23
+              May 2024, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-6man-ipv6-over-wireless-06>.
 
 
 
@@ -1285,9 +1285,9 @@ Internet-Draft             Prefix Registration             February 2024
 
 
 
-Thubert                  Expires 16 August 2024                [Page 23]
+Thubert                  Expires 9 January 2025                [Page 23]
 
-Internet-Draft             Prefix Registration             February 2024
+Internet-Draft             Prefix Registration                 July 2024
 
 
    [IEEE802154]
@@ -1341,4 +1341,4 @@ Author's Address
 
 
 
-Thubert                  Expires 16 August 2024                [Page 24]
+Thubert                  Expires 9 January 2025                [Page 24]
