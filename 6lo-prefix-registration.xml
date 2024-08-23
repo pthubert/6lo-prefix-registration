@@ -16,8 +16,8 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 8505, 8928, 9010"
-docName="draft-ietf-6lo-prefix-registration-02" >
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 9010"
+docName="draft-ietf-6lo-prefix-registration-05" >
 
 <front>
 
@@ -42,15 +42,18 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 
    <abstract>
    <t>
-    This document updates IPv6 Neighbor Discovery [RFC4861] and the 6LoWPAN
-    extensions [RFC8505][RFC8928] to enable a node that owns or is directly
+   
+  
+   
+    This document updates IPv6 Neighbor Discovery RFC4861 and the 6LoWPAN
+    extensions (RFC8505, RFC8928, RFC7400) to enable a node that owns or is directly
     connected to a prefix to register that prefix to neighbor routers. The
     registration indicates that the registered prefix can be reached via the
     advertising node without a loop.
     The unicast prefix registration also provides a protocol-independent interface for
     the node to request neighbor router(s) to redistribute the prefix to
     the larger routing domain using their specific routing protocols.
-    This document extends RPL [RFC6550][RFC6553][RFC9010] to enable the 6LR to
+    This document extends RPL (RFC6550, RFC6553, RFC9010) to enable the 6LR to
     inject  the registered prefix in RPL.
    </t>
    </abstract>
@@ -104,7 +107,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    introduces an evolution of IPv6 ND towards a proactive AR method also
    called Stateful Address Autoconfiguration (SFAAC). Because the IPv6 model for
    NBMA depends on a routing protocol to reach inside the Subnet, the
-   IPv6 ND extension for NBMA is refered to as Subnet Neighbor Discovery (SND).
+   IPv6 ND extension for NBMA is referred to as Subnet Neighbor Discovery (SND).
    SND is based on work done in the context of IoT, known as 6LoWPAN ND.
 
 </t><t>
@@ -114,7 +117,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    energy-constrained nodes.
    <xref target="RFC6775"/> changes the classical IPv6 ND model to proactively
    establish the Neighbor Cache Entry (NCE) associated to the unicast address of
-   a 6LoWPAN Node (6LN) in the a 6LoWPAN Router(s) (6LR) that serves it.
+   a 6LoWPAN Node (6LN) in the a 6LoWPAN Router(s) (6LRs) that serve it.
    To that effect, <xref target="RFC6775"/> defines a new Address Registration
    Option (ARO) that is  placed in unicast Neighbor Solicitation (NS) and
    Neighbor Advertisement (NA) messages between the 6LN and the 6LR.
@@ -123,18 +126,18 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    Discovery"</xref> updates <xref target="RFC6775"/> into a generic Address
    Registration mechanism that can be used to access services such as routing
    and ND proxy and introduces the Extended Address Registration Option (EARO)
-   for that purpose. This provides a routing-agnostic interface for a host to
-   request that the router injects a unicast IPv6 address in the local routing
+   for that purpose. This provides a router-protocol-agnostic interface for a host to
+   request that the router inject a unicast IPv6 address in the local routing
    protocol and provide return reachability for that address.
 </t><t>
    <xref target="I-D.ietf-6lo-multicast-registration">
    "IPv6 Neighbor Discovery Multicast Address Listener Subscription"</xref>
-   updates <xref target="RFC8505"/> to enable a listener to subscribe an IPv6
+   updates <xref target="RFC8505"/> to enable a listener to subscribe to an IPv6
     anycast or multicast address; the draft also extends <xref target="RFC9010"/>
     to enable the 6LR to inject the anycast and multicast addresses in RPL.
     Similarly, this specification extends <xref target="RFC8505"/> and
     <xref target="RFC9010"/> to add the capability for the 6LN to register unicast
-    prefixes as opposed to addresses, and to signal in a protocol-independant
+    prefixes as opposed to addresses, and to signal in a protocol-independent
     fashion to the 6LR that it is expected to redistribute the prefixes in
     their specific routing protocols.
 </t>
@@ -169,11 +172,10 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 	<ul>
 	<li> <xref target="RFC4861">"Neighbor Discovery for IP version 6"
 		</xref> and
-	    <xref target="RFC4862">"IPv6 Stateless address Autoconfiguration"
+	    <xref target="RFC4862">"IPv6 Stateless Address Autoconfiguration"
 		</xref>,
     </li>
-	<li> <xref target="RFC6775">Neighbor Discovery Optimization for Low-Power
-		and Lossy Networks</xref>, as well as
+	<li> <xref target="RFC6775">Neighbor Discovery Optimization for IPv6 over Low-Power Wireless Personal Area Networks (6LoWPANs)</xref>, as well as
     </li>
     <li>
 	    <xref target="RFC8505">
@@ -193,28 +195,31 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     <t> This document uses the following abbreviations:
     </t>
        <dl spacing='compact'>
-       <dt>6BBR:</dt><dd>Backbone Router </dd>
-       <dt>6CIO</dt><dd> Capability Indication Option </dd>
-       <dt>6LN:</dt><dd>(6LoWPAN) Node  </dd>
-       <dt>6LR:</dt><dd>(6LoWPAN) Router </dd>
+       <dt>6BBR:</dt><dd> Backbone Router </dd>
+       <dt>6CIO:</dt><dd> (6LoWPAN) Capability Indication Option </dd>
+       <dt>6LN:</dt><dd> (6LoWPAN) Node  </dd>
+       <dt>6LR:</dt><dd> (6LoWPAN) Router </dd>
        <dt>AMC</dt><dd> Address Mapping Confirmation </dd>
        <dt>AMR</dt><dd> Address Mapping Request</dd>
-       <dt>ARO:</dt><dd>address Registration Option</dd>
-       <dt>DAC:</dt><dd>Duplicate address Confirmation (message)</dd>
-       <dt>DAD:</dt><dd>Duplicate address Detection </dd>
+       <dt>ARO:</dt><dd> Address Registration Option</dd>
+       <dt>DAC:</dt><dd> Duplicate Address Confirmation (message)</dd>
+       <dt>DAD:</dt><dd> Duplicate Address Detection </dd>
        <dt>DAO</dt><dd> Destination Advertisement Object </dd>
-       <dt>DAR:</dt><dd>Duplicate address Request (message)</dd>
+       <dt>DAR:</dt><dd>Duplicate Address Request (message)</dd>
        <dt>DIO</dt><dd> DODAG Information Object </dd>
-       <dt>DODAG</dt><dd> Destination-Oriented Directed Acyclic Graph </dd>
-       <dt>EDAC:</dt><dd>Extended Duplicate address Confirmation  </dd>
-       <dt>EDAR:</dt><dd>Extended Duplicate address Request</dd>
-       <dt>LLN:</dt><dd>Low-Power and Lossy Network </dd>
-       <dt>LLA:</dt><dd>link-local address </dd>
-       <dt>LoWPAN:</dt><dd>Low-Power WPAN </dd>
-       <dt>MAC:</dt><dd>Medium Access Control</dd>
-       <dt>MLSN:</dt><dd>Multi-link Subnet </dd>
-       <dt>MLD:</dt><dd> multicast Listener Discovery </dd>
-       <dt>MOP</dt><dd>  Mode of Operation </dd>
+       <dt>DODAG:</dt><dd> Destination-Oriented Directed Acyclic Graph </dd>
+       <dt>EARO:</dt><dd> Extended Address Registration Option </dd>
+       <dt>EDAC:</dt><dd> Extended Duplicate Address Confirmation  </dd>
+       <dt>EDAR:</dt><dd> Extended Duplicate Address Request </dd>
+	   <dt>ESS:</dt><dd> Extended service set</dd>
+	   <dt>IPAM:</dt><dd> IP address management</dd>
+       <dt>LLN:</dt><dd> Low-Power and Lossy Network </dd>
+       <dt>LLA:</dt><dd> link-local address </dd>
+       <dt>LoWPAN:</dt><dd> Low-Power WPAN </dd>
+       <dt>MAC:</dt><dd> Medium Access Control</dd>
+       <dt>MLSN:</dt><dd> Multi-link Subnet </dd>
+       <dt>MLD:</dt><dd> Multicast Listener Discovery </dd>
+       <dt>MOP:</dt><dd>  Mode of Operation </dd>
        <dt>NA:</dt><dd> Neighbor Advertisement (message)</dd>
        <dt>NBMA:</dt><dd> Non-Broadcast Multi-Access (full mesh)</dd>
        <dt>NCE:</dt><dd> Neighbor Cache Entry  </dd>
@@ -227,9 +232,9 @@ docName="draft-ietf-6lo-prefix-registration-02" >
        <dt>RPL:</dt><dd>IPv6 Routing Protocol for LLNs </dd>
        <dt>RA:</dt><dd> Router Advertisement (message) </dd>
        <dt>RS:</dt><dd> Router Solicitation (message) </dd>
-       <dt>RTO</dt><dd> RPL Target Option </dd>
-       <dt>TID</dt><dd> Transaction ID </dd>
-       <dt>TIO</dt><dd> Transit Information Option </dd>
+       <dt>RTO:</dt><dd> RPL Target Option </dd>
+       <dt>TID:</dt><dd> Transaction ID </dd>
+       <dt>TIO:</dt><dd> Transit Information Option </dd>
        <dt>SGP:</dt><dd> Subnet Gateway Protocol  </dd>
        <dt>SPL:</dt><dd> Subnet Prefix Length  </dd>
        <dt>ULP:</dt><dd> Upper-Layer Protocol  </dd>
@@ -257,7 +262,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
        <dt>Merge/merging</dt><dd> The action of receiving multiple anycast or
        multicast advertisements, either internally from self, in the form of
        a NS(EARO), or as a DAO(TIO, RTO), and generating a single DAO(TIO, RTO).
-       The 6RPL router maintains a state per origin for each advertised address, and merges the advertisements for all subsriptions for the same
+       The 6RPL router maintains a state per origin for each advertised address, and merges the advertisements for all subscriptions for the same
        address in a single advertisement.
        A RPL router that merges becomes the origin of the merged advertisement
        and uses its own values for the Path Sequence and ROVR fields.
@@ -286,7 +291,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    This specification inherits from <xref target="RFC6550"/>,
    <xref target="RFC8505"/>, and <xref target="RFC9010"/> to register prefixes as opposed to addresses. Unless specified otherwise therein,
    the behavior of the 6LBR that acts as RPL Root, of the intermediate routers
-   down the RPL graph, of the 6LR that act as access routers and of the 6LNs
+   down the RPL graph, of the 6LRs that act as access routers and of the 6LNs
    that are the RPL-unaware destinations, is the same as for unicast addresses.
    In particular, forwarding a packet happens as specified in section 11 of
    <xref target="RFC6550"/>, including loop avoidance and detection, though in
@@ -307,11 +312,11 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    detailed in <xref target="R8505E"/>.
    With this extension the 6LNs can now attract the traffic for a full
    prefix, using the P field value of 3 in the EARO to signal that the
-   registration is for a prefix. Multiple 6LN may register the same
+   registration is for a prefix. Multiple 6LNs may register the same
    prefix to the same 6LR or to different 6LRs.
 </t><t>
    If the R flag is set in the registration of one or more 6LNs for the same
-   prefix, the 6LR is requested to redistributes the prefix in other routing
+   prefix, the 6LR is requested to redistribute the prefix in other routing
    protocol (e.g., RPL), based on the longest registration lifetime across the
    active registrations for the prefix.
 </t><t>
@@ -343,7 +348,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 	The LLN may be a hub-and-spoke access link such	as (Low-Power) Wi-Fi
     <xref target="IEEE80211"/> and Bluetooth (Low Energy)
     <xref target="IEEE802151"/>, or a Route-Over LLN such as the Wi-SUN and 6TiSCH meshes
-    <xref target="I-D.heile-lpwan-wisun-overview"/> that leverages 6LoWPAN
+    <xref target="I-D.heile-lpwan-wisun-overview"/> that leverage 6LoWPAN
     <xref target="RFC4919"/><xref target="RFC6282"/>
     and RPL <xref target="RFC6550"/> over <xref target="IEEE802154"/>.
     </t>
@@ -363,26 +368,30 @@ docName="draft-ietf-6lo-prefix-registration-02" >
  o  o  o   LLN  o   +---+
    o  o   o  o   o  |6LR|
    o o  o o   o     +---+
-    o   o   o o o  o    z
+    o   o   o o o  o    z 
    o  o oo o  o        +---+
           o            |6LN|
                        +---+
+					   
+  z : wireless link, direct L2 connection
+  o : node
     ]]></artwork></figure>
 
 
 <t>
    A leaf acting as a 6LN registers its unicast, multicast, and anycast
-   addresses a RPL router acting as a 6LR, using a layer-2 unicast NS message
+   addresses to a RPL router acting as a 6LR, using a layer-2 unicast NS message
    with an EARO as specified in <xref target="RFC8505"/> and <xref target=
    "I-D.ietf-6lo-multicast-registration"/>.
    The registration state is periodically renewed by the Registering Node,
    before the lifetime indicated in the EARO expires. As for unicast IPv6
    addresses, the 6LR uses an EDAR/EDAC exchange with the 6LBR to notify the
    6LBR of the presence of the listeners.
-   With this specification, a router that own a prefix of provides reachability
-   to an external prefix but is not a RPL router may also register those
-   prefixes with the R flag set, to enable reachability via the RPL domain.
-   As usual
+   With this specification, a router that owns a prefix or provides reachability
+   to an external prefix but is not a RPL router can also register those
+   prefixes with the R flag set, to enable reachability  to the Prefix
+   within the RPL domain.
+   
 </t>
 
 </section><!--end section "LLN Mesh Network" -->
@@ -405,8 +414,8 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    |P1::c|   |P2::d|   |P2::e|   |P1::f|   |P1::g|
    +--+--+   +--+--+   +--+--+   +--+--+   +--+--+
       |         |         |         |         |
-  ----+--+------+---------+--+------+---------+---+--
-         |                  |                    |
+  ----+--+------+---------+-+-------+---------+----
+         |                  |                    
      +---+---+          +---+---+
      | P1::a |          | P2::b |
      | 6LR1  |          | 6LR2  |
@@ -425,10 +434,10 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     shorten the path between 6LR1 and the nodes that own those addresses.
 </t>
 <t> If P2 was delegated by 6LR1, then the expectation is that 6LR1 aggregates
-    P1:: and P2:: in its advertisements to the outside, and the is no need to
+    P1:: and P2:: in its advertisements to the outside, and there is no need to
     set the R flag. But unless 6LR2 knows about such a situation, e.g., through
-    configuration, it is probably safer for 6LR2 to set the R flag requesting
-    6LR1 to advertise P2:: to the outside.
+    configuration, 6LR2 SHOULD set the R flag requesting
+    6LR1 to advertise P2:: so as to obtain reachability.
 </t>
 </section> <!-- end section "Shared Link" -->
 
@@ -436,12 +445,12 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 
 
 <t>
-    A hub link is a situation where stub links are deployed around a hub like and
+    A hub link is a situation where stub links are deployed around a hub link and
     interconnected by routers. <xref target="fighub"/> depicts such
     a situation, with one router 6LR1 serving the hub link and at least one
-    router like 6LR3 and 6LR3 providing connectivity from the stub links to the
-    hub link. In this example, say that the there is one prefix on each link,
-    P1:: on the hub link and P2::, P3::, etc. on the stub links.
+    router like 6LR2 and 6LR3 providing connectivity from the stub links to the
+    hub link. In this example, say that there is one prefix on each link,
+    P1:: on the hub link and P2:: and P3:: on the stub links.
 </t>
 
 
@@ -480,14 +489,14 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     6LR2 is aware of 6LR1 as its default gateway. With this specification, 6LR2
     registers P2:: to 6LR1 and 6LR1 installs a route to P2:: via 6LR2. This way,
     nodes on the stub link behind 6LR2 that derive their addresses from P2:: can
-    still be reached via 6LR1 and then 6LR2. The same goes for 6LR3 and all other
+    still be reached via 6LR1 and then 6LR2. The same goes for 6LR3 and any other
     routers serving stub links.
 </t><t>
     If P2 was delegated by 6LR1, then the expectation is that 6LR1 aggregates
-    P1:: and P2:: in its advertisements to the outside, and the is no need to
+    P1:: and P2:: in its advertisements to the outside, and there is no need to
     set the R flag. But unless 6LR2 knows about such a situation, e.g., through
-    configuration, it is probably safer for 6LR2 to set the R flag requesting
-    6LR1 to advertise P2:: to the outside.
+    configuration, 6LR2 SHOULD set the R flag requesting
+    6LR1 to advertise P2:: so as to obtain reachability.
 </t>
 </section> <!-- end section "Hub Link" -->
 </section> <!-- end section "Overview" -->
@@ -497,7 +506,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    <t>
    <xref target="RFC4861"/> expects that the NS/NA exchange is for a unicast
    address, which is indicated in the Target Address field of the ND message.
-   This specification Amends <xref target="RFC4861"/> by allowing to advertise a
+   This specification Amends <xref target="RFC4861"/> by allowing a 6LN to advertise a
    prefix in the Target Address field when the NS or NA message is used for a
    registration, per section 5.5 of <xref target="RFC8505"/>; in that case, the
    prefix length is indicated in the EARO of the NS message, overloading the
@@ -521,8 +530,8 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    the R flag is set to 1.
     </t>
     <t>
-   <xref target="fig6CIO"/> illustrates the F flag in its suggested position
-   (7, counting 0 to 15 in network order in the 16-bit array), to be confirmed by IANA.
+   <xref target="fig6CIO"/> illustrates the F flag in its position
+   (7, counting 0 to 15 in network order in the 16-bit array), to be confirmed by IANA, and updated by RFC Editor if needed.
    </t>
    <figure anchor="fig6CIO"><name>New Capability Bit in the 6CIO</name>
    <artwork>
@@ -574,7 +583,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 </t><t>
    This specification Extends <xref target="RFC6550"/> to require that,
    for prefix routes, the Path Sequence is used between and only between
-   advertisements for the same Target and from the same origin (i.e, with the same ROVR value); in that case, only the freshest advertisement is retained. But the freshness comparison cannot apply if the
+   advertisements for the same Target and from the same origin (i.e., with the same ROVR value); in that case, only the freshest advertisement is retained. But the freshness comparison cannot apply if the
    origin is not determined (i.e., the origin did not support this specification).
 </t><t>
    <xref target="RFC6550"/> uses the Path Lifetime in the TIO to indicate the
@@ -584,12 +593,12 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    and the Path Lifetime in the TIO so they are comparable when both forms of
    advertisements are received.
 </t><t>
-   The RPL router that merges multiple advertisement for the same prefix must
-   use and advertise the longest remaining lifetime
+   The RPL router that merges multiple advertisements for the same prefix 
+   uses and advertises the longest remaining lifetime
    across all the origins of the advertisements for that prefix.
-   When the lifetime expires, the router sends a no-path DAO (i.e. the lifetime
+   When the lifetime expires, the router sends a no-path DAO (i.e., the lifetime
    is 0) using the same value for ROVR value as for the previous advertisements,
-   that is either self or the single descendant that advertised the Target.
+   that is either itself or the single descendant that advertised the Target.
 </t><t>
 
    Note that the Registration Lifetime, TID and ROVR fields are also placed in
@@ -609,7 +618,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 <t> <xref target="I-D.ietf-6lo-multicast-registration"/> defines a P-field
    of 2 bits and defines the values 0 to 2, leaving the value of 3 reserved.
    This specification adds a new value to the P field to signal that the
-   Registered Address is a prefix. The receiver should install a route to the
+   Registered Address is a prefix. The receiver installs a route to the
    prefix via the sender's address used as source address in the NS(EARO)
    registration message.
 
@@ -617,7 +626,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 <t>
 
    This specification assigns the value of 3, resulting in the complete
-   tabel as follows:
+   table as follows:
 
 </t>
 	 <table anchor="pVALS" ><name>P-field Values</name>
@@ -627,7 +636,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
       <tr><td>0</td><td>Registration for a Unicast Address</td></tr>
       <tr><td>1</td><td>Registration for a Multicast Address</td></tr>
       <tr><td>2</td><td>Registration for an Anycast Address</td></tr>
-      <tr><td>3</td><td>Registration for a prefix</td></tr>
+      <tr><td>3</td><td>Registration for a Unicast prefix</td></tr>
      </tbody>
     </table>  <!-- end table "P-field values" -->
 
@@ -656,7 +665,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    is topologically correct through the Registering Node. This means that the
    Registering Node can relay packets that are sourced in the Registered Prefix
    to the outside, and the packets will be not be filtered by the application of
-   <xref target="RFC2827"/>. The receiver should forward packets to the Registering Node
+   <xref target="RFC2827"/>. The receiver forwards packets to the Registering Node
    address when the source address of the packets derives from the Registered Prefix.
    Note that to avoid loops, the receiver must be in the inside so packets
    sent by the sender towards the outside may never reach the receiver.
@@ -668,7 +677,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    When the F flag is not set, the Registering Node owns the prefix and will
    deliver packets to the destination if the destination address derives
    from the prefix. Conversely, if the F flag is set, the Registering Node will
-   forward traffic which source address derives from the Registered Prefix into
+   forward traffic whose source address derives from the Registered Prefix into
    a network location (e.g., to an ISP Provider Edge) where this source address
    is topologically correct (e.g., derives from a prefix assigned by that ISP).
    The F flag is encoded in the most significant bit of the EARO status field
@@ -693,7 +702,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 
     <t> New and updated Option Fields:    </t>
     <dl>
-    <dt>PrefixLength </dt><dd> 8-bit field: This field contains a prefix Length
+    <dt>PrefixLength </dt><dd> 8-bit field: This field contains a prefix length
     expressed in bits if the P field is set to 3 and the EARO is placed in an NS
     message. The field contains a Status if the EARO is placed in an NA message
     regardless of the setting of the P flag. In all other cases it is reserved,
@@ -709,9 +718,9 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 
 <t>
    This specification adds the new value of 3 to the P field to signal that the
-   Registered Address is a prefix. When that is the case, the prefix length is
-   assumed to be less than 128 bits and the last 8 bits are dedicated to the
-   prefix length.
+   Registered Address is a prefix. When that is the case, the prefix is
+   assumed to be less than 120 bits long, padded with zeros up to 120 bits, and the 
+   remaining 8 bits are dedicated to the prefix length.
 </t>
 <t>
    <xref target="EDAR"/> illustrates the EDAR message when the value of the
@@ -733,7 +742,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
  |                                                               |
  +                           Prefix                              +
  |                                                               |
- +                 (up to 128 bits, padded with 0s)              +
+ +                 (up to 120 bits, padded with 0s)              +
  |                                                               |
  +                                               +-+-+-+-+-+-+-+-+
  |                                               | Prefix Length |
@@ -744,7 +753,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     <t> New and updated Option Fields:    </t>
 	<dl>
 	<dt>Reserved</dt><dd> 6-bit field: reserved, MUST be set to 0 and ignored by the receiver</dd>
-	<dt>Prefix</dt><dd> 15 bytes: up to 128 bits of prefix, padded with 0s</dd>
+	<dt>Prefix</dt><dd> 15 bytes: up to 120 bits of prefix, padded with zeros</dd>
 	<dt>Prefix Length</dt><dd> 1-bit flag: length of the prefix, in bits</dd>
 	</dl>
 
@@ -775,7 +784,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    The 6LN may set the R flag in the EARO to obtain return reachability services by the 6LR, e.g., through ND proxy operations, or by injecting the route in a route-over subnet.
    </li>
    <li>
-   the 6LR maintains a registration state per Registered Address, including an
+   The 6LR maintains a registration state per Registered Address, including an
    NCE with the Link Layer Address (LLA) of the Registered Node (the 6LN here).
    </li>
    </ul>
@@ -787,7 +796,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    <ul>
    <li>
    The operation for registering prefixes is similar as for addresses from the
-   perspective of the 6LN, but show important differences on the router side,
+   perspective of the 6LN, but shows important differences on the router side,
    which maintains a separate state for each origin and merges them in its own
    advertisements.
    </li>
@@ -799,10 +808,10 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    <t>
    This status is used in asynchronous NA(EARO) messages to indicate to peer 6LNs
    that they are requested to reregister all addresses and prefixes that were
-   previously registered to the originating node. The NA message may be sent to
-   a unicast or a multicast link-scope address and should be contained within
+   previously registered to the originating node. The NA message MAY be sent to
+   a unicast or a multicast link-scope address and SHOULD be contained within
    the L2 range where nodes may effectively have registered/subscribed to this
-   router, e.g., a radio broadcast domain.
+   router, e.g., a radio broadcast domain to preserve energy and spectrum.
    </t>
    <t>
    A device that wishes to refresh its state, e.g., upon reboot if it may have
@@ -814,11 +823,11 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    </t>
    <t>
    In an unreliable environment, the multicast NA(EARO) message may be resent in
-   a fast sequence, in which case the TID must be incremented each time.
+   a fast sequence, in which case the TID is incremented each time.
    A 6LN that has recently
    processed the NA(ARO) ignores the NA(EARO) with a newer TID received
    within the duration of the fast sequence. That duration depends on the
-   environent and has to be configured. By default, it is of 10 seconds.
+   environment and has to be configured. By default, it is of 10 seconds.
    </t>
    </li>
    <li>
@@ -836,19 +845,19 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    registers a prefix while a host using an address from that prefix also
    registers.
    It might also occur that an aggregated prefix is owned as a catch all, and
-   subdivised into subnets that are allocated to and then registered by other
+   subdivided into subnets that are allocated to and then registered by other
    nodes.
    </t>
    <t>
    In case of an overlapping registration, the longest match wins, meaning that
    if the  network policy allows for overlapping registrations, then the
-   registration the routes are installed towards the node that registered with
-   the longest match, all the way to /128.
+   routes for th eregistered prefixes are installed towards the node that
+   registered with  the longest match, all the way to /128.
    </t>
    </li>
    <li>
    If the 6LR acts as a router to prefixes or owns the prefixes entirely, it
-   SHOULD register all those prefixes on all interface from which it might be needed to relay traffic to that prefix, and it MUST set the P field in the
+   SHOULD register all those prefixes on all interfaces from which it might be needed to relay traffic to that prefix, and it MUST set the P field in the
    EARO to 3 for those prefixes.
    </li>
    <li>
@@ -864,7 +873,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    </li>
    <li>
     The 6LR MUST maintain a registration state per tuple (IPv6 prefix/length, ROVR)
-    for all registered prefix. It SHOULD notify the 6LBR
+    for all registered prefixes. It SHOULD notify the 6LBR
     with an EDAR message, unless it determined that the 6LBR is legacy and does
 	not support this specification (see <xref target="CIO"/>). In turn, the 6LBR MUST maintain a
     registration state per tuple (IPv6 prefix, ROVR) for all prefixes.
@@ -883,14 +892,14 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    </t>
    <ul>
    <li>
-   The 6LR injects only unicast routes in RPL
+   The 6LR injects only unicast routes in RPL.
    </li>
    <li>
    Upon a registration with the R flag set to 1 in the EARO, the 6LR injects the address in the RPL unicast support.
    </li><li>
    Upon receiving a packet directed to a unicast address for which it has an
    active registration, the 6LR delivers the packet as a unicast layer-2 frame
-   to the LLA the nodes that registered the unicast address.
+   to the LLA of the node that registered the unicast address.
    </li>
    </ul>
    <t>
@@ -929,7 +938,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 
 </t>
 <t>
-    The first hop router (the 6LR) may then validate a registration and
+    The first hop router (the 6LR) can then validate a registration and
     perform source address validation on packets coming from the sender node
     (the 6LN).
 
@@ -948,8 +957,9 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     associated with the prefix before the prefix is deployed, and a ROVR MUST be
     generated from that keypair as specified in <xref target="RFC8928"/>.
     The prefix and the ROVR MUST then be installed in the 6LBR at the first
-    registration, or by an external mechanism such as IPAM or DHCPv6 snooping
-    prior to the first registration. This way, the 6LBR can recognize the prefix
+    registration, or by an external mechanism such as IP Address Management 
+	(IPAM) or DHCPv6 snooping prior to the first registration. 
+	This way, the 6LBR can recognize the prefix
     on the future registrations and validate the right to register based on the
     ROVR.
 </t>
@@ -959,10 +969,9 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     steps in <xref target="RFC8928"/> to register the prefix.
 </t>
 <t>
-    Upon a NA Message with the status set to 5 "Validation Requested", the
-    node that registered addresses or prefixes with use the longest matching
-    address or prefix and perform the proof of ownership based on that
-    longest match.
+    Upon receiving an NA Message with the status set to 5 "Validation Requested", the
+    node that registered the address or prefix performs the proof of ownership based
+	on that longest match.
 </t>
 </section>  <!-- Leveraging RFC 8929 -->
 
@@ -976,12 +985,12 @@ docName="draft-ietf-6lo-prefix-registration-02" >
     protected to prevent rogue access.
 </t>
 <t>
-   <xref target="sec8928"/> leverages <xref target="RFC8928"/> to prevent an
+   <xref target="sec8928"/> leverages <xref target="RFC8928"/> to prevent a
    rogue node to register a unicast address that it does not own.
    The mechanism could be extended to anycast and multicast addresses if the
    values of the ROVR they use is known in advance, but how this is done is
    not in scope for this specification.
-   One way would be to authorize in a advance the ROVR of the valid users.
+   One way would be to authorize in advance the ROVR of the valid users.
    A less preferred way could be to synchronize the ROVR and TID values across
    the valid registering nodes as a preshared key material.
 </t>
@@ -989,14 +998,14 @@ docName="draft-ietf-6lo-prefix-registration-02" >
    In the latter case, it could be possible to update the keys associated to
    a prefix in all the 6LNs, but the flow is not clearly documented and may
    not complete in due time for all nodes in LLN use cases. It may be simpler
-   to install a all-new address with new keys over a period of time, and
+   to install an all-new address with new keys over a period of time, and
    switch the traffic to that address when the migration is complete.
 </t>
 </section>	<!-- end section "Security Considerations" -->
 
 <section anchor="back"><name>Backward Compatibility</name>
 <t>
-   A legacy 6LN will not register prefixess and the service will be
+   A legacy 6LN will not register prefixes and the service will be
    the same when the network is upgraded. A legacy 6LR will not set the F flag
    in the 6CIO and an upgraded 6LN will not register prefixes.
 </t>
@@ -1029,7 +1038,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 	<t>
     This specification updates the P field introduced in <xref target=
     "I-D.ietf-6lo-multicast-registration"/> to assign the value of 3, which is
-    the only remaining unasssigned value for the 2-bits field. To that effect,
+    the only remaining unassigned value for the 2-bit field. To that effect,
     IANA is requested to update the "P-field values" registry under the
     heading "Internet Control Message Protocol version 6 (ICMPv6) Parameters"
     as indicated in <xref target="AM2"/>:
@@ -1093,7 +1102,7 @@ docName="draft-ietf-6lo-prefix-registration-02" >
 
 <section title="Acknowledgments">
 <t>
-MAny thanks to Dave Thaler for his early INT-DIR review.
+MAny thanks to Dave Thaler and Dan Romascanu for their early INT-DIR review.
 </t>
 </section> <!-- title="Acknowledgments" -->
 
@@ -1179,6 +1188,7 @@ MAny thanks to Dave Thaler for his early INT-DIR review.
 	   </reference>
 
 
+    <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6lo-multicast-registration.xml"/>
 
 
     </references>
@@ -1193,7 +1203,6 @@ MAny thanks to Dave Thaler for his early INT-DIR review.
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4919.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6282.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9008.xml"/>
-    <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6lo-multicast-registration.xml"/>
 
 
       <xi:include href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.kuehlewind-update-tag.xml'/>
