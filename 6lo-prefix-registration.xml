@@ -851,7 +851,7 @@ docName="draft-ietf-6lo-prefix-registration-05" >
    <t>
    In case of an overlapping registration, the longest match wins, meaning that
    if the  network policy allows for overlapping registrations, then the
-   routes for th eregistered prefixes are installed towards the node that
+   routes for the registered prefixes are installed towards the node that
    registered with  the longest match, all the way to /128.
    </t>
    </li>
@@ -1102,7 +1102,7 @@ docName="draft-ietf-6lo-prefix-registration-05" >
 
 <section title="Acknowledgments">
 <t>
-MAny thanks to Dave Thaler and Dan Romascanu for their early INT-DIR review.
+Many thanks to Dave Thaler and Dan Romascanu for their early INT-DIR review.
 </t>
 </section> <!-- title="Acknowledgments" -->
 
