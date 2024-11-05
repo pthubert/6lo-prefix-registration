@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent"-->
 
-
 <?rfc toc="yes"?>
 <?rfc tocompact="yes"?>
 <?rfc tocdepth="3"?>
@@ -16,9 +15,8 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 9010"
-docName="draft-ietf-6lo-prefix-registration-05" >
-
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-05" >
+ 
 <front>
 
    <title abbrev="Prefix Registration">IPv6 Neighbor Discovery Prefix Registration</title>
@@ -1022,8 +1020,6 @@ docName="draft-ietf-6lo-prefix-registration-05" >
 <t>
     Note to RFC Editor, to be removed: please replace "This RFC" throughout this
     document by the RFC number for this specification once it is allocated.
-    Also, the I Field is defined in <xref target="RFC9010"/> but is missing from
-    the registry, so the bit positions must be added for completeness.
 </t>
 <t>
     IANA is requested to make changes under the "Internet Control Message
