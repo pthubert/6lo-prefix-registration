@@ -15,7 +15,7 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-05" >
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-06" >
  
 <front>
 
@@ -73,6 +73,47 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
    and the LLN protocols must be adapted to allow the nodes to remain sleeping
    with the radio turned off at most times.
 </t><t>
+  6LoWPAN was a pioneering attempt at the IETF to design protocols that conserve
+  energy, with the primary goal to serve LLNs, though the general design could be 
+  applied in other environments where lowering carbon emissions is also a priority.
+  The general design points include:
+  
+</t>
+<ul>
+   <li>
+     Placing the protocol complexity in the routers to simplify the host implementation and avoid expanding the control traffic to all nodes.
+   </li>
+   
+   <li>
+     Restful operations from the host perspective to enable transient disconnections 
+	 where the power usage can be lowered.
+	 </li>
+  
+
+</ul>
+
+   <t>
+     This translates into: 
+	 
+   </t>
+   
+<ul>
+   <li>Stateful proactive knowledge in the routers that is available at any point of time.
+	</li>
+   
+   <li>
+    Unicast host to router operations stimulated by the host and its applications.
+	</li>
+   
+   <li>
+    Minimal use of asynchronous broadcast operations that would keep the host awake and listening with no application-level need to do so.
+   </li>
+  
+
+</ul>
+   
+   
+<t>
    The <xref target="RFC6550">"Routing Protocol for Low Power
    and Lossy Networks"</xref> (RPL) provides IPv6 <xref target="RFC8200"/>
    routing services within such constraints.
@@ -81,14 +122,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
    that is optimized to reach a Root node, as opposed to along the shortest path
    between 2 peers, whatever that would mean in each LLN.
 </t><t>
-   This trades the quality of peer-to-peer (P2P) paths for a vastly reduced
-   amount of control traffic and routing state that would be required to
-   operate an any-to-any shortest path protocol. Additionally,
-   broken routes may be fixed lazily and on-demand, based on dataplane
-   inconsistency discovery, which avoids wasting energy in the proactive repair
-   of unused paths.
-</t><t>
-   The "IPv6 Neighbor Discovery (IPv6 ND) Protocol"
+   The classical Neighbor Discovery (IPv6 ND) Protocol
    <xref target="RFC4861"/> <xref target="RFC4862"/> was defined for serial
    links and shared transit media such as Ethernet at a time when broadcast
    was cheap on those media while memory for neighbor cache was expensive.
@@ -107,8 +141,11 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
    NBMA depends on a routing protocol to reach inside the Subnet, the
    IPv6 ND extension for NBMA is referred to as Subnet Neighbor Discovery (SND).
    SND is based on work done in the context of IoT, known as 6LoWPAN ND.
+   As opposed to the classical IPv6 ND Protocol, this evolution follows the 
+   energy conservation principles discussed above:
 
-</t><t>
+</t>
+<ul><li>
    The original 6LoWPAN ND, <xref target="RFC6775"> "Neighbor Discovery
    Optimizations for 6LoWPAN networks"</xref>, was introduced to avoid the
    excessive use of multicast messages and enable IPv6 ND for operations over
@@ -119,7 +156,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
    To that effect, <xref target="RFC6775"/> defines a new Address Registration
    Option (ARO) that is  placed in unicast Neighbor Solicitation (NS) and
    Neighbor Advertisement (NA) messages between the 6LN and the 6LR.
-</t><t>
+</li><li>
    <xref target="RFC8505"> "Registration Extensions for 6LoWPAN Neighbor
    Discovery"</xref> updates <xref target="RFC6775"/> into a generic Address
    Registration mechanism that can be used to access services such as routing
@@ -127,7 +164,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
    for that purpose. This provides a router-protocol-agnostic interface for a host to
    request that the router inject a unicast IPv6 address in the local routing
    protocol and provide return reachability for that address.
-</t><t>
+</li><li>
    <xref target="I-D.ietf-6lo-multicast-registration">
    "IPv6 Neighbor Discovery Multicast Address Listener Subscription"</xref>
    updates <xref target="RFC8505"/> to enable a listener to subscribe to an IPv6
@@ -138,6 +175,15 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
     prefixes as opposed to addresses, and to signal in a protocol-independent
     fashion to the 6LR that it is expected to redistribute the prefixes in
     their specific routing protocols.
+</li></ul>
+<t>
+This specification extends the above registration and subscription methods
+to enable a node to register a prefix to the routing system and get it injected in the routing protocol. As with <xref target="RFC8505"/>, the prefix registration is agnostic to the routing protocol in which the router injects the prefix, and the router is agnotic to the method that was used to allocate the prefix to the node.
+The energy conservation principles in <xref target="RFC8505"/> are retained as well, 
+meaning that the node does not have to send or expect asynchronous broadcast messages. 
+
+</t><t>
+It can be noted that an energy-conserving node is not necessarily a router, so even when advertising a prefix, it is a design choice not to use RA messages that would make the node appear as a router to peer nodes. From the design principles above, it is clearly a design choice not to leverage broadcasts from or to the node, or complex state machines in the node. It is also a design choice to use and extend the EARO as opposed to the  Route Information Option (RIO) <xref target="RFC4191"/> because the RIO is explicitly not intended to serve in routing, and is lacking related control information like the R bit in the EARO. Additionally, an RA with RIO cannot be trusted for a safe injection in the routing protocol for the lack of the equivalent of the Registration Ownership Verifier (ROVR) <xref target="RFC8928"/> in the EARO.
 </t>
 
 
@@ -1196,6 +1242,7 @@ Many thanks to Dave Thaler and Dan Romascanu for their early INT-DIR review.
     <!-- I-D -->
 
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2827.xml"/>
+    <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4191.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4919.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6282.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9008.xml"/>

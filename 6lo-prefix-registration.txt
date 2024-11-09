@@ -3,15 +3,15 @@
 
 
 6lo                                                      P. Thubert, Ed.
-Internet-Draft                                           5 November 2024
+Internet-Draft                                           9 November 2024
 Updates: 4861, 6550, 6553, 7400, 8505, 8928,                            
          9010 (if approved)                                             
 Intended status: Standards Track                                        
-Expires: 9 May 2025
+Expires: 13 May 2025
 
 
               IPv6 Neighbor Discovery Prefix Registration
-                 draft-ietf-6lo-prefix-registration-05
+                 draft-ietf-6lo-prefix-registration-06
 
 Abstract
 
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 May 2025.
+   This Internet-Draft will expire on 13 May 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 1]
+Thubert                    Expires 13 May 2025                  [Page 1]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -70,34 +70,34 @@ Internet-Draft             Prefix Registration             November 2024
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   4
-     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
-     2.2.  References  . . . . . . . . . . . . . . . . . . . . . . .   4
-     2.3.  Acronyms  . . . . . . . . . . . . . . . . . . . . . . . .   5
-     2.4.  New terms . . . . . . . . . . . . . . . . . . . . . . . .   6
-   3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     3.1.  LLN Mesh Network  . . . . . . . . . . . . . . . . . . . .   7
-     3.2.  Shared Link . . . . . . . . . . . . . . . . . . . . . . .   8
-     3.3.  Hub Link  . . . . . . . . . . . . . . . . . . . . . . . .   9
-   4.  Updating RFC 4861 . . . . . . . . . . . . . . . . . . . . . .  11
-   5.  Extending RFC 7400  . . . . . . . . . . . . . . . . . . . . .  11
-   6.  Updating RFC 6550 . . . . . . . . . . . . . . . . . . . . . .  12
-   7.  Updating RFC 8505 . . . . . . . . . . . . . . . . . . . . . .  13
-     7.1.  New P field value . . . . . . . . . . . . . . . . . . . .  13
-     7.2.  New EARO Prefix Length Field and F Flag . . . . . . . . .  13
-     7.3.  New EDAR Prefix Length Field  . . . . . . . . . . . . . .  15
-     7.4.  Registering Extensions  . . . . . . . . . . . . . . . . .  16
-   8.  Updating RFC 9010 . . . . . . . . . . . . . . . . . . . . . .  18
-   9.  Updating RFC 8928 . . . . . . . . . . . . . . . . . . . . . .  18
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  19
-   11. Backward Compatibility  . . . . . . . . . . . . . . . . . . .  20
-   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  20
-     12.1.  Updated P-Field Registry . . . . . . . . . . . . . . . .  20
-     12.2.  New 6LoWPAN Capability Bit . . . . . . . . . . . . . . .  20
-   13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  21
-   14. Normative References  . . . . . . . . . . . . . . . . . . . .  21
-   15. Informative References  . . . . . . . . . . . . . . . . . . .  22
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  24
+   2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   5
+     2.2.  References  . . . . . . . . . . . . . . . . . . . . . . .   5
+     2.3.  Acronyms  . . . . . . . . . . . . . . . . . . . . . . . .   6
+     2.4.  New terms . . . . . . . . . . . . . . . . . . . . . . . .   7
+   3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     3.1.  LLN Mesh Network  . . . . . . . . . . . . . . . . . . . .   8
+     3.2.  Shared Link . . . . . . . . . . . . . . . . . . . . . . .   9
+     3.3.  Hub Link  . . . . . . . . . . . . . . . . . . . . . . . .  10
+   4.  Updating RFC 4861 . . . . . . . . . . . . . . . . . . . . . .  12
+   5.  Extending RFC 7400  . . . . . . . . . . . . . . . . . . . . .  12
+   6.  Updating RFC 6550 . . . . . . . . . . . . . . . . . . . . . .  13
+   7.  Updating RFC 8505 . . . . . . . . . . . . . . . . . . . . . .  14
+     7.1.  New P field value . . . . . . . . . . . . . . . . . . . .  14
+     7.2.  New EARO Prefix Length Field and F Flag . . . . . . . . .  14
+     7.3.  New EDAR Prefix Length Field  . . . . . . . . . . . . . .  16
+     7.4.  Registering Extensions  . . . . . . . . . . . . . . . . .  17
+   8.  Updating RFC 9010 . . . . . . . . . . . . . . . . . . . . . .  19
+   9.  Updating RFC 8928 . . . . . . . . . . . . . . . . . . . . . .  19
+   10. Security Considerations . . . . . . . . . . . . . . . . . . .  20
+   11. Backward Compatibility  . . . . . . . . . . . . . . . . . . .  21
+   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  21
+     12.1.  Updated P-Field Registry . . . . . . . . . . . . . . . .  21
+     12.2.  New 6LoWPAN Capability Bit . . . . . . . . . . . . . . .  21
+   13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  22
+   14. Normative References  . . . . . . . . . . . . . . . . . . . .  22
+   15. Informative References  . . . . . . . . . . . . . . . . . . .  23
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  25
 
 
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 2]
+Thubert                    Expires 13 May 2025                  [Page 2]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -125,6 +125,31 @@ Internet-Draft             Prefix Registration             November 2024
    be adapted to allow the nodes to remain sleeping with the radio
    turned off at most times.
 
+   6LoWPAN was a pioneering attempt at the IETF to design protocols that
+   conserve energy, with the primary goal to serve LLNs, though the
+   general design could be applied in other environments where lowering
+   carbon emissions is also a priority.  The general design points
+   include:
+
+   *  Placing the protocol complexity in the routers to simplify the
+      host implementation and avoid expanding the control traffic to all
+      nodes.
+
+   *  Restful operations from the host perspective to enable transient
+      disconnections where the power usage can be lowered.
+
+   This translates into:
+
+   *  Stateful proactive knowledge in the routers that is available at
+      any point of time.
+
+   *  Unicast host to router operations stimulated by the host and its
+      applications.
+
+   *  Minimal use of asynchronous broadcast operations that would keep
+      the host awake and listening with no application-level need to do
+      so.
+
    The "Routing Protocol for Low Power and Lossy Networks" [RFC6550]
    (RPL) provides IPv6 [RFC8200] routing services within such
    constraints.  To save signaling and routing state in constrained
@@ -133,17 +158,18 @@ Internet-Draft             Prefix Registration             November 2024
    Root node, as opposed to along the shortest path between 2 peers,
    whatever that would mean in each LLN.
 
-   This trades the quality of peer-to-peer (P2P) paths for a vastly
-   reduced amount of control traffic and routing state that would be
-   required to operate an any-to-any shortest path protocol.
-   Additionally, broken routes may be fixed lazily and on-demand, based
-   on dataplane inconsistency discovery, which avoids wasting energy in
-   the proactive repair of unused paths.
-
-   The "IPv6 Neighbor Discovery (IPv6 ND) Protocol" [RFC4861] [RFC4862]
-   was defined for serial links and shared transit media such as
-   Ethernet at a time when broadcast was cheap on those media while
+   The classical Neighbor Discovery (IPv6 ND) Protocol [RFC4861]
+   [RFC4862] was defined for serial links and shared transit media such
+   as Ethernet at a time when broadcast was cheap on those media while
    memory for neighbor cache was expensive.  It was thus designed as a
+
+
+
+Thubert                    Expires 13 May 2025                  [Page 3]
+
+Internet-Draft             Prefix Registration             November 2024
+
+
    reactive protocol that relies on caching and multicast operations for
    the Address Resolution (AR, aka Address Discovery or Address Lookup)
    and Duplicate Address Detection (DAD) of IPv6 unicast addresses.
@@ -159,46 +185,69 @@ Internet-Draft             Prefix Registration             November 2024
    on a routing protocol to reach inside the Subnet, the IPv6 ND
    extension for NBMA is referred to as Subnet Neighbor Discovery (SND).
    SND is based on work done in the context of IoT, known as 6LoWPAN ND.
+   As opposed to the classical IPv6 ND Protocol, this evolution follows
+   the energy conservation principles discussed above:
+
+   *  The original 6LoWPAN ND, "Neighbor Discovery Optimizations for
+      6LoWPAN networks" [RFC6775], was introduced to avoid the excessive
+      use of multicast messages and enable IPv6 ND for operations over
+      energy-constrained nodes.  [RFC6775] changes the classical IPv6 ND
+      model to proactively establish the Neighbor Cache Entry (NCE)
+      associated to the unicast address of a 6LoWPAN Node (6LN) in the a
+      6LoWPAN Router(s) (6LRs) that serve it.  To that effect, [RFC6775]
+      defines a new Address Registration Option (ARO) that is placed in
+      unicast Neighbor Solicitation (NS) and Neighbor Advertisement (NA)
+      messages between the 6LN and the 6LR.
+
+   *  "Registration Extensions for 6LoWPAN Neighbor Discovery" [RFC8505]
+      updates [RFC6775] into a generic Address Registration mechanism
+      that can be used to access services such as routing and ND proxy
+      and introduces the Extended Address Registration Option (EARO) for
+      that purpose.  This provides a router-protocol-agnostic interface
+      for a host to request that the router inject a unicast IPv6
+      address in the local routing protocol and provide return
+      reachability for that address.
+
+   *  "IPv6 Neighbor Discovery Multicast Address Listener Subscription"
+      [I-D.ietf-6lo-multicast-registration] updates [RFC8505] to enable
+      a listener to subscribe to an IPv6 anycast or multicast address;
+      the draft also extends [RFC9010] to enable the 6LR to inject the
+      anycast and multicast addresses in RPL.  Similarly, this
+      specification extends [RFC8505] and [RFC9010] to add the
+      capability for the 6LN to register unicast prefixes as opposed to
+      addresses, and to signal in a protocol-independent fashion to the
+      6LR that it is expected to redistribute the prefixes in their
+      specific routing protocols.
 
 
 
-
-
-
-Thubert                    Expires 9 May 2025                   [Page 3]
+Thubert                    Expires 13 May 2025                  [Page 4]
 
 Internet-Draft             Prefix Registration             November 2024
 
 
-   The original 6LoWPAN ND, "Neighbor Discovery Optimizations for
-   6LoWPAN networks" [RFC6775], was introduced to avoid the excessive
-   use of multicast messages and enable IPv6 ND for operations over
-   energy-constrained nodes.  [RFC6775] changes the classical IPv6 ND
-   model to proactively establish the Neighbor Cache Entry (NCE)
-   associated to the unicast address of a 6LoWPAN Node (6LN) in the a
-   6LoWPAN Router(s) (6LRs) that serve it.  To that effect, [RFC6775]
-   defines a new Address Registration Option (ARO) that is placed in
-   unicast Neighbor Solicitation (NS) and Neighbor Advertisement (NA)
-   messages between the 6LN and the 6LR.
+   This specification extends the above registration and subscription
+   methods to enable a node to register a prefix to the routing system
+   and get it injected in the routing protocol.  As with [RFC8505], the
+   prefix registration is agnostic to the routing protocol in which the
+   router injects the prefix, and the router is agnotic to the method
+   that was used to allocate the prefix to the node.  The energy
+   conservation principles in [RFC8505] are retained as well, meaning
+   that the node does not have to send or expect asynchronous broadcast
+   messages.
 
-   "Registration Extensions for 6LoWPAN Neighbor Discovery" [RFC8505]
-   updates [RFC6775] into a generic Address Registration mechanism that
-   can be used to access services such as routing and ND proxy and
-   introduces the Extended Address Registration Option (EARO) for that
-   purpose.  This provides a router-protocol-agnostic interface for a
-   host to request that the router inject a unicast IPv6 address in the
-   local routing protocol and provide return reachability for that
-   address.
-
-   "IPv6 Neighbor Discovery Multicast Address Listener Subscription"
-   [I-D.ietf-6lo-multicast-registration] updates [RFC8505] to enable a
-   listener to subscribe to an IPv6 anycast or multicast address; the
-   draft also extends [RFC9010] to enable the 6LR to inject the anycast
-   and multicast addresses in RPL.  Similarly, this specification
-   extends [RFC8505] and [RFC9010] to add the capability for the 6LN to
-   register unicast prefixes as opposed to addresses, and to signal in a
-   protocol-independent fashion to the 6LR that it is expected to
-   redistribute the prefixes in their specific routing protocols.
+   It can be noted that an energy-conserving node is not necessarily a
+   router, so even when advertising a prefix, it is a design choice not
+   to use RA messages that would make the node appear as a router to
+   peer nodes.  From the design principles above, it is clearly a design
+   choice not to leverage broadcasts from or to the node, or complex
+   state machines in the node.  It is also a design choice to use and
+   extend the EARO as opposed to the Route Information Option (RIO)
+   [RFC4191] because the RIO is explicitly not intended to serve in
+   routing, and is lacking related control information like the R bit in
+   the EARO.  Additionally, an RA with RIO cannot be trusted for a safe
+   injection in the routing protocol for the lack of the equivalent of
+   the Registration Ownership Verifier (ROVR) [RFC8928] in the EARO.
 
 2.  Terminology
 
@@ -217,15 +266,6 @@ Internet-Draft             Prefix Registration             November 2024
 
    This document uses terms and concepts that are discussed in:
 
-
-
-
-
-Thubert                    Expires 9 May 2025                   [Page 4]
-
-Internet-Draft             Prefix Registration             November 2024
-
-
    *  "Neighbor Discovery for IP version 6" [RFC4861] and "IPv6
       Stateless Address Autoconfiguration" [RFC4862],
 
@@ -234,6 +274,13 @@ Internet-Draft             Prefix Registration             November 2024
 
    *  "Registration Extensions for 6LoWPAN Neighbor Discovery" [RFC8505]
       and
+
+
+
+Thubert                    Expires 13 May 2025                  [Page 5]
+
+Internet-Draft             Prefix Registration             November 2024
+
 
    *  "Using RPI Option Type, Routing Header for Source Routes, and
       IPv6-in-IPv6 Encapsulation in the RPL Data Plane" [RFC9008].
@@ -274,14 +321,6 @@ Internet-Draft             Prefix Registration             November 2024
    NDP:  Neighbor Discovery Protocol
    NS:  Neighbor Solicitation (message)
    P2P:  Point-to-Point
-
-
-
-Thubert                    Expires 9 May 2025                   [Page 5]
-
-Internet-Draft             Prefix Registration             November 2024
-
-
    P2MP:  Point-to-Multipoint (partial mesh)
    ROVR  Registration Ownership Verifier, pronounced "rover"
    RPL:  IPv6 Routing Protocol for LLNs
@@ -291,6 +330,14 @@ Internet-Draft             Prefix Registration             November 2024
    TID:  Transaction ID
    TIO:  Transit Information Option
    SGP:  Subnet Gateway Protocol
+
+
+
+Thubert                    Expires 13 May 2025                  [Page 6]
+
+Internet-Draft             Prefix Registration             November 2024
+
+
    SPL:  Subnet Prefix Length
    ULP:  Upper-Layer Protocol
    VLAN:  Virtual LAN
@@ -329,15 +376,6 @@ Internet-Draft             Prefix Registration             November 2024
    loop avoidance and detection, though in the case of multicast
    multiple copies might be generated.
 
-
-
-
-
-Thubert                    Expires 9 May 2025                   [Page 6]
-
-Internet-Draft             Prefix Registration             November 2024
-
-
    [RFC8505] is a pre-requisite to this specification.  A node that
    implements this MUST also implement [RFC8505].  This specification
    does not introduce a new option; it modifies existing options and
@@ -348,6 +386,14 @@ Internet-Draft             Prefix Registration             November 2024
    [I-D.ietf-6lo-multicast-registration] for use in EARO, DAR, and RTO,
    with the new value of 3 to indicate the registration of a prefix, as
    detailed in Section 7.2.  With this extension the 6LNs can now
+
+
+
+Thubert                    Expires 13 May 2025                  [Page 7]
+
+Internet-Draft             Prefix Registration             November 2024
+
+
    attract the traffic for a full prefix, using the P field value of 3
    in the EARO to signal that the registration is for a prefix.
    Multiple 6LNs may register the same prefix to the same 6LR or to
@@ -389,7 +435,17 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 7]
+
+
+
+
+
+
+
+
+
+
+Thubert                    Expires 13 May 2025                  [Page 8]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -445,7 +501,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 8]
+Thubert                    Expires 13 May 2025                  [Page 9]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -501,7 +557,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 9]
+Thubert                    Expires 13 May 2025                 [Page 10]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -557,7 +613,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 10]
+Thubert                    Expires 13 May 2025                 [Page 11]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -613,7 +669,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 11]
+Thubert                    Expires 13 May 2025                 [Page 12]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -669,7 +725,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 12]
+Thubert                    Expires 13 May 2025                 [Page 13]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -725,7 +781,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 13]
+Thubert                    Expires 13 May 2025                 [Page 14]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -781,7 +837,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 14]
+Thubert                    Expires 13 May 2025                 [Page 15]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -837,7 +893,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 15]
+Thubert                    Expires 13 May 2025                 [Page 16]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -893,7 +949,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 16]
+Thubert                    Expires 13 May 2025                 [Page 17]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -949,7 +1005,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 17]
+Thubert                    Expires 13 May 2025                 [Page 18]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -1005,7 +1061,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 18]
+Thubert                    Expires 13 May 2025                 [Page 19]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -1061,7 +1117,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 19]
+Thubert                    Expires 13 May 2025                 [Page 20]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -1117,7 +1173,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 20]
+Thubert                    Expires 13 May 2025                 [Page 21]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -1173,7 +1229,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 21]
+Thubert                    Expires 13 May 2025                 [Page 22]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -1229,7 +1285,7 @@ Internet-Draft             Prefix Registration             November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 22]
+Thubert                    Expires 13 May 2025                 [Page 23]
 
 Internet-Draft             Prefix Registration             November 2024
 
@@ -1238,6 +1294,10 @@ Internet-Draft             Prefix Registration             November 2024
               Defeating Denial of Service Attacks which employ IP Source
               Address Spoofing", BCP 38, RFC 2827, DOI 10.17487/RFC2827,
               May 2000, <https://www.rfc-editor.org/info/rfc2827>.
+
+   [RFC4191]  Draves, R. and D. Thaler, "Default Router Preferences and
+              More-Specific Routes", RFC 4191, DOI 10.17487/RFC4191,
+              November 2005, <https://www.rfc-editor.org/info/rfc4191>.
 
    [RFC4919]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
               over Low-Power Wireless Personal Area Networks (6LoWPANs):
@@ -1277,18 +1337,20 @@ Internet-Draft             Prefix Registration             November 2024
               May 2024, <https://datatracker.ietf.org/doc/html/draft-
               ietf-6man-ipv6-over-wireless-06>.
 
+
+
+
+
+Thubert                    Expires 13 May 2025                 [Page 24]
+
+Internet-Draft             Prefix Registration             November 2024
+
+
    [IEEE802154]
               IEEE standard for Information Technology, "IEEE Std
               802.15.4, Part. 15.4: Wireless Medium Access Control (MAC)
               and Physical Layer (PHY) Specifications for Low-Rate
               Wireless Personal Area Networks".
-
-
-
-Thubert                    Expires 9 May 2025                  [Page 23]
-
-Internet-Draft             Prefix Registration             November 2024
-
 
    [IEEE80211]
               IEEE standard for Information Technology, "IEEE Standard
@@ -1335,10 +1397,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-Thubert                    Expires 9 May 2025                  [Page 24]
+Thubert                    Expires 13 May 2025                 [Page 25]
