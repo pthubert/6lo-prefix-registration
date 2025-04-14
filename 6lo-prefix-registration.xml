@@ -15,7 +15,7 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-06" >
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-09" >
  
 <front>
 
@@ -165,7 +165,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
    request that the router inject a unicast IPv6 address in the local routing
    protocol and provide return reachability for that address.
 </li><li>
-   <xref target="I-D.ietf-6lo-multicast-registration">
+   <xref target="RFC9685">
    "IPv6 Neighbor Discovery Multicast Address Listener Subscription"</xref>
    updates <xref target="RFC8505"/> to enable a listener to subscribe to an IPv6
     anycast or multicast address; the draft also extends <xref target="RFC9010"/>
@@ -259,7 +259,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 	   <dt>IPAM:</dt><dd> IP address management</dd>
        <dt>LLN:</dt><dd> Low-Power and Lossy Network </dd>
        <dt>LLA:</dt><dd> link-local address </dd>
-       <dt>LoWPAN:</dt><dd> Low-Power WPAN </dd>
+        <dt>LoWPAN:</dt><dd> Low-Rate Personal Area Network (IEEE Std. 802.15.4) <xref target="IEEE802154"/></dd>
        <dt>MAC:</dt><dd> Medium Access Control</dd>
        <dt>MLSN:</dt><dd> Multi-link Subnet </dd>
        <dt>MLD:</dt><dd> Multicast Listener Discovery </dd>
@@ -351,7 +351,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 <t>
    This specification updates the P field introduced in <xref target=
-   "I-D.ietf-6lo-multicast-registration"/> for use in EARO, DAR, and RTO,
+   "RFC9685"/> for use in EARO, DAR, and RTO,
    with the new value of 3 to indicate the registration of a prefix, as
    detailed in <xref target="R8505E"/>.
    With this extension the 6LNs can now attract the traffic for a full
@@ -426,7 +426,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    A leaf acting as a 6LN registers its unicast, multicast, and anycast
    addresses to a RPL router acting as a 6LR, using a layer-2 unicast NS message
    with an EARO as specified in <xref target="RFC8505"/> and <xref target=
-   "I-D.ietf-6lo-multicast-registration"/>.
+   "RFC9685"/>.
    The registration state is periodically renewed by the Registering Node,
    before the lifetime indicated in the EARO expires. As for unicast IPv6
    addresses, the 6LR uses an EDAR/EDAC exchange with the 6LBR to notify the
@@ -612,7 +612,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    most recent path and lifetime values are used.
 </t><t>
 
-   <xref target="I-D.ietf-6lo-multicast-registration"/> requires the use of the
+   <xref target="RFC9685"/> requires the use of the
    ROVR field as the indication of the origin of a Target advertisement in the
    RPL DAO messages, as specified in section 6.1 of <xref target="RFC9010"/>.
    For anycast and multicast advertisements (in NS or DAO messages), multiple
@@ -659,7 +659,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 
 <section anchor="R8505EF"><name>New P field value</name>
-<t> <xref target="I-D.ietf-6lo-multicast-registration"/> defines a P-field
+<t> <xref target="RFC9685"/> defines a P-field
    of 2 bits and defines the values 0 to 2, leaving the value of 3 reserved.
    This specification adds a new value to the P field to signal that the
    Registered Address is a prefix. The receiver installs a route to the
@@ -735,7 +735,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |     Type      |     Length    |F|PrefixLength |    Opaque     |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |   | P | I |R|T|     TID       |     Registration Lifetime     |
+  | | | P | I |R|T|     TID       |     Registration Lifetime     |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                                                               |
  ...             Registration Ownership Verifier                 ...
@@ -746,14 +746,15 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
     <t> New and updated Option Fields:    </t>
     <dl>
+	<dt>F:</dt><dd> 1-bit flag; set to 1 to indicate that the sender expects
+    other routers to forward packets to self when the packets are sourced with
+    the registered prefix.</dd>
     <dt>PrefixLength </dt><dd> 8-bit field: This field contains a prefix length
     expressed in bits if the P field is set to 3 and the EARO is placed in an NS
     message. The field contains a Status if the EARO is placed in an NA message
     regardless of the setting of the P flag. In all other cases it is reserved,
     so it MUST be set to 0 by the sender and ignored by the receiver.</dd>
-	<dt>F:</dt><dd> 1-bit flag; set to 1 to indicate that the sender expects
-    other routers to forward packets to self when the packets are sourced with
-    the registered prefix.</dd>
+
     </dl>
 
 </section> <!-- end section "New EARO Prefix Length Field" -->
@@ -835,7 +836,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
   <t>
    This specification adds the following behavior, similar to that introduced
-   by <xref target="I-D.ietf-6lo-multicast-registration"/> for multicast addresses:
+   by <xref target="RFC9685"/> for multicast addresses:
   </t>
    <ul>
    <li>
@@ -975,6 +976,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     <xref target="RFC8505"/>.
 
 </t>
+<!--t><xref target="RFC8928"/> defines the "C" flag but fails to explicit the bit number and fails to make a IANA registration for that bit position. On the other hand, a position for the bit (bit 3) is represented in Figure 1 of <xref target="RFC8928"/>. <xref target="RFC9685"/> defines the P-Field in bits 2 and 3 of the EARO flags field, obtains a proper IANA registration, but causes an overlap with the representation in Figure 1 of <xref target="RFC8928"/>. This specification updates <xref target="RFC8928"/> to position the "C" flag as bit 1 of the EARO flag, as represented in <xref target="EARO"/>, to avoid the overlapping definitions.
+</t-->
 <t>
     With <xref target="RFC8928"/>, it is possible for a node to autoconfigure a
     pair of public and private keys and use them to sign the registration of
@@ -1079,7 +1082,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 	<t>
     This specification updates the P field introduced in <xref target=
-    "I-D.ietf-6lo-multicast-registration"/> to assign the value of 3, which is
+    "RFC9685"/> to assign the value of 3, which is
     the only remaining unassigned value for the 2-bit field. To that effect,
     IANA is requested to update the "P-field values" registry under the
     heading "Internet Control Message Protocol version 6 (ICMPv6) Parameters"
@@ -1095,27 +1098,6 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     </table>  <!-- end table "New P-field values" -->
 
     </section><!-- end section "Updated P-Field Registry" -->
-
-
-<!--
-    <section anchor="AROF">
-    <name>New Extended Address Registration Option Flag</name>
-	<t>
-    IANA is requested to make an addition to the
-    "Address Registration Option Flags" <xref target="IANA.ICMP.EARO"/> registry under the
-    heading "Internet Control Message Protocol version 6 (ICMPv6) Parameters"
-    as indicated in <xref target="AROdat"/>:
-	</t>
-
-	<table anchor="AROdat" ><name>New Extended Address Registration Option Flag</name>
-   <thead>
-      <tr><td>EARO Bit</td><td>Meaning</td><td>Reference</td></tr>
-   </thead><tbody>
-      <tr><td>1 (suggested)</td><td>F flag: prefix is topologically correct</td><td>This RFC</td></tr>
-
-   </tbody>
-	</table>
-    </section>	 end section "New Address Registration Option Flag" -->
 
 
 
@@ -1230,8 +1212,9 @@ Many thanks to Dave Thaler and Dan Romascanu for their early INT-DIR review.
 	   </reference>
 
 
-    <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6lo-multicast-registration.xml"/>
 
+      
+    <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9685.xml"/>
 
     </references>
 
