@@ -11,7 +11,7 @@ Expires: 16 October 2025
 
 
               IPv6 Neighbor Discovery Prefix Registration
-                 draft-ietf-6lo-prefix-registration-08
+                 draft-ietf-6lo-prefix-registration-09
 
 Abstract
 
