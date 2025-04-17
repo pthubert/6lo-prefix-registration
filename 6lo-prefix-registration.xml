@@ -15,7 +15,7 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 8929, 9010" docName="draft-ietf-6lo-prefix-registration-09" >
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 8929, 9010" docName="draft-ietf-6lo-prefix-registration-10" >
  
 <front>
 
@@ -93,7 +93,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
 </t>
 <ul>
    <li>
-     Placing the protocol complexity in the routers to simplify the host implementation and avoid expanding the control traffic to all nodes.
+     Placing the protocol complexity in the less-constrained routers to simplify the host implementation and avoid expanding the control traffic to all nodes.
    </li>
    
    <li>
@@ -173,7 +173,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
    Discovery"</xref> updates <xref target="RFC6775"/> into a generic Address
    Registration mechanism that can be used to access services such as routing
    and ND proxy <xref target="RFC8929"/> and introduces the Extended Address Registration Option (EARO)
-   for that purpose. This provides a router-protocol-agnostic method for a host to
+   for that purpose. This provides a routing-protocol-agnostic method for a host to
    request that the router injects a unicast IPv6 address in the local routing
    protocol and provide return reachability for that address.
 </li><li>
@@ -184,9 +184,8 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
     to enable the 6LR to inject the anycast and multicast addresses in RPL.
     Similarly, this specification extends <xref target="RFC8505"/> and
     <xref target="RFC9010"/> to add the capability for the 6LN to register unicast
-    prefixes as opposed to addresses, and to signal in a protocol-independent
-    fashion to the 6LR that it is expected to redistribute the prefixes in
-    their specific routing protocols.
+    prefixes as opposed to addresses, and to signal in a routing-protocol-independent
+    fashion to the 6LR that it is expected to redistribute the prefixes.
 </li></ul>
 <t>
 This specification extends the above registration and subscription methods
@@ -255,7 +254,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 
 
-<section anchor='acronyms' > <name>Acronyms</name>
+<section anchor='acronyms' > <name>Acronyms and Initialisms</name>
     <t> This document uses the following abbreviations:
     </t>
        <dl spacing='compact'>
@@ -355,10 +354,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    "RFC9685"/> for use in EARO, DAR, and RTO,
    with the new value of 3 to indicate the registration of a prefix, as
    detailed in <xref target="R8505E"/>.
-   With this extension the 6LNs can now get the traffic for a full
-   prefix, using the P field value of 3 in the EARO to signal that the
-   registration is for a prefix. Multiple 6LNs may register the same
-   prefix to the same 6LR or to different 6LRs.
+   With this extension, the 6LN can now express its willingness to receive the traffic for all addresses in the range of a prefix, using the P field value of 3 in the EARO to signal that the
+   registration is for such prefix. Multiple 6LNs acting as border routers to the same external network or as access routers to the same subnet may register the same prefix to the same 6LR or to different 6LRs.
 </t><t>
    If the R flag is set in the registration of one or more 6LNs for the same
    prefix, then, according to its redistribution policy, the 6LR MUST 
@@ -367,13 +364,13 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    based on the longest registration lifetime across the
    non-expired received registrations for the prefix.
 </t><t>
-   This specification extends 6LoWPAN work, and it is certainly possible to
-   leverage it between the 6LN and the 6LR where the 6LR is a RPL router, as
-   discussed in <xref target="LLN"/>. But as for <xref target="RFC8505"/> in
-   general, this specification applies, beyond IoT use cases, to networks that
-   are not necessarily LLNs, and/or where the routing protocol between the 6LR
-   and above is not necessarily RPL. Examples of shared links and hub links are
-   provided in <xref target="Shared"/> and <xref target="Hub"/>, respectively.
+    Examples of use-cases where this specification may apply include virtual links, shared links,
+    and hub links as shown in <xref target="Shared"/> and <xref target="Hub"/>, respectively.
+    More generally, the 6LN may be a router running a different routing protocol in an 
+    external network, e.g., a stub network, and acting as a border router. 
+    Using the prefix registration method enables to decouple the routing 
+    protocol in the 6LN from the routing protocol that the 6LRs run in the main LLN
+    and provide signaling to stimulate the redistribution.
 </t>
 <section anchor="LLN"><name>RPL-Based Route-Over LLNs</name>
    <t>
@@ -394,11 +391,11 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     <figure anchor="figref" align="center"><name>Wireless Mesh</name>
     <artwork><![CDATA[
               |
-   ----+------+----Access----   
-       |        z  Point 
-       | and  z  
-       | or z 
-       |  z 
+   ---+------+-----Access----   
+      |            Point 
+      |  and/or     z  
+      |         z 
+      |     z 
     +--------+
     |  6LBR  |
     | (Root) |
@@ -448,7 +445,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 <t>
     A shared link is a situation where more than one prefix is deployed over
-    a L2 link (say a switched Ethernet fabric or a Wi-Fi ESS, federating multiple Access Points),
+    a L2 link (say a switched Ethernet fabric, or a Wi-Fi Extended Service Set (ESS) federating multiple Access Points),
     and not necessarily all nodes are aware of all prefixes. <xref target="figshared"/> depicts such
     a situation, with 2 routers 6LR1 and 6LR2 that own respective prefixes P1::
     and P2::, and expose those in their RA messages over the same link.
@@ -479,6 +476,9 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     aware of 6LR1 as its default gateway. With this specification, 6LR2
     registers P2:: to 6LR1 and 6LR1 installs a route to P2:: via 6LR2. This way,
     addresses that derive from P2:: can still be reached via 6LR1 and then 6LR2.
+    
+    6LR2 may then leverage ICMP Redirect	messages <xref target="RFC4861"/> to shorten the
+    path between 6LR1 and the nodes	  that own those addresses.
     </t>
 
 <t> If P2 was delegated by 6LR1, e.g., using the <xref target="RFC8415">
@@ -507,11 +507,11 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     <figure anchor="fighub" align="center"><name>Hub and Stubs</name>
     <artwork><![CDATA[
 
-   +-----+   +-----+   +-----+   +-----+   +-----+
-   |P2::s|   |P2::d|   |P2::e|   |P2::f|   |P2::g|
-   +--+--+   +--+--+   +--+--+   +--+--+   +--+--+
-      |         |         |         |         |
-  ----+----+----+---------+----STUB-+-LINK----+-----
+   +-----+   +-----+   +-----+       +-----+  
+   |P2::s|   |P2::d|   |P2::e|       |P2::f|  
+   +--+--+   +--+--+   +--+--+       +--+--+  
+      |         |         |             |     
+  ----+----+----+---------+--STUB-LINK--+-----
            |
        +---+---+              +-------+       .
        | P2::r |              |       |     .. . .
@@ -519,19 +519,19 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
        | P1::b |              | P1::a |    .     ...
        +---+---+              +---+---+      . ...
            |                      |
-  -------+-+---------+--HUB-LINK--+---+--
-         |           |                |
-     +---+---+    +--+--+          +--+--+
-     | P1::c |    |P1::n|          |P1::q|
-     | 6LR3  |    +-----+          +-----+
-     | P3::m |
-     +---+---+
-         |
-  ----+--+------+---------+----STUB-+-LINK----+-----
-      |         |         |         |         |
-   +--+--+   +--+--+   +--+--+   +--+--+   +--+--+
-   |P3::h|   |P3::i|   |P3::j|   |P3::k|   |P3::a|
-   +-----+   +-----+   +-----+   +-----+   +-----+
+  -------+-+---------+--HUB-LINK--+-----+--
+         |           |                  |
+     +---+---+    +--+--+           +---+---+
+     | P1::c |    |P1::n|           | P1::q |
+     | 6LR3  |    +-----+           | 6LR4  | 
+     | P3::m |                      | P3::a |
+     +---+---+                      +---+---+
+         |                              |
+  ----+--+------+---------+--STUB-LINK--+-+-----
+      |         |         |               |     
+   +--+--+   +--+--+   +--+--+         +--+--+  
+   |P3::h|   |P3::i|   |P3::j|         |P3::k|  
+   +-----+   +-----+   +-----+         +-----+  
 
     ]]></artwork></figure>
 <t>
@@ -547,6 +547,10 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     set the R flag. But unless 6LR2 knows about such a situation, e.g., through
     configuration, 6LR2 SHOULD set the R flag requesting
     6LR1 to advertise P2:: so as to obtain reachability.
+</t><t>
+    In this example, routers 6LR3 and 6LR4 both connect to the same stub link where subnet P3 is installed.
+    They may both register P3 to 6LR1, and 6LR1 will apply its own load balancing logic to use
+    either of the routers.
 </t>
 </section> <!-- end section "Hub Link" -->
 </section> <!-- end section "Overview" -->
@@ -814,7 +818,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 	<dt>Reserved</dt><dd> 6-bit field: reserved, MUST be set to 0 and ignored by the receiver</dd>
 	<dt>Prefix</dt><dd> 15 bytes: up to 120 bits of prefix, it MUST be padded with zeros, and the
    padding MUST be overwritten with zeros when the prefix is being used by the receiver.</dd>
-	<dt>Prefix Length</dt><dd> 7-bits integer: length of the prefix, in bits. 
+	<dt>Prefix Length</dt><dd> 7-bit integer: length of the prefix, in bits. 
    The value MUST be between 16 and 120, both included. </dd>
 	</dl>
 
@@ -875,9 +879,9 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    A device that wishes to refresh its state, e.g., upon reboot if it may have
    lost some registration state, SHOULD send an asynchronous NA(EARO) with this
    new status value. That asynchronous NA(ARO) SHOULD be sent to the all-nodes
-   link scope multicast address (ff02::1) and Target MUST be set to the link
-   local address that was exposed previously by this node to accept registrations,
-   and the TID MUST be set to 0.
+   link-scope multicast address (ff02::1) and Target MUST be set to the 
+   link-local address that was exposed previously by this node to accept 
+   registrations, and the TID MUST be set to 0.
    </t>
    <t>
    In an environment with unreliable transmissions, the multicast NA(EARO) 
@@ -929,7 +933,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    <li>
    The 6LN MAY set the R flag in the EARO to request the 6LR to redistribute
    the prefix on other links using a routing protocol. The 6LR MUST NOT
-   reregister that prefix to yet another router as it may create a loop.
+   reregister that prefix to yet another router unless loops are avoided some way,
+   e.g., following a tree structure.
    </li>
    <li>
    The 6LR and the 6LBR are extended to accept more than one registration for
@@ -1012,11 +1017,9 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 </t>
 <t>
-    Prefixes are not always owned by only one node. Multiple nodes
-    may register the same prefix.
-    In that context, the method specified in <xref target="RFC8928"/> cannot be
-    used with node-local autoconfigured keypairs which protect a single ownership
-    only.
+    As multiple nodes may register the same prefix, the method specified
+    in <xref target="RFC8928"/> cannot be used with node-local
+    autoconfigured keypairs, which protect a single ownership only.
 </t>
 <t>
     For a prefix, as for an anycast or a multicast address, it is still possible
@@ -1058,8 +1061,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 <t>
   This specification Extends that proxy operation with the updates in <xref target="RFC9685"/>
   and this on the formats and content of the EARO, the EDAR, and the EDAC messages, 
-  to support the P-Field and the signaling of prefixes. The proxy MUST use the P-Field as received In
-  the EDAR or NS(EARO) message to generate the proxied NS(EARO), and it MUST
+  to support the P-Field and the signaling of prefixes. The proxy MUST use the P-Field as received 
+  in the EDAR or NS(EARO) message to generate the proxied NS(EARO), and it MUST
   use the exact same prefix and prefix length as received in the case of 
   a prefix registration.
   
@@ -1170,7 +1173,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 <section title="Acknowledgments">
 <t>
-Many thanks to Dave Thaler and Dan Romascanu for their early review, and Eric Vyncke for his in-depth AD review.
+   Many thanks to Dave Thaler and Dan Romascanu for their early reviews,
+   and Eric Vyncke for his in-depth AD review.
 </t>
 </section> <!-- title="Acknowledgments" -->
 
