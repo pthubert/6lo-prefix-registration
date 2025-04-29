@@ -513,10 +513,10 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
       |         |         |             |     
   ----+----+----+---------+--STUB-LINK--+-----
            |
-       +---+---+              +-------+       .
-       | P2::r |              |       |     .. . .
-       | 6LR2  |              | 6LR1  +--- .    . ..
-       | P1::b |              | P1::a |    .     ...
+       +---+---+              +-------+       . .
+       | P2::r |              |       |     .     . .
+       | 6LR2  |              | 6LR1  +--- . internet 
+       | P1::b |              | P1::a |    .      .
        +---+---+              +---+---+      . ...
            |                      |
   -------+-+---------+--HUB-LINK--+-----+--
@@ -586,7 +586,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     </t>
     <t>
    <xref target="fig6CIO"/> illustrates the F flag in its position
-   (7, counting 0 to 15 in network order in the 16-bit array).
+   (16, counting 0 to 47 in network order in the 48-bit array).
    </t><t>
    - to be confirmed by IANA
    </t><t>
@@ -598,9 +598,9 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |     Type      |   Length = 1  |   Reserved  |F|X|A|D|L|B|P|E|G|
+   |     Type      |   Length = 1  |   Reserved    |X|A|D|L|B|P|E|G|
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                           Reserved                            |
+   |F|                           Reserved                          |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     ]]></artwork>
     </figure>
@@ -1160,7 +1160,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    <thead>
       <tr><td>Capability Bit</td><td>Meaning</td><td>Reference</td></tr>
    </thead><tbody>
-      <tr><td>7 (suggested)</td><td>F flag: Registration for prefixes Supported (F)</td><td>This RFC</td></tr>
+      <tr><td>16 (suggested)</td><td>F flag: Registration for prefixes Supported (F)</td><td>This RFC</td></tr>
 
    </tbody>
 	</table>	<!-- end table "New 6LoWPAN Capability Bit" -->
