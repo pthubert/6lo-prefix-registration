@@ -304,7 +304,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
        <dt>Origin</dt><dd> The node that issued the prefix
        advertisement, either in the form of a NS(EARO) or as a DAO(TIO, RTO) </dd>
-       <dt>Merge/merging</dt><dd> The action of receiving multiple anycast or
+       <dt>Merge</dt><dd> The action of receiving multiple anycast or
        multicast advertisements, either internally from self, in the form of
        a NS(EARO), or as a DAO(TIO, RTO), and generating a single DAO(TIO, RTO).
        The 6RPL router maintains a state per origin for each advertised address, and merges the advertisements for all subscriptions for the same address in a single advertisement.
@@ -388,32 +388,26 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     </t>
 
 
-    <figure anchor="figref" align="center"><name>Wireless Mesh</name>
+    <figure anchor="figref" align="center"><name>RPL-Based Route-Over LLN</name>
     <artwork><![CDATA[
               |
-   ---+------+-----Access----   
-      |            Point 
-      |  and/or     z  
-      |         z 
-      |     z 
+   ---+-------+--
+      |     
     +--------+
     |  6LBR  |
     | (Root) |
     +--------+
-     z  z  | \ 
     o   o  o  o  
-        z      z o  
- o  o  o o   o  o  o
- o  o  o   LLN  o   +-----+
-   o  o   o  o   o  | 6LR | RPL Router
-   o o  o o   o     +-----+
-    o   o   o o o      
-   o  o oo o  o     +-----+ RPL
-          o         | 6LN | leaf
-                    +-----+ L
-					   
-  z : wireless link, direct L2 connection
-  o : node
+      o   o  o
+ o  o  o       o  o  o
+ o  o  o  LLN   o   +-------+
+   o  o          o  |  6LR  | RPL Router
+   o o    o   o     +-------+
+   o  o    o  o          +-------+  RPL
+          o              |  6LN  |  leaf 
+                         +-------+  L
+				
+  o : LLN node
     ]]></artwork></figure>
 
 
@@ -607,7 +601,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
     <t> New Option Field:    </t>
 	<dl>
-	<dt>X</dt><dd> 1-bit flag: "Registration for prefixes Supported" </dd>
+	<dt>F</dt><dd> 1-bit flag: "Registration for prefixes Supported" </dd>
 	</dl>
 
     </section>	<!-- end section "Extending RFC 7400" -->
@@ -918,9 +912,10 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    </t>
    </li>
    <li>
-   If the 6LR acts as a border router to external prefixes or owns the prefixes entirely, it
-   SHOULD register all those prefixes with on all interfaces from which it might
-   be needed to relay traffic to that prefix. It MUST set the P field in the
+   If the 6LR acts as a border router to external prefixes or owns the prefixes entirely, 
+   it SHOULD register all those prefixes on all interfaces from which it might be needed to relay traffic to that prefix. 
+   
+   It MUST set the P field in the
    EARO to 3 for those prefixes, and the set R flag to receive the traffic 
    associated to the prefixes. It MAY refrain from registering a prefix
    on one interface if that prefix is already successfully registered on
@@ -1080,8 +1075,9 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 <t>
    <xref target="sec8928"/> leverages <xref target="RFC8928"/> to prevent a
    rogue node to register a unicast address that it does not own.
-   The mechanism could be extended to anycast and multicast addresses if the
-   values of the ROVR they use is known in advance, but how this is done is
+   The mechanism could be extended to anycast and multicast addresses 
+   if the values of the ROVR they use are known in advance,
+   but how this is done is
    not in scope for this specification.
    One way would be to authorize in advance the ROVR of the valid users.
    A less preferred way could be to synchronize the ROVR and TID values across
@@ -1175,6 +1171,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 <t>
    Many thanks to Dave Thaler and Dan Romascanu for their early reviews,
    and Eric Vyncke for his in-depth AD review.
+   Many thanks as well to the reviewers of the IETF last call and IESG rounds,
+   Shuping Peng, ...
 </t>
 </section> <!-- title="Acknowledgments" -->
 
