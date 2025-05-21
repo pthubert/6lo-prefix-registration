@@ -15,7 +15,7 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 8929, 9010" docName="draft-ietf-6lo-prefix-registration-10" >
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400, 8505, 8928, 8929, 9010" docName="draft-ietf-6lo-prefix-registration-11" >
  
 <front>
 
@@ -134,7 +134,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553, 7400
    that is optimized to reach a Root node, as opposed to along the shortest path
    between 2 peers, whatever that would mean in each LLN.
 </t><t>
-   The classical Neighbor Discovery (IPv6 ND) Protocol
+   The classical Neighbor Discovery (IPv6 ND) Protocol (NDP)
    <xref target="RFC4861"/> <xref target="RFC4862"/> was defined for serial
    links and shared transit media such as Ethernet at a time when L2-broadcast
    was cheap on those media while memory for neighbor cache was expensive.
@@ -219,9 +219,9 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
   <xref target="I-D.kuehlewind-update-tag" /> section 3 as follows:
   </t>
    <dl newline="false" indent="7" spacing="compact" >
-       <dt>Amends/Amended by:</dt>
+       <dt><strong>Amends/Amended by:</strong></dt>
 			<dd>This tag pair is used with an amending RFC that changes the amended RFC. This could include bug fixes, behavior changes etc. This is intended to specify mandatory changes to the protocol. The goal of this tag pair is to signal to anyone looking to implement the amended RFC that they MUST also implement the amending RFC. </dd>
-	   <dt>Extends/Extended by:</dt>
+	   <dt><strong>Extends/Extended by:</strong></dt>
 			<dd> This tag pair is used with an extending RFC that defines an optional addition to the extended RFC. This can be used by documents that use existing extension points or clarifications that do not change existing protocol behavior. This signals to implementers and protocol designers that there are changes to the extended RFC that they need to consider but not necessarily implement.</dd>
        </dl>
 
@@ -234,7 +234,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     </t>
 	<ul>
 	<li> <xref target="RFC4861">"Neighbor Discovery for IP version 6"
-		</xref> and
+		</xref> </li>
+   <li>
 	    <xref target="RFC4862">"IPv6 Stateless Address Autoconfiguration"
 		</xref>,
     </li>
@@ -258,37 +259,37 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     <t> This document uses the following abbreviations:
     </t>
        <dl spacing='compact'>
-       <dt>6CIO:</dt><dd> (6LoWPAN) Capability Indication Option <xref target="RFC7400"/></dd>
-       <dt>6LN:</dt><dd> (6LoWPAN) Node  <xref target="RFC6775"/> </dd>
-       <dt>6LR:</dt><dd> (6LoWPAN) Router  <xref target="RFC6775"/></dd>
-       <dt>ARO:</dt><dd> Address Registration Option  <xref target="RFC6775"/></dd>
-       <dt>DAD:</dt><dd> Duplicate Address Detection <xref target="RFC4861"/></dd>
-       <dt>DAO</dt><dd> Destination Advertisement Object <xref target="RFC6550"/> </dd>
-       <dt>DODAG:</dt><dd> Destination-Oriented Directed Acyclic Graph </dd>
-       <dt>EARO:</dt><dd> Extended Address Registration Option <xref target="RFC8505"/></dd>
-       <dt>EDAC:</dt><dd> Extended Duplicate Address Confirmation <xref target="RFC8505"/> </dd>
-       <dt>EDAR:</dt><dd> Extended Duplicate Address Request <xref target="RFC8505"/></dd>
-	   <dt>ESS:</dt><dd> Extended Service Set <xref target="IEEE80211"/></dd>
-	   <dt>IPAM:</dt><dd> IP address management</dd>
-       <dt>LLN:</dt><dd> Low-Power and Lossy Network </dd>
-       <dt>LLA:</dt><dd> link-local address </dd>
-        <dt>LoWPAN:</dt><dd> Low-Rate Personal Area Network <xref target="IEEE802154"/></dd>
-       <dt>MAC:</dt><dd> Medium Access Control</dd>
-       <dt>NA:</dt><dd> Neighbor Advertisement (message) <xref target="RFC4861"/></dd>
-       <dt>NBMA:</dt><dd> Non-Broadcast Multi-Access (full mesh)</dd>
-       <dt>NCE:</dt><dd> Neighbor Cache Entry <xref target="RFC4861"/> </dd>
-       <dt>ND:</dt><dd> Neighbor Discovery (protocol) </dd>
-       <dt>NDP:</dt><dd> Neighbor Discovery Protocol  </dd>
-       <dt>NS:</dt><dd> Neighbor Solicitation (message) <xref target="RFC4861"/></dd>
-       <dt>ROVR</dt><dd> Registration Ownership Verifier, pronounced "rover" <xref target="RFC8505"/> </dd>
-       <dt>RPL:</dt><dd>IPv6 Routing Protocol for LLNs <xref target="RFC6550"/></dd>
-       <dt>RA:</dt><dd> Router Advertisement (message) <xref target="RFC4861"/></dd>
-       <dt>RS:</dt><dd> Router Solicitation (message) <xref target="RFC4861"/> </dd>
-       <dt>RTO:</dt><dd> RPL Target Option <xref target="RFC6550"/> </dd>
-       <dt>SLLAO:</dt><dd>Source Link-Layer Address Option <xref target="RFC4861"/> </dd>
-       <dt>TID:</dt><dd> Transaction ID <xref target="RFC8505"/></dd>
-       <dt>TIO:</dt><dd> Transit Information Option <xref target="RFC6550"/> </dd>
-       <dt>TLLAO:</dt><dd>Target Link-Layer Address Option <xref target="RFC4861"/> </dd>
+       <dt><strong>6CIO:</strong></dt><dd> (6LoWPAN) Capability Indication Option <xref target="RFC7400"/></dd>
+       <dt><strong>6LN:</strong></dt><dd> (6LoWPAN) Node  <xref target="RFC6775"/> </dd>
+       <dt><strong>6LR:</strong></dt><dd> (6LoWPAN) Router  <xref target="RFC6775"/></dd>
+       <dt><strong>ARO:</strong></dt><dd> Address Registration Option  <xref target="RFC6775"/></dd>
+       <dt><strong>DAD:</strong></dt><dd> Duplicate Address Detection <xref target="RFC4861"/></dd>
+       <dt><strong>DAO:</strong></dt><dd> Destination Advertisement Object <xref target="RFC6550"/> </dd>
+       <dt><strong>DODAG:</strong></dt><dd> Destination-Oriented Directed Acyclic Graph </dd>
+       <dt><strong>EARO:</strong></dt><dd> Extended Address Registration Option <xref target="RFC8505"/></dd>
+       <dt><strong>EDAC:</strong></dt><dd> Extended Duplicate Address Confirmation <xref target="RFC8505"/> </dd>
+       <dt><strong>EDAR:</strong></dt><dd> Extended Duplicate Address Request <xref target="RFC8505"/></dd>
+	   <dt><strong>ESS:</strong></dt><dd> Extended Service Set <xref target="IEEE80211"/></dd>
+	   <dt><strong>IPAM:</strong></dt><dd> IP Address Management</dd>
+       <dt><strong>LLN:</strong></dt><dd> Low-Power and Lossy Network </dd>
+       <dt><strong>LLA:</strong></dt><dd> Link Layer Address </dd>
+        <dt><strong>LoWPAN:</strong></dt><dd> Low-Rate Personal Area Network <xref target="IEEE802154"/></dd>
+       <dt><strong>MAC:</strong></dt><dd> Medium Access Control</dd>
+       <dt><strong>NA:</strong></dt><dd> Neighbor Advertisement (message) <xref target="RFC4861"/></dd>
+       <dt><strong>NBMA:</strong></dt><dd> Non-Broadcast Multi-Access (full mesh)</dd>
+       <dt><strong>NCE:</strong></dt><dd> Neighbor Cache Entry <xref target="RFC4861"/> </dd>
+       <dt><strong>ND:</strong></dt><dd> Neighbor Discovery (protocol) </dd>
+       <dt><strong>NDP:</strong></dt><dd> Neighbor Discovery Protocol  </dd>
+       <dt><strong>NS:</strong></dt><dd> Neighbor Solicitation (message) <xref target="RFC4861"/></dd>
+       <dt><strong>ROVR:</strong></dt><dd> Registration Ownership Verifier (pronounced "rover") <xref target="RFC8505"/> </dd>
+       <dt><strong>RPL:</strong></dt><dd>IPv6 Routing Protocol for LLNs (pronounced "ripple") <xref target="RFC6550"/></dd>
+       <dt><strong>RA:</strong></dt><dd> Router Advertisement (message) <xref target="RFC4861"/></dd>
+       <dt><strong>RS:</strong></dt><dd> Router Solicitation (message) <xref target="RFC4861"/> </dd>
+       <dt><strong>RTO:</strong></dt><dd> RPL Target Option <xref target="RFC6550"/> </dd>
+       <dt><strong>SLLAO:</strong></dt><dd>Source Link-Layer Address Option <xref target="RFC4861"/> </dd>
+       <dt><strong>TID:</strong></dt><dd> Transaction ID <xref target="RFC8505"/></dd>
+       <dt><strong>TIO:</strong></dt><dd> Transit Information Option <xref target="RFC6550"/> </dd>
+       <dt><strong>TLLAO:</strong></dt><dd>Target Link-Layer Address Option <xref target="RFC4861"/> </dd>
 
        <dt>SND:</dt><dd>Subnet Neighbor Discovery (protocol)</dd>
        </dl>
@@ -302,9 +303,9 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
        <dl newline="false" indent="7" spacing="compact" >
 
-       <dt>Origin</dt><dd> The node that issued the prefix
+       <dt><strong>Origin:</strong></dt><dd> The node that issued the prefix
        advertisement, either in the form of a NS(EARO) or as a DAO(TIO, RTO) </dd>
-       <dt>Merge</dt><dd> The action of receiving multiple anycast or
+       <dt><strong>Merge:</strong></dt><dd> The action of receiving multiple anycast or
        multicast advertisements, either internally from self, in the form of
        a NS(EARO), or as a DAO(TIO, RTO), and generating a single DAO(TIO, RTO).
        The 6RPL router maintains a state per origin for each advertised address, and merges the advertisements for all subscriptions for the same address in a single advertisement.
@@ -350,11 +351,11 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    </t>
 
 <t>
-   This specification updates the P field introduced in <xref target=
+   This specification updates the P-Field introduced in <xref target=
    "RFC9685"/> for use in EARO, DAR, and RTO,
    with the new value of 3 to indicate the registration of a prefix, as
    detailed in <xref target="R8505E"/>.
-   With this extension, the 6LN can now express its willingness to receive the traffic for all addresses in the range of a prefix, using the P field value of 3 in the EARO to signal that the
+   With this extension, the 6LN can now express its willingness to receive the traffic for all addresses in the range of a prefix, using the P-Field value of 3 in the EARO to signal that the
    registration is for such prefix. Multiple 6LNs acting as border routers to the same external network or as access routers to the same subnet may register the same prefix to the same 6LR or to different 6LRs.
 </t><t>
    If the R flag is set in the registration of one or more 6LNs for the same
@@ -390,6 +391,10 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
     <figure anchor="figref" align="center"><name>RPL-Based Route-Over LLN</name>
     <artwork><![CDATA[
+         .- -- .
+      .-(        ).
+     (   Internet   )
+    (___.________.___)
               |
    ---+-------+--
       |     
@@ -423,8 +428,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    to inject routes, to fully leverage the routing protocol.
    The registration state is periodically renewed by the Registering Node (the 6LN),
    before the lifetime indicated in the EARO expires (at the 6LR). As for unicast IPv6
-   addresses, the 6LR uses an EDAR/EDAC  exchange with the 6LBR to notify the
-   6LBR of the presence of the listeners.
+   addresses, the 6LR uses an Extended Duplicate Address Request/Confirmation 
+   (EDAR/EDAC) exchange with the 6LBR to notify the 6LBR of the presence of the listeners.
    With this specification, a router that owns a prefix or provides reachability
    to an external prefix but is not a RPL router can also register those
    prefixes with the R flag set, to enable reachability  to the Prefix
@@ -439,7 +444,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 <t>
     A shared link is a situation where more than one prefix is deployed over
-    a L2 link (say a switched Ethernet fabric, or a Wi-Fi Extended Service Set (ESS) federating multiple Access Points),
+    a L2 link (say a switched Ethernet fabric, or a Wi-Fi Extended Service Set (ESS) federating multiple Access Points (APs)),
     and not necessarily all nodes are aware of all prefixes. <xref target="figshared"/> depicts such
     a situation, with 2 routers 6LR1 and 6LR2 that own respective prefixes P1::
     and P2::, and expose those in their RA messages over the same link.
@@ -450,9 +455,10 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     <figure anchor="figshared" align="center"><name>Shared Link</name>
     <artwork><![CDATA[
 
-         ....
-        . . ..
-          ...
+         .- -- .
+      .-(        ).
+     (   Internet   )
+    (___.________.___)
           |             
      +----+--+          +-------+
      | P1::a |          | P2::b |
@@ -464,6 +470,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    +--+--+   +--+--+   +--+--+   +--+--+   +--+--+
    |P1::c|   |P2::d|   |P2::e|   |P1::f|   |P1::g|
    +-----+   +-----+   +-----+   +-----+   +-----+
+   
     ]]></artwork></figure>
 <t>
     Say that 6LR1 is the router providing access to the outside, and 6LR2 is
@@ -507,17 +514,17 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
       |         |         |             |     
   ----+----+----+---------+--STUB-LINK--+-----
            |
-       +---+---+              +-------+       . .
-       | P2::r |              |       |     .     . .
-       | 6LR2  |              | 6LR1  +--- . internet 
-       | P1::b |              | P1::a |    .      .
-       +---+---+              +---+---+      . ...
-           |                      |
-  -------+-+---------+--HUB-LINK--+-----+--
-         |           |                  |
-     +---+---+    +--+--+           +---+---+
-     | P1::c |    |P1::n|           | P1::q |
-     | 6LR3  |    +-----+           | 6LR4  | 
+       +---+---+              +-------+          
+       | P2::r |              |       |        .- --..
+       | 6LR2  |              | 6LR1  +---- .-(       ).
+       | P1::b |              | P1::a |   (   Internet  )
+       +---+---+              +---+---+  (___._______.___)
+           |                      |              |
+  -------+-+---------+--HUB-LINK--+-----+--      |
+         |           |                  |        |
+     +---+---+    +--+--+           +---+---+    |
+     | P1::c |    |P1::n|           | P1::q |    |
+     | 6LR3  |    +-----+           | 6LR4  +----+ 
      | P3::m |                      | P3::a |
      +---+---+                      +---+---+
          |                              |
@@ -601,7 +608,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
     <t> New Option Field:    </t>
 	<dl>
-	<dt>F</dt><dd> 1-bit flag: "Registration for prefixes Supported" </dd>
+	<dt><strong>F:</strong></dt><dd> 1-bit flag, set to 1 to indicate "Registration for prefixes Supported" </dd>
 	</dl>
 
     </section>	<!-- end section "Extending RFC 7400" -->
@@ -667,11 +674,11 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 
 
-<section anchor="R8505EF"><name>New P field value</name>
-<t> <xref target="RFC9685"/> defines a P-Field
-   of 2 bits and defines the values 0 to 2, leaving the value of 3 reserved.
-   This specification adds a new value to the P field to signal that the
-   Registered Address is a prefix. The receiver installs a route to the
+<section anchor="R8505EF"><name>New P-Field value</name>
+<t> <xref target="RFC9685"/> defines a 2-bits P-Field with values from 0 to 2, and reserves value 3.
+
+   This specification defines value 3 for the P-Field, and uses it to signal that the
+   Registered Address is a prefix. When the P-Field is set to 3, the receiver installs a route to the
    prefix via the sender's address used as source address in the NS(EARO)
    registration message.
 
@@ -686,16 +693,16 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
      <thead>
       <tr><td>Value</td><td>Meaning</td></tr>
      </thead><tbody>
-      <tr><td>0</td><td>Registration for a Unicast Address</td></tr>
-      <tr><td>1</td><td>Registration for a Multicast Address</td></tr>
-      <tr><td>2</td><td>Registration for an Anycast Address</td></tr>
-      <tr><td>3</td><td>Registration for a Unicast prefix</td></tr>
+      <tr><td><strong>0</strong></td><td>Registration for a Unicast Address</td></tr>
+      <tr><td><strong>1</strong></td><td>Registration for a Multicast Address</td></tr>
+      <tr><td><strong>2</strong></td><td>Registration for an Anycast Address</td></tr>
+      <tr><td><strong>3</strong></td><td>Registration for a Unicast prefix</td></tr>
      </tbody>
     </table>  <!-- end table "P-Field values" -->
 
-</section><!-- New P field value -->
+</section><!-- New P-Field value -->
 
-<section anchor="R8505E"><name>New EARO Prefix Length Field and F Flag</name>
+<section anchor="R8505E"><name>New EARO Prefix Length Field and F flag</name>
 
 <t>
    Section 4.1 of <xref target="RFC8505"/> defines the EARO as an extension to
@@ -703,7 +710,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 </t>
 <t>
-  The Status Field that is used only when the EARO is placed in an NA message.
+  The Status field that is used only when the EARO is placed in an NA message.
   This specification repurposes that field to carry the prefix length 
   when the EARO is placed in an NS message as illustrated in <xref target="EARO"/>.
   The prefix length is expressed as 7 bits and the most significant bit of the field
@@ -734,21 +741,21 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    forward traffic whose source address derives from the Registered Prefix into
    a network location (e.g., to an ISP Provider Edge) where this source address
    is topologically correct (e.g., derives from a prefix assigned by that ISP).
-   The F flag is encoded in the most significant bit of the EARO status field
-   when the status field is used to transport a Prefix Length as shown in
+   The F flag is encoded in the most significant bit of the EARO Status field
+   when the Status field is used to transport a Prefix Length as shown in
    <xref target="EARO"/>.
 </t>
- <figure anchor="EARO"><name>EARO Option Format in NS messages</name>
+ <figure anchor="EARO"><name>EARO Option Format for Use in NS Messages</name>
  <artwork align="center">
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |     Type      |     Length    |F|Prefix Length|    Opaque     |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |   | P | I |R|T|     TID       |     Registration Lifetime     |
+  |r|C| P | I |R|T|     TID       |     Registration Lifetime     |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                                                               |
- ...             Registration Ownership Verifier                 ...
+ ...                            ROVR                             ...
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </artwork>
@@ -756,17 +763,20 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
     <t> New and updated Option Fields:    </t>
     <dl>
-	<dt>F:</dt><dd> 1-bit flag; set to 1 to indicate that the sender expects
+	<dt><strong>F:</strong></dt><dd> 1-bit flag; set to 1 to indicate that the sender expects
     other routers to forward packets to self when the packets are sourced within
     the registered prefix.</dd>
-    <dt>Prefix Length</dt><dd> 7-bit integer: This field contains a prefix length
-    expressed in bits if the P field is set to 3 and the EARO is placed in an NS
+    <dt><strong>Prefix Length:</strong></dt><dd> 7-bit integer; this field contains a prefix length
+    expressed in bits if the P-Field is set to 3 and the EARO is placed in an NS
     message. In that case the value MUST be between 16 and 120, both included.
     The field contains a Status if the EARO is placed in an NA message
     regardless of the setting of the P flag. In all other cases it is reserved,
     so it MUST be set to 0 by the sender and ignored by the receiver.
     </dd>
 
+   <dt><strong>r (reserved):</strong></dt>
+   <dd>1-bit reserved field; it MUST be set to zero by the sender and MUST be ignored by the receiver.</dd>
+  
     </dl>
 
 </section> <!-- end section "New EARO Prefix Length Field" -->
@@ -774,14 +784,14 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 <section anchor="R8505D"><name>New EDAR Prefix Length Field</name>
 
 <t>
-   This specification adds the new value of 3 to the P field to signal that the
+   This specification adds the new value of 3 to the P-Field to signal that the
    Registered Address is a prefix. When that is the case, the prefix is
    assumed to be less than 120 bits long, padded with zeros up to 120 bits, and the 
    remaining 8 bits are dedicated to the prefix length.
 </t>
 <t>
    <xref target="EDAR"/> illustrates the EDAR message when the value of the
-   P field is 3.
+   P-Field is 3.
 </t>
  <figure anchor="EDAR"><name>EDAR Message Format with P == 3</name>
  <artwork align="center">
@@ -793,7 +803,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
  |P=3| Reserved  |     TID       |     Registration Lifetime     |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
-...            Registration Ownership Verifier (ROVR)           ...
+...                          ROVR                               ...
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
@@ -809,11 +819,11 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
     <t> New and updated Option Fields:    </t>
 	<dl>
-	<dt>Reserved</dt><dd> 6-bit field: reserved, MUST be set to 0 and ignored by the receiver</dd>
-	<dt>Prefix</dt><dd> 15 bytes: up to 120 bits of prefix, it MUST be padded with zeros, and the
+	<dt><strong>Reserved:</strong></dt><dd> 6-bit field; reserved, MUST be set to 0 and ignored by the receiver</dd>
+	<dt><strong>Prefix:</strong></dt><dd> 15 bytes field; carries up to 120 bits of prefix, and MUST be padded with zeros. The
    padding MUST be overwritten with zeros when the prefix is being used by the receiver.</dd>
-	<dt>Prefix Length</dt><dd> 7-bit integer: length of the prefix, in bits. 
-   The value MUST be between 16 and 120, both included. </dd>
+	<dt><strong>Prefix Length:</strong></dt><dd> 7-bit integer; signals the length of the prefix, in bits. 
+   The value MUST be at least 16 and at most 120. </dd>
 	</dl>
 
 </section> <!-- end section "New EDAR Prefix Length Field" -->
@@ -837,7 +847,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    Only unicast addresses can be registered.
    </li>
    <li>
-   The 6LN must register all its ULA and GUA with a NS(EARO).
+   The 6LN must register all its Unique Local Addresses (ULAs) and Global Unicast Addresses (GUAs) with a NS(EARO).
    </li>
    <li>
    The 6LN may set the R flag in the EARO to obtain return reachability services by the 6LR, e.g., through ND proxy operations, or by injecting the route in a route-over subnet.
@@ -890,7 +900,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    </li>
    <li>
    <t>
-   Registration for prefixes is now supported. The value of 3 in the P field of
+   Registration for prefixes is now supported. The value of 3 in the P-Field of
    the EARO and the EDAR message signals when the registration is for a prefix
    as opposed to an address. DAD for prefixes and addresses becomes a prefix
    overlap match. Whether overlapping addresses and prefixes may be registered
@@ -915,7 +925,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    If the 6LR acts as a border router to external prefixes or owns the prefixes entirely, 
    it SHOULD register all those prefixes on all interfaces from which it might be needed to relay traffic to that prefix. 
    
-   It MUST set the P field in the
+   It MUST set the P-Field in the
    EARO to 3 for those prefixes, and the set R flag to receive the traffic 
    associated to the prefixes. It MAY refrain from registering a prefix
    on one interface if that prefix is already successfully registered on
@@ -933,8 +943,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    </li>
    <li>
    The 6LR and the 6LBR are extended to accept more than one registration for
-   the same prefix, since multiple 6LNs may register it. The Registration
-   Ownership Verifier (ROVR) in the EARO identifies uniquely a registration
+   the same prefix, since multiple 6LNs may register it. 
+   The ROVR in the EARO identifies uniquely a registration
    within the namespace of the Registered Prefix.
    </li>
    <li>
@@ -974,8 +984,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    </t>
    <ul>
    <li>
-   Upon a registration with the R flag set to 1 and the P field set to 3 in the EARO, the 6LR injects the prefix in RPL using a prefix RTO.
-   The P field in the RTP MUST be set to 3.
+   Upon a registration with the R flag set to 1 and the P-Field set to 3 in the EARO, the 6LR injects the prefix in RPL using a prefix RTO.
+   The P-Field in the RTP MUST be set to 3.
    
    </li><li>
    Upon receiving a packet directed to an address that derives from a prefix for
@@ -1035,7 +1045,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     steps in <xref target="RFC8928"/> to register the prefix.
 </t>
 <t>
-    Upon receiving an NA Message with the status set to 5 "Validation Requested", the
+    Upon receiving an NA message with the status set to 5 "Validation Requested", the
     node that registered the address or prefix performs the proof of ownership based
 	on that longest prefix match.
 </t>
@@ -1124,7 +1134,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     <section anchor="PF"><name>Updated P-Field Registry</name>
 
 	<t>
-    This specification updates the P field introduced in <xref target=
+    This specification updates the P-Field introduced in <xref target=
     "RFC9685"/> to assign the value of 3, which is
     the only remaining unassigned value for the 2-bit field. To that effect,
     IANA is requested to update the "P-Field values" registry under the
@@ -1136,7 +1146,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
      <thead>
       <tr><td>Value</td><td>Meaning</td><td>Reference</td></tr>
      </thead><tbody>
-      <tr><td>3</td><td>Registration for a prefix</td><td>This RFC</td></tr>
+      <tr><td><strong>3</strong></td><td>Registration for a prefix</td><td>This RFC</td></tr>
      </tbody>
     </table>  <!-- end table "New P-Field values" -->
 
@@ -1156,7 +1166,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    <thead>
       <tr><td>Capability Bit</td><td>Meaning</td><td>Reference</td></tr>
    </thead><tbody>
-      <tr><td>16 (suggested)</td><td>F flag: Registration for prefixes Supported (F)</td><td>This RFC</td></tr>
+      <tr><td><strong>16 (suggested)</strong></td><td>F flag: Registration for prefixes Supported (F)</td><td>This RFC</td></tr>
 
    </tbody>
 	</table>	<!-- end table "New 6LoWPAN Capability Bit" -->
@@ -1169,7 +1179,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 <section title="Acknowledgments">
 <t>
-   Many thanks to Dave Thaler and Dan Romascanu for their early reviews,
+   Many thanks to Dave Thaler and Dan Romascanu for their early reviews, Adnan Rashid for all his contributions,
    and Eric Vyncke for his in-depth AD review.
    Many thanks as well to the reviewers of the IETF last call and IESG rounds,
    Shuping Peng, ...
