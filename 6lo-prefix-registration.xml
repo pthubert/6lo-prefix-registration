@@ -812,7 +812,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
  +                 (up to 120 bits, padded with 0s)              +
  |                                                               |
  +                                               +-+-+-+-+-+-+-+-+
- |                                               | |Prefix Length|
+ |                                               |r|Prefix Length|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </artwork>
  </figure><!-- end figure "EDAR Message Format with P == 3" -->
@@ -822,6 +822,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 	<dt><strong>Reserved:</strong></dt><dd> 6-bit field; reserved, MUST be set to 0 and ignored by the receiver</dd>
 	<dt><strong>Prefix:</strong></dt><dd> 15 bytes field; carries up to 120 bits of prefix, and MUST be padded with zeros. The
    padding MUST be overwritten with zeros when the prefix is being used by the receiver.</dd>
+	<dt><strong>r:</strong></dt><dd> 1-bit field; reserved, MUST be set to 0 and ignored by the receiver</dd>
 	<dt><strong>Prefix Length:</strong></dt><dd> 7-bit integer; signals the length of the prefix, in bits. 
    The value MUST be at least 16 and at most 120. </dd>
 	</dl>

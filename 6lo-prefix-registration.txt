@@ -936,7 +936,7 @@ Internet-Draft             Prefix Registration                  May 2025
      +                 (up to 120 bits, padded with 0s)              +
      |                                                               |
      +                                               +-+-+-+-+-+-+-+-+
-     |                                               | |Prefix Length|
+     |                                               |r|Prefix Length|
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                  Figure 6: EDAR Message Format with P == 3
@@ -957,6 +957,9 @@ Internet-Draft             Prefix Registration                  May 2025
    *Prefix:*  15 bytes field; carries up to 120 bits of prefix, and MUST
       be padded with zeros.  The padding MUST be overwritten with zeros
       when the prefix is being used by the receiver.
+
+   *r:*  1-bit field; reserved, MUST be set to 0 and ignored by the
+      receiver
 
    *Prefix Length:*  7-bit integer; signals the length of the prefix, in
       bits.  The value MUST be at least 16 and at most 120.
@@ -995,13 +998,10 @@ Internet-Draft             Prefix Registration                  May 2025
    *  The ARO Status indicating a "Registration Refresh Request" applies
       to prefixes as well.
 
-
-
-
-
-
-
-
+      This status is used in asynchronous NA(EARO) messages to indicate
+      to peer 6LNs that they are requested to reregister all addresses
+      and prefixes that were previously registered to the originating
+      node.  The NA message MAY be sent to a unicast or a multicast
 
 
 
@@ -1010,10 +1010,6 @@ Thubert                 Expires 22 November 2025               [Page 18]
 Internet-Draft             Prefix Registration                  May 2025
 
 
-      This status is used in asynchronous NA(EARO) messages to indicate
-      to peer 6LNs that they are requested to reregister all addresses
-      and prefixes that were previously registered to the originating
-      node.  The NA message MAY be sent to a unicast or a multicast
       link-scope address and SHOULD be contained within the L2 range
       where nodes may effectively have registered/subscribed to this
       router, e.g., a radio broadcast domain to preserve energy and
@@ -1056,8 +1052,12 @@ Internet-Draft             Prefix Registration                  May 2025
       installed towards the node that registered with the longest prefix
       match, all the way to /128.
 
-
-
+   *  If the 6LR acts as a border router to external prefixes or owns
+      the prefixes entirely, it SHOULD register all those prefixes on
+      all interfaces from which it might be needed to relay traffic to
+      that prefix.  It MUST set the P-Field in the EARO to 3 for those
+      prefixes, and the set R flag to receive the traffic associated to
+      the prefixes.  It MAY refrain from registering a prefix on one
 
 
 
@@ -1066,12 +1066,6 @@ Thubert                 Expires 22 November 2025               [Page 19]
 Internet-Draft             Prefix Registration                  May 2025
 
 
-   *  If the 6LR acts as a border router to external prefixes or owns
-      the prefixes entirely, it SHOULD register all those prefixes on
-      all interfaces from which it might be needed to relay traffic to
-      that prefix.  It MUST set the P-Field in the EARO to 3 for those
-      prefixes, and the set R flag to receive the traffic associated to
-      the prefixes.  It MAY refrain from registering a prefix on one
       interface if that prefix is already successfully registered on
       another interface, or the router handled the EDAR / EDAC flow by
       itself, to ensure that the prefix ownership is known and validated
@@ -1114,6 +1108,12 @@ Internet-Draft             Prefix Registration                  May 2025
 
    This specification adds the following behavior:
 
+   *  Upon a registration with the R flag set to 1 and the P-Field set
+      to 3 in the EARO, the 6LR injects the prefix in RPL using a prefix
+      RTO.  The P-Field in the RTP MUST be set to 3.
+
+
+
 
 
 
@@ -1121,10 +1121,6 @@ Thubert                 Expires 22 November 2025               [Page 20]
 
 Internet-Draft             Prefix Registration                  May 2025
 
-
-   *  Upon a registration with the R flag set to 1 and the P-Field set
-      to 3 in the EARO, the 6LR injects the prefix in RPL using a prefix
-      RTO.  The P-Field in the RTP MUST be set to 3.
 
    *  Upon receiving a packet directed to an address that derives from a
       prefix for which it has at least one registration, the 6LR
@@ -1169,6 +1165,10 @@ Internet-Draft             Prefix Registration                  May 2025
    Upon receiving an NA message with the status set to 5 "Validation
    Requested", the node that registered the address or prefix performs
    the proof of ownership based on that longest prefix match.
+
+
+
+
 
 
 
