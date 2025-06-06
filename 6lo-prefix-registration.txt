@@ -10,7 +10,7 @@ Expires: 8 December 2025
 
 
               IPv6 Neighbor Discovery Prefix Registration
-                 draft-ietf-6lo-prefix-registration-13
+                 draft-ietf-6lo-prefix-registration-14
 
 Abstract
 
@@ -413,7 +413,7 @@ Internet-Draft             Prefix Registration                 June 2025
    If the R flag is set in the registration of one or more 6LNs for the
    same prefix, then, according to its redistribution policy, the 6LR
    MUST redistribute the prefix in the routing protocol(s) (e.g., RPL)
-   that it participates to.  The duration of the redistribution is based
+   that it participates in.  The duration of the redistribution is based
    on the longest registration lifetime across the non-expired received
    registrations for the prefix.
 
@@ -422,9 +422,9 @@ Internet-Draft             Prefix Registration                 June 2025
    and Section 11.4, respectively.  More generally, the 6LN may be a
    router running a different routing protocol in an external network,
    e.g., a stub network, and acting as a border router.  Using the
-   prefix registration method enables to decouple the routing protocol
-   in the 6LN from the routing protocol that the 6LRs run in the main
-   LLN and provide signaling to stimulate the redistribution.
+   prefix registration method enables decoupling the routing protocol in
+   the 6LN from the routing protocol that the 6LRs run in the main LLN
+   and provide signaling to stimulate the redistribution.
 
 4.  Extending RFC 7400
 
@@ -599,7 +599,7 @@ Internet-Draft             Prefix Registration                 June 2025
    Section 4.1 of [RFC8505] defines the EARO as an extension to the ARO
    option defined in [RFC6775].
 
-   The Status field that is used only when the EARO is placed in an NA
+   The Status field is used only when the EARO is placed in an NA
    message.  This specification repurposes that field to carry the
    prefix length when the EARO is placed in an NS message as illustrated
    in Figure 2.  The prefix length is expressed as 7 bits and the most
@@ -766,12 +766,12 @@ Internet-Draft             Prefix Registration                 June 2025
       including an NCE with the Link Layer Address (LLA) of the
       Registered Node (the 6LN here).
 
-   The operation for registering prefixes is similar as for addresses
-   from the perspective of the 6LN, but shows important differences on
-   the router side, which maintains a separate state for each origin and
-   merges them in its own advertisements.  This specification adds the
-   following behavior, similar to that introduced by [RFC9685] for
-   multicast addresses:
+   The operation for registering prefixes is similar to that for
+   addresses from the perspective of the 6LN, but shows important
+   differences on the router side, which maintains a separate state for
+   each origin and merges them in its own advertisements.  This
+   specification adds the following behavior, similar to that introduced
+   by [RFC9685] for multicast addresses:
 
    *  The ARO Status indicating a "Registration Refresh Request" applies
       to prefixes as well.
@@ -811,7 +811,7 @@ Internet-Draft             Prefix Registration                 June 2025
       ignores the additional NA(EARO) also indicating a "Registration
       Refresh Request" within the duration of the fast sequence.  That
       duration depends on the environment and has to be configured.  By
-      default, it is of 10 seconds.
+      default, it is 10 seconds.
 
    *  Registration for prefixes is now supported.  The value of 3 in the
       P-Field of the EARO and the EDAR message signals when the
