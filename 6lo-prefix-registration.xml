@@ -15,7 +15,7 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553,   8505, 8928, 8929, 9010" docName="draft-ietf-6lo-prefix-registration-12" >
+submissionType="IETF" xml:lang="en" version="3"  updates="6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-13" >
  
 <front>
 
@@ -42,8 +42,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553,   85
    <t>
    
 
-    This document updates IPv6 Neighbor Discovery (RFC 4861) and the 6LoWPAN
-   extensions (RFC 8505, RFC 8928, RFC 8929) to enable a node that
+    This document updates Subnet Neighbor Discovery (RFC 8505, RFC 8928) to enable a node that
    owns or is directly connected to a prefix to register that prefix to
    neighbor routers.  The registration indicates that the registered
    prefix can be reached via the advertising node without a loop.  The
@@ -51,7 +50,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553,   85
    redistribute the prefix in another routing domain regardless of the
    routing protocol used in that domain.  This document extends
    Routing Protocol for Low-Power and Lossy Networks (RPL) (RFC 6550,
-   RFC 6553, and RFC 9010) to enable a 6LoWPAN Router (6LR) to inject the
+   RFC 9010) to enable a 6LoWPAN Router (6LR) to inject the
    registered prefix in RPL.
    </t>
    </abstract>
@@ -171,9 +170,11 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553,   85
 </li><li>
    <xref target="RFC8505"> "Registration Extensions for 6LoWPAN Neighbor
    Discovery"</xref> updates <xref target="RFC6775"/> into a generic Address
-   Registration mechanism that can be used to access services such as routing
-   and ND proxy <xref target="RFC8929"/> and introduces the Extended Address Registration Option (EARO)
-   for that purpose. This provides a routing-protocol-agnostic method for a host to
+   Registration mechanism and is the foundation for Subnet Neighbor Discovery (SND).
+   SND introduces the Extended Address Registration Option (EARO) to enable the
+   registering node to access services such as routing inside a subnet
+   and ND proxy <xref target="RFC8929"/> operations.
+   This provides a routing-protocol-agnostic method for a host to
    request that the router injects a unicast IPv6 address in the local routing
    protocol and provide return reachability for that address.
 </li><li>
@@ -181,11 +182,11 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 6553,   85
    "IPv6 Neighbor Discovery Multicast Address Listener Subscription"</xref>
    updates <xref target="RFC8505"/> to enable a listener to subscribe to an IPv6
     anycast or multicast address; the draft also extends <xref target="RFC9010"/>
-    to enable the 6LR to inject the anycast and multicast addresses in RPL.
+    to enable a 6LR to inject the anycast and multicast addresses in RPL.
     Similarly, this specification extends <xref target="RFC8505"/> and
-    <xref target="RFC9010"/> to add the capability for the 6LN to register unicast
+    <xref target="RFC9010"/> to add the capability for a 6LN to register unicast
     prefixes as opposed to addresses, and to signal in a routing-protocol-independent
-    fashion to the 6LR that it is expected to redistribute the prefixes.
+    fashion to a 6LR that it is expected to redistribute the prefixes.
 </li></ul>
 <t>
 This specification extends the above registration and subscription methods
@@ -214,16 +215,16 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
   </t>
 
-<t>
-  In addition, the terms "Extends" and "Amends" are used as a more specific term for "Updates" per
-  <xref target="I-D.kuehlewind-update-tag" /> section 3 as follows:
-  </t>
-   <dl newline="false" indent="7" spacing="compact" >
-       <dt><strong>Amends/Amended by:</strong></dt>
-			<dd>This tag pair is used with an amending RFC that changes the amended RFC. This could include bug fixes, behavior changes etc. This is intended to specify mandatory changes to the protocol. The goal of this tag pair is to signal to anyone looking to implement the amended RFC that they MUST also implement the amending RFC. </dd>
-	   <dt><strong>Extends/Extended by:</strong></dt>
-			<dd> This tag pair is used with an extending RFC that defines an optional addition to the extended RFC. This can be used by documents that use existing extension points or clarifications that do not change existing protocol behavior. This signals to implementers and protocol designers that there are changes to the extended RFC that they need to consider but not necessarily implement.</dd>
-       </dl>
+<!-- <t> -->
+  <!-- In addition, the terms "Extends" and "updates" are used as a more specific term for "Updates" per -->
+  <!-- <xref target="I-D.kuehlewind-update-tag" /> section 3 as follows: -->
+  <!-- </t> -->
+   <!-- <dl newline="false" indent="7" spacing="compact" > -->
+       <!-- <dt><strong>updates/Amended by:</strong></dt> -->
+			<!-- <dd>This tag pair is used with an amending RFC that changes the amended RFC. This could include bug fixes, behavior changes etc. This is intended to specify mandatory changes to the protocol. The goal of this tag pair is to signal to anyone looking to implement the amended RFC that they MUST also implement the amending RFC. </dd> -->
+	   <!-- <dt><strong>Extends/Extended by:</strong></dt> -->
+			<!-- <dd> This tag pair is used with an extending RFC that defines an optional addition to the extended RFC. This can be used by documents that use existing extension points or clarifications that do not change existing protocol behavior. This signals to implementers and protocol designers that there are changes to the extended RFC that they need to consider but not necessarily implement.</dd> -->
+       <!-- </dl> -->
 
   
   </section>	<!-- end section "Requirements Language" -->
@@ -376,18 +377,6 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 </section> <!-- end section "Overview" -->
 
 
-   <section anchor="tgt4861"><name>Amending RFC 4861</name>
-   <t>
-   <xref target="RFC4861"/> expects that the NS/NA exchange is for a unicast
-   address, which is indicated in the Target Address field of the ND message.
-   This specification Amends <xref target="RFC4861"/> by allowing a 6LN to advertise a
-   prefix in the Target Address field when the NS or NA message is used for a
-   registration, per section 5.5 of <xref target="RFC8505"/>; in that case, the
-   prefix length is indicated in the EARO of the NS message, overloading the
-   field that is used in the NA response for the Status.
-    </t>
-   
-    </section ><!-- Updating RFC 4861 -->
     <section anchor="CIO"><name>Extending RFC 7400</name>
 
     <t>
@@ -420,7 +409,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |     Type      |   Length = 1  | Experimental  |X|A|D|L|B|P|E|G|
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |F|                         Unassigned                          |
+   |F|                         Reserved                            |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     ]]></artwork>
     </figure>
@@ -492,8 +481,29 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 
 <t>
-This specification Extends the EARO and EDAR messages to enable the registration of prefixes and Amends the Registration operation in the case of a prefix, in particular from the standpoint of the 6LR, e.g., to enable the Registration of overlapping prefixes.
+This specification Extends the EARO and EDAR messages to enable the registration of prefixes and updates the Registration operation in the case of a prefix, in particular from the standpoint of the 6LR, e.g., to enable the Registration of overlapping prefixes.
 </t>
+
+   <section anchor="tgt4861"><name>Leveraging the Target Address to Advertise a Prefix</name>
+   <t>
+   <xref target="RFC4861"/> expects that the NS/NA exchange is for a unicast
+   address, which is indicated in the Target Address field of the ND message.
+   Section 5.5 of <xref target="RFC8505"/> extends <xref target="RFC4861"/>
+   to signal the Registered Address in the Target Address field.
+   </t>
+   <t>
+   This specification extends the above to register a prefix. In that case, 
+   the Target Address field must contain an address that is derived from the
+   registered prefix, and the
+   prefix length is indicated in the EARO of the NS message, overloading the
+   field that is used in the NA response for the Status.
+   </t>
+   <t>
+   If the 6LN owns one or more address that matches the registered prefix, then it MUST use
+   that one of these addresses.
+    </t>
+   
+    </section ><!-- Updating RFC 4861 -->
 
 <section anchor="R8505EF"><name>New P-Field value</name>
 <t> <xref target="RFC9685"/> defines a 2-bits P-Field with values from 0 to 2, and reserves value 3.
@@ -1179,15 +1189,20 @@ This specification Extends the EARO and EDAR messages to enable the registration
     heading "Internet Control Message Protocol version 6 (ICMPv6) Parameters"
     as indicated in <xref target="CIOdat"/>:
 	</t>
-
+   <t>IANA is also requested to fix the description of bit 9 (the  "A" flag defined in <xref target="RFC8928"/>).
+   It is not called "1" but "A".
+   </t>
 	<table anchor="CIOdat" ><name>New 6LoWPAN Capability Bit</name>
    <thead>
-      <tr><td>Capability Bit</td><td>Meaning</td><td>Reference</td></tr>
+      <tr><td>Bit</td><td>Description</td><td>Reference</td></tr>
    </thead><tbody>
-      <tr><td><strong>16 (suggested)</strong></td><td>F flag: Registration for prefixes Supported (F)</td><td>This RFC</td></tr>
+      <tr><td><strong>9 </strong></td><td>AP-ND Enabled (A bit) </td><td><xref target="RFC8928"/></td></tr>
+      <tr><td><strong>16 (suggested)</strong></td><td>Registration for prefixes Supported (F bit)</td><td>This RFC</td></tr>
 
    </tbody>
 	</table>	<!-- end table "New 6LoWPAN Capability Bit" -->
+   
+
     </section>	<!-- end section "New 6LoWPAN Capability Bit" -->
 
 
@@ -1200,7 +1215,7 @@ This specification Extends the EARO and EDAR messages to enable the registration
    Many thanks to Dave Thaler and Dan Romascanu for their early reviews, Adnan Rashid for all his contributions,
    and Eric Vyncke for his in-depth AD review.
    Many thanks as well to the reviewers of the IETF last call and IESG rounds,
-   Shuping Peng, Mohamed Boucadair, Paul Wouters, Ketan Talaulikar, ...
+   Shuping Peng, Mohamed Boucadair, Paul Wouters, Ketan Talaulikar, Gunter Van de Velde, Mike Bishop, Roman Danyliw, ...
 </t>
 </section> <!-- title="Acknowledgments" -->
 
@@ -1308,7 +1323,7 @@ This specification Extends the EARO and EDAR messages to enable the registration
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9030.xml"/>
 
 
-      <xi:include href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.kuehlewind-update-tag.xml'/>
+      <!-- <xi:include href='https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.kuehlewind-update-tag.xml'/> -->
     <!--xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.heile-lpwan-wisun-overview.xml"/-->
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6man-ipv6-over-wireless.xml"/>
       <reference anchor="IEEE802154">
