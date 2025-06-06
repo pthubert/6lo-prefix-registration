@@ -46,7 +46,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="6550, 8505, 8928, 9010
    owns or is directly connected to a prefix to register that prefix to
    neighbor routers.  The registration indicates that the registered
    prefix can be reached via the advertising node without a loop.  The
-   unicast prefix registration allows to request neighbor router(s) to
+   unicast prefix registration allows the node to request neighbor router(s) to
    redistribute the prefix in another routing domain regardless of the
    routing protocol used in that domain.  This document extends
    Routing Protocol for Low-Power and Lossy Networks (RPL) (RFC 6550,
@@ -82,12 +82,13 @@ submissionType="IETF" xml:lang="en" version="3"  updates="6550, 8505, 8928, 9010
    and RPL <xref target="RFC6550"/> over <xref target="IEEE802154"/>.
  
 </t><t>
-   LLNs and constrained devices are the original domain of application
-   for 6LoWPAN protocols.  It is thus a foremost concern, when designing
-   those protocols, to minimize energy spendings.  In non-LLN
-   environments where lowering carbon emissions is also a priority, it
-   could make sense to apply the 6LoWPAN designs and extend some of the
-   6LoWPAN protocols.    The general design points include:
+   LLNs and constrained devices are the original domain of application 
+   for 6LoWPAN protocols.  It is thus a foremost concern, when designing
+   those protocols, to minimize energy spendings.  In non-LLN
+   environments where lowering carbon emissions is also a priority, it
+   could make sense to apply the 6LoWPAN designs and extend some of the
+   6LoWPAN protocols.
+   The general design points include:
   
 </t>
 <ul>
@@ -185,7 +186,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="6550, 8505, 8928, 9010
     to enable a 6LR to inject the anycast and multicast addresses in RPL.
     Similarly, this specification extends <xref target="RFC8505"/> and
     <xref target="RFC9010"/> to add the capability for a 6LN to register unicast
-    prefixes as opposed to addresses, and to signal in a routing-protocol-independent
+    prefixes up to 120 bits long, as opposed to addresses, and to signal in a routing-protocol-independent
     fashion to a 6LR that it is expected to redistribute the prefixes.
 </li></ul>
 <t>
@@ -229,28 +230,27 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
   
   </section>	<!-- end section "Requirements Language" -->
 
-  <section anchor="lo"><name>References</name>
+  <section anchor="lo"><name>Inherited Terms and Concepts</name>
     <t>
 	This document uses terms and concepts that are discussed in:
     </t>
 	<ul>
 	<li> <xref target="RFC4861">"Neighbor Discovery for IP version 6"
-		</xref> </li>
-   <li>
+		</xref>  and
+      </li><li>
 	    <xref target="RFC4862">"IPv6 Stateless Address Autoconfiguration"
-		</xref>,
+		</xref> for the Neighbor Solicitation operation,
     </li>
 	<li> <xref target="RFC6775">Neighbor Discovery Optimization for IPv6 over Low-Power Wireless Personal Area Networks (6LoWPANs)</xref>, as well as
     </li>
     <li>
 	    <xref target="RFC8505">
-		"Registration Extensions for 6LoWPAN Neighbor Discovery"</xref> and
+		"Registration Extensions for 6LoWPAN Neighbor Discovery" for SND operations </xref> and
 	</li>
-    <li>
-	    <xref target="RFC9008">
-		"Using RPI Option Type, Routing Header for Source Routes,
-        and IPv6-in-IPv6 Encapsulation in the RPL Data Plane"</xref>.
-	</li>
+   <li>
+    <xref target="RFC6550">"Routing Protocol for Low Power
+   and Lossy Networks"</xref> for RPL, which is the routing protocol used in LLNs for SND. 
+   </li>
 	</ul>
   </section> <!--	 end section "References" -->
 
@@ -336,10 +336,25 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 <section anchor="overview"><name>Overview</name>
    <t>
    This specification inherits from <xref target="RFC6550"/>,
-   <xref target="RFC8505"/>, and <xref target="RFC9010"/> to register prefixes as opposed to addresses. Unless specified otherwise therein,
-   the behavior of the 6LBR that acts as RPL Root, of the intermediate routers
-   down the RPL graph, of the 6LRs that act as access routers and of the 6LNs
-   that are the RPL-unaware destinations, is the same as for unicast addresses.
+   <xref target="RFC8505"/>, and <xref target="RFC9010"/> to register prefixes as opposed to addresses. 
+   </t><t>
+   An SND deployment consists of:
+   </t>
+   <ul>
+   <li>
+   One or more 6LBR(s) that act(s) as RPL Root
+   </li>   <li>
+   intermediate routers down the RPL graph that propagate routing information on addresses and prefixes
+   towards the Root
+   </li>   <li>
+   6LRs that are RPL-aware 6LNs and can leverage RPL directly to expose their addresses and prefixes
+   </li>   <li>
+   and 6LNs that are the RPL-unaware destinations and need SND to obtain reachability tover the RPL LLN for their addresses and, with this specification, their prefixes as well.
+   </li>
+   </ul>
+   <t>
+   The SND operation for prefixes inherits from that for unicast addresses, 
+   meaning that it is the same unless specified otherwise herein.
    In particular, forwarding a packet happens as specified in section 11 of
    <xref target="RFC6550"/>, including loop avoidance and detection, though in
    the case of multicast multiple copies might be generated.
@@ -363,7 +378,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    If the R flag is set in the registration of one or more 6LNs for the same
    prefix, then, according to its redistribution policy, the 6LR MUST 
    redistribute the prefix in the routing protocol(s) (e.g., RPL) that 
-   it participates to. The duration of the redistribution is   
+   it participates in. The duration of the redistribution is   
    based on the longest registration lifetime across the
    non-expired received registrations for the prefix.
 </t><t>
@@ -371,7 +386,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     and hub links as shown in <xref target="Shared"/> and <xref target="Hub"/>, respectively.
     More generally, the 6LN may be a router running a different routing protocol in an 
     external network, e.g., a stub network, and acting as a border router. 
-    Using the prefix registration method enables to decouple the routing 
+    Using the prefix registration method enables decoupling the routing 
     protocol in the 6LN from the routing protocol that the 6LRs run in the main LLN
     and provide signaling to stimulate the redistribution.
 </t>
@@ -549,7 +564,7 @@ following complete set of defined values:
 
 </t>
 <t>
-  The Status field that is used only when the EARO is placed in an NA message.
+  The Status field is used only when the EARO is placed in an NA message.
   This specification repurposes that field to carry the prefix length 
   when the EARO is placed in an NS message as illustrated in <xref target="EARO"/>.
   The prefix length is expressed as 7 bits and the most significant bit of the field
@@ -631,7 +646,7 @@ following complete set of defined values:
 <t>
    This specification adds the new value of 3 to the P-Field to signal that the
    Registered Address is a prefix. When that is the case, the prefix is
-   assumed to be less than 120 bits long, padded with zeros up to 120 bits, and the 
+   assumed to be at most 120 bits long, padded with zeros up to 120 bits, and the 
    remaining 8 bits are dedicated to the prefix length.
 </t>
 <t>
@@ -715,7 +730,7 @@ MUST be ignored by the receiver.</dd>
    </li>
    </ul>
    <t>
-   The operation for registering prefixes is similar as for addresses from the
+   The operation for registering prefixes is similar to that for addresses from the
    perspective of the 6LN, but shows important differences on the router side,
    which maintains a separate state for each origin and merges them in its own
    advertisements. This specification adds the following behavior, similar to that introduced
@@ -754,7 +769,7 @@ MUST be ignored by the receiver.</dd>
    ignores the additional NA(EARO) also 
    indicating a "Registration Refresh Request" within the duration of 
    the fast sequence. That duration depends on the
-   environment and has to be configured. By default, it is of 10 seconds.
+   environment and has to be configured. By default, it is 10 seconds.
    </t>
    </li>
    <li>
@@ -966,8 +981,9 @@ MUST be ignored by the receiver.</dd>
 
 <section anchor="legacy"><name>Partially Upgraded Networks</name>
 <t>
-   In a brown field use case, a mix of devices that support only <xref target="RFC8505"/>,
-   <xref target="RFC8505"/> and <xref target="RFC9685"/>, and all of the above plus this, may coexist.
+   A mix of devices that support only <xref target="RFC8505"/>, both
+   <xref target="RFC8505"/> and <xref target="RFC9685"/>, and all of the
+   above plus this specification, may coexist.
    Different cases may occur:
 </t>
 <ul>
@@ -1343,7 +1359,6 @@ MUST be ignored by the receiver.</dd>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4191.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4919.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6282.xml"/>
-    <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9008.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8415.xml"/>
     <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9030.xml"/>
 
