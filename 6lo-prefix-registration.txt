@@ -296,6 +296,7 @@ Internet-Draft             Prefix Registration                 June 2025
    This document uses the following abbreviations:
 
    *6CIO:*  (6LoWPAN) Capability Indication Option [RFC7400]
+   *6LBR:*  (6LoWPAN) Border Router [RFC6775]
    *6LN:*  (6LoWPAN) Node [RFC6775]
    *6LR:*  (6LoWPAN) Router [RFC6775]
    *ARO:*  Address Registration Option [RFC6775]
@@ -325,11 +326,10 @@ Internet-Draft             Prefix Registration                 June 2025
    *RS:*  Router Solicitation (message) [RFC4861]
    *RTO:*  RPL Target Option [RFC6550]
    *SLLAO:*  Source Link-Layer Address Option [RFC4861]
+   *SND:*  Subnet Neighbor Discovery (protocol)
    *TID:*  Transaction ID [RFC8505]
    *TIO:*  Transit Information Option [RFC6550]
    *TLLAO:*  Target Link-Layer Address Option [RFC4861]
-   SND:  Subnet Neighbor Discovery (protocol)
-
 
 
 
@@ -541,18 +541,18 @@ Internet-Draft             Prefix Registration                 June 2025
 
 6.2.  New P-Field value
 
-   [RFC9685] defines a 2-bits P-Field with values from 0 to 2, and
-   reserves value 3.  This specification defines value 3 for the
-   P-Field, and uses it to signal that the Registered Address is a
-   prefix.  When the P-Field is set to 3, the receiver installs a route
-   to the prefix via the sender's address used as source address in the
-   NS(EARO) registration message.
+   [RFC9685] defines a 2-bit P-Field with values 0 through 2 and
+   reserves the value 3 for future use.  This specification defines the
+   semantics of P-Field value 3.
 
-   This specification assigns the value of 3, resulting in the complete
-   table as follows:
+   When the P-Field is set to 3, it indicates that the Registered
+   Address represents a prefix rather than a single address.  Upon
+   receiving an NS(EARO) message with the P-Field set to 3, the receiver
+   MUST install a route to the indicated prefix via the source address
+   of the NS(EARO) message.
 
-
-
+   This specification assigns the value 3 to the P-Field, resulting in
+   the following complete set of defined values:
 
 
 
@@ -645,22 +645,22 @@ Internet-Draft             Prefix Registration                 June 2025
 
    New and updated Option Fields:
 
-   *F:*  1-bit flag; set to 1 to indicate that the sender expects other
-      routers to forward packets to self when the packets are sourced
-      within the registered prefix.
+   *F:* (Forwarding Flag)  A 1-bit flag.  When set to 1, it indicates
+      that the sender expects other routers to forward packets to the
+      sender when those packets are sourced from within the registered
+      prefix.
 
-   *Prefix Length:*  7-bit integer; this field contains a prefix length
-      expressed in bits if the P-Field is set to 3 and the EARO is
-      placed in an NS message.  In that case the value MUST be between
-      16 and 120, both included.  The field contains a Status if the
-      EARO is placed in an NA message regardless of the setting of the P
-      flag.  In all other cases it is reserved, so it MUST be set to 0
-      by the sender and ignored by the receiver.
+   *Prefix Length:*  A 7-bit unsigned integer.  When the P-Field is set
+      to 3 and the EARO is included in a Neighbor Solicitation (NS)
+      message, this field MUST contain a prefix length expressed in
+      bits, with a value between 16 and 120 inclusive.  When the EARO is
+      included in a Neighbor Advertisement (NA) message, this field MUST
+      carry a Status value, regardless of the setting of the P-Field.
+      In all other cases, this field is reserved; it MUST be set to zero
+      by the sender and MUST be ignored by the receiver.
 
-   *r (reserved):*  1-bit reserved field; it MUST be set to zero by the
-      sender and MUST be ignored by the receiver.
-
-
+   *r* (reserved):  A 1-bit reserved field.  It MUST be set to zero by
+      the sender and MUST be ignored by the receiver.
 
 
 
@@ -709,19 +709,19 @@ Internet-Draft             Prefix Registration                 June 2025
 
    New and updated Option Fields:
 
-   *Reserved:*  6-bit field; reserved, MUST be set to 0 and ignored by
-      the receiver
+   *Reserved:*  A 6-bit field reserved for future use.  It MUST be set
+      to zero by the sender and MUST be ignored by the receiver.
 
-   *Prefix:*  15 bytes field; carries up to 120 bits of prefix, and MUST
-      be padded with zeros.  The padding MUST be overwritten with zeros
-      when the prefix is being used by the receiver.
+   *Prefix:*  A 15-byte field that carries up to 120 bits of the prefix.
+      If the prefix isshorter than 120 bits, the remaining bits MUST be
+      padded with zeros.  The receiver MUST treat the padding as zeroed
+      and MUST overwrite any unused bits with zeros before using the
+      prefix.
 
-   *r:*  1-bit field; reserved, MUST be set to 0 and ignored by the
-      receiver
+   *r* (reserved):  A 1-bit reserved field.  It MUST be set to zero by
+      the sender and MUST be ignored by the receiver.
 
-   *Prefix Length:*  7-bit integer; signals the length of the prefix, in
-      bits.  The value MUST be at least 16 and at most 120.
-
+   *Prefix Length:*  A 7-bit unsigned integer indicating the length of
 
 
 
@@ -729,6 +729,9 @@ Thubert                  Expires 8 December 2025               [Page 13]
 
 Internet-Draft             Prefix Registration                 June 2025
 
+
+      the prefix in bits.  The value MUST be in the inclusive range of
+      16 to 120.
 
 6.5.  Amending the Registration Operation
 
@@ -773,11 +776,8 @@ Internet-Draft             Prefix Registration                 June 2025
       router, e.g., a radio broadcast domain to preserve energy and
       spectrum.
 
-      A device that wishes to refresh its state, e.g., upon reboot if it
-      may have lost some registration state, SHOULD send an asynchronous
-      NA(EARO) with this new status value.  That asynchronous NA(ARO)
-      SHOULD be sent to the all-nodes link-scope multicast address
-      (ff02::1) and Target MUST be set to the link-local address that
+
+
 
 
 
@@ -786,6 +786,11 @@ Thubert                  Expires 8 December 2025               [Page 14]
 Internet-Draft             Prefix Registration                 June 2025
 
 
+      A device that wishes to refresh its state, e.g., upon reboot if it
+      may have lost some registration state, SHOULD send an asynchronous
+      NA(EARO) with this new status value.  That asynchronous NA(ARO)
+      SHOULD be sent to the all-nodes link-scope multicast address
+      (ff02::1) and Target MUST be set to the link-local address that
       was exposed previously by this node to accept registrations, and
       the TID MUST be set to 0; the ROVR field MUST be set to all zeroes
       and ignored by the receiver.
@@ -829,11 +834,6 @@ Internet-Draft             Prefix Registration                 June 2025
       another interface, or the router handled the EDAR / EDAC flow by
       itself, to ensure that the prefix ownership is known and validated
       by the 6LBR.  Additionally, if the router expect to receive
-      traffic for that prefix on that interface, it needs to ensure that
-      the prefix is advertised some other way, e.g., over a routing
-      protocol such as RPL.
-
-
 
 
 
@@ -841,6 +841,10 @@ Thubert                  Expires 8 December 2025               [Page 15]
 
 Internet-Draft             Prefix Registration                 June 2025
 
+
+      traffic for that prefix on that interface, it needs to ensure that
+      the prefix is advertised some other way, e.g., over a routing
+      protocol such as RPL.
 
    *  The 6LN MAY set the R flag in the EARO to request the 6LR to
       redistribute the prefix on other links using a routing protocol.
@@ -885,10 +889,6 @@ Internet-Draft             Prefix Registration                 June 2025
       delivers a copy of the packet as a unicast layer-2 frame to the
       LLA of exactly one of the nodes that registered to that prefix,
       using the longest prefix match derivation to find the best 6LN.
-
-
-
-
 
 
 

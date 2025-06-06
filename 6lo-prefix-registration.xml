@@ -261,6 +261,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     </t>
        <dl spacing='compact'>
        <dt><strong>6CIO:</strong></dt><dd> (6LoWPAN) Capability Indication Option <xref target="RFC7400"/></dd>
+       <dt><strong>6LBR:</strong></dt><dd> (6LoWPAN) Border Router  <xref target="RFC6775"/></dd>
        <dt><strong>6LN:</strong></dt><dd> (6LoWPAN) Node  <xref target="RFC6775"/> </dd>
        <dt><strong>6LR:</strong></dt><dd> (6LoWPAN) Router  <xref target="RFC6775"/></dd>
        <dt><strong>ARO:</strong></dt><dd> Address Registration Option  <xref target="RFC6775"/></dd>
@@ -288,11 +289,11 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
        <dt><strong>RS:</strong></dt><dd> Router Solicitation (message) <xref target="RFC4861"/> </dd>
        <dt><strong>RTO:</strong></dt><dd> RPL Target Option <xref target="RFC6550"/> </dd>
        <dt><strong>SLLAO:</strong></dt><dd>Source Link-Layer Address Option <xref target="RFC4861"/> </dd>
+       <dt><strong>SND:</strong></dt><dd>Subnet Neighbor Discovery (protocol)</dd>
        <dt><strong>TID:</strong></dt><dd> Transaction ID <xref target="RFC8505"/></dd>
        <dt><strong>TIO:</strong></dt><dd> Transit Information Option <xref target="RFC6550"/> </dd>
        <dt><strong>TLLAO:</strong></dt><dd>Target Link-Layer Address Option <xref target="RFC4861"/> </dd>
 
-       <dt>SND:</dt><dd>Subnet Neighbor Discovery (protocol)</dd>
        </dl>
 
      </section><!-- Acronyms -->
@@ -506,18 +507,25 @@ This specification Extends the EARO and EDAR messages to enable the registration
     </section ><!-- Updating RFC 4861 -->
 
 <section anchor="R8505EF"><name>New P-Field value</name>
-<t> <xref target="RFC9685"/> defines a 2-bits P-Field with values from 0 to 2, and reserves value 3.
+<!-- <t> <xref target="RFC9685"/> defines a 2-bits P-Field with values from 0 to 2, and reserves value 3. -->
 
-   This specification defines value 3 for the P-Field, and uses it to signal that the
-   Registered Address is a prefix. When the P-Field is set to 3, the receiver installs a route to the
-   prefix via the sender's address used as source address in the NS(EARO)
-   registration message.
+   <!-- This specification defines value 3 for the P-Field, and uses it to signal that the -->
+   <!-- Registered Address is a prefix. When the P-Field is set to 3, the receiver installs a route to the -->
+   <!-- prefix via the sender's address used as source address in the NS(EARO) -->
+   <!-- registration message. -->
 
-</t>
-<t>
-
-   This specification assigns the value of 3, resulting in the complete
-   table as follows:
+<!-- </t> -->
+<t> <xref target="RFC9685"/>  defines a 2-bit P-Field with values 0 through 2 and reserves the
+value 3 for future use. This specification defines the semantics of P-Field
+value 3.
+</t><t>
+When the P-Field is set to 3, it indicates that the Registered Address
+represents a prefix rather than a single address. Upon receiving an NS(EARO)
+message with the P-Field set to 3, the receiver MUST install a route to the
+indicated prefix via the source address of the NS(EARO) message.
+</t><t>
+This specification assigns the value 3 to the P-Field, resulting in the
+following complete set of defined values:
 
 </t>
 	 <table anchor="pVALS" ><name>P-Field Values</name>
@@ -594,19 +602,25 @@ This specification Extends the EARO and EDAR messages to enable the registration
 
     <t> New and updated Option Fields:    </t>
     <dl>
-	<dt><strong>F:</strong></dt><dd> 1-bit flag; set to 1 to indicate that the sender expects
-    other routers to forward packets to self when the packets are sourced within
-    the registered prefix.</dd>
-    <dt><strong>Prefix Length:</strong></dt><dd> 7-bit integer; this field contains a prefix length
-    expressed in bits if the P-Field is set to 3 and the EARO is placed in an NS
-    message. In that case the value MUST be between 16 and 120, both included.
-    The field contains a Status if the EARO is placed in an NA message
-    regardless of the setting of the P flag. In all other cases it is reserved,
-    so it MUST be set to 0 by the sender and ignored by the receiver.
+	<dt><strong>F:</strong> (Forwarding Flag)</dt><dd> 
+   A 1-bit flag. When set to 1, it indicates that the sender expects 
+   other routers to forward packets to the sender when those packets 
+   are sourced from within the registered prefix.</dd>
+   
+    <dt><strong>Prefix Length:</strong></dt><dd> 
+
+    A 7-bit unsigned integer. When the P-Field is set to 3 and the EARO is included
+   in a Neighbor Solicitation (NS) message, this field MUST contain a prefix
+   length expressed in bits, with a value between 16 and 120 inclusive. When the
+   EARO is included in a Neighbor Advertisement (NA) message, this field MUST
+   carry a Status value, regardless of the setting of the P-Field. In all other
+   cases, this field is reserved; it MUST be set to zero by the sender and MUST be
+   ignored by the receiver.
     </dd>
 
-   <dt><strong>r (reserved):</strong></dt>
-   <dd>1-bit reserved field; it MUST be set to zero by the sender and MUST be ignored by the receiver.</dd>
+   <dt><strong>r</strong> (reserved):</dt>
+   <dd>A 1-bit reserved field. It MUST be set to zero by the sender and 
+   MUST be ignored by the receiver.</dd>
   
     </dl>
 
@@ -650,12 +664,23 @@ This specification Extends the EARO and EDAR messages to enable the registration
 
     <t> New and updated Option Fields:    </t>
 	<dl>
-	<dt><strong>Reserved:</strong></dt><dd> 6-bit field; reserved, MUST be set to 0 and ignored by the receiver</dd>
-	<dt><strong>Prefix:</strong></dt><dd> 15 bytes field; carries up to 120 bits of prefix, and MUST be padded with zeros. The
-   padding MUST be overwritten with zeros when the prefix is being used by the receiver.</dd>
-	<dt><strong>r:</strong></dt><dd> 1-bit field; reserved, MUST be set to 0 and ignored by the receiver</dd>
-	<dt><strong>Prefix Length:</strong></dt><dd> 7-bit integer; signals the length of the prefix, in bits. 
-   The value MUST be at least 16 and at most 120. </dd>
+	<dt><strong>Reserved:</strong></dt><dd>A 6-bit field reserved for future use. It MUST be set to zero by the sender and
+MUST be ignored by the receiver.</dd>
+
+	<dt><strong>Prefix:</strong></dt><dd>A 15-byte field that carries up 
+   to 120 bits of the prefix. If the prefix isshorter than 120 bits, the
+   remaining bits MUST be padded with zeros. 
+   The receiver MUST treat the padding as zeroed and MUST overwrite any 
+   unused bits with zeros before using the prefix.</dd>
+
+   <dt><strong>r</strong> (reserved):</dt>
+   <dd>A 1-bit reserved field. It MUST be set to zero by the sender and 
+   MUST be ignored by the receiver.</dd>
+  
+  
+	<dt><strong>Prefix Length:</strong></dt><dd>A 7-bit unsigned integer
+   indicating the length of the prefix in bits. The value MUST be in the
+   inclusive range of 16 to 120.</dd>
 	</dl>
 
 </section> <!-- end section "New EDAR Prefix Length Field" -->
