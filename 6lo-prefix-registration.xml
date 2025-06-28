@@ -166,7 +166,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="6550, 8505, 8928, 9010
    establish the Neighbor Cache Entry (NCE) associated to the unicast address of
    a 6LoWPAN Node (6LN) in the 6LoWPAN Router(s) (6LRs) that serve it.
    To that effect, <xref target="RFC6775"/> defines a new Address Registration
-   Option (ARO) that is  placed in unicast Neighbor Solicitation (NS) and
+   Option (ARO) that is placed in unicast Neighbor Solicitation (NS) and
    Neighbor Advertisement (NA) messages between the 6LN and the 6LRs.
 </li><li>
    <xref target="RFC8505"> "Registration Extensions for 6LoWPAN Neighbor
@@ -260,10 +260,10 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
     <t> This document uses the following abbreviations:
     </t>
        <dl spacing='compact'>
-       <dt><strong>6CIO:</strong></dt><dd> (6LoWPAN) Capability Indication Option <xref target="RFC7400"/></dd>
-       <dt><strong>6LBR:</strong></dt><dd> (6LoWPAN) Border Router  <xref target="RFC6775"/></dd>
-       <dt><strong>6LN:</strong></dt><dd> (6LoWPAN) Node  <xref target="RFC6775"/> </dd>
-       <dt><strong>6LR:</strong></dt><dd> (6LoWPAN) Router  <xref target="RFC6775"/></dd>
+       <dt><strong>6CIO:</strong></dt><dd> 6LoWPAN Capability Indication Option <xref target="RFC7400"/></dd>
+       <dt><strong>6LBR:</strong></dt><dd> 6LoWPAN Border Router  <xref target="RFC6775"/></dd>
+       <dt><strong>6LN:</strong></dt><dd> 6LoWPAN Node  <xref target="RFC6775"/> </dd>
+       <dt><strong>6LR:</strong></dt><dd> 6LoWPAN Router  <xref target="RFC6775"/></dd>
        <dt><strong>ARO:</strong></dt><dd> Address Registration Option  <xref target="RFC6775"/></dd>
        <dt><strong>DAD:</strong></dt><dd> Duplicate Address Detection <xref target="RFC4861"/></dd>
        <dt><strong>DAO:</strong></dt><dd> Destination Advertisement Object <xref target="RFC6550"/> </dd>
@@ -512,7 +512,7 @@ This specification Extends the EARO and EDAR messages to enable the registration
    the Target Address field must contain an address that is derived from the
    registered prefix, and the
    prefix length is indicated in the EARO of the NS message, overloading the
-   field that is used in the NA response for the Status.
+   field that is used in the NA response in the Status field.
    </t>
    <t>
    If the 6LN owns one or more address that matches the registered prefix, then it MUST use
@@ -599,7 +599,7 @@ following complete set of defined values:
    when the Status field is used to transport a Prefix Length as shown in
    <xref target="EARO"/>.
 </t>
- <figure anchor="EARO"><name>EARO Option Format for Use in NS Messages</name>
+ <figure anchor="EARO"><name>EARO Format for Use in NS Messages</name>
  <artwork align="center">
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -625,10 +625,10 @@ following complete set of defined values:
     <dt><strong>Prefix Length:</strong></dt><dd> 
 
     A 7-bit unsigned integer. When the P-Field is set to 3 and the EARO is included
-   in a Neighbor Solicitation (NS) message, this field MUST contain a prefix
+   in an NS message, this field MUST contain a prefix
    length expressed in bits, with a value between 16 and 120 inclusive. When the
-   EARO is included in a Neighbor Advertisement (NA) message, this field MUST
-   carry a Status value, regardless of the setting of the P-Field. In all other
+   EARO is included in an NA message, this field MUST
+   carry a status value, regardless of the setting of the P-Field. In all other
    cases, this field is reserved; it MUST be set to zero by the sender and MUST be
    ignored by the receiver.
     </dd>
@@ -647,11 +647,12 @@ following complete set of defined values:
    This specification adds the new value of 3 to the P-Field to signal that the
    Registered Address is a prefix. When that is the case, the prefix is
    assumed to be at most 120 bits long, padded with zeros up to 120 bits, and the 
-   remaining 8 bits are dedicated to the prefix length.
+   remaining byte is dedicated to one reserved bit and the prefix length.
 </t>
 <t>
    <xref target="EDAR"/> illustrates the EDAR message when the value of the
-   P-Field is 3.
+   P-Field is 3. <xref target="EDAC"/> shows the response EDAC message, 
+   with the Status field and the echoed Prefix.   
 </t>
  <figure anchor="EDAR"><name>EDAR Message Format with P == 3</name>
  <artwork align="center">
@@ -661,6 +662,30 @@ following complete set of defined values:
  |     Type      |CodePfx|CodeSfx|          Checksum             |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |P=3| Reserved  |     TID       |     Registration Lifetime     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+...                          ROVR                               ...
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+ +                           Prefix                              +
+ |                                                               |
+ +                 (up to 120 bits, padded with 0s)              +
+ |                                                               |
+ +                                               +-+-+-+-+-+-+-+-+
+ |                                               |r|Prefix Length|
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</artwork>
+ </figure><!-- end figure "EDAR Message Format with P == 3" -->
+ 
+ <figure anchor="EDAC"><name>EDAC Message Format</name>
+ <artwork align="center">
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |     Type      |CodePfx|CodeSfx|          Checksum             |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Status     |     TID       |     Registration Lifetime     |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
 ...                          ROVR                               ...
@@ -697,6 +722,10 @@ MUST be ignored by the receiver.</dd>
    indicating the length of the prefix in bits. The value MUST be in the
    inclusive range of 16 to 120.</dd>
 	</dl>
+   
+   <t>
+   All other fields follow the same definition as specified in <xref target="RFC8505"/>
+   </t>
 
 </section> <!-- end section "New EDAR Prefix Length Field" -->
 
@@ -740,7 +769,7 @@ MUST be ignored by the receiver.</dd>
 
    <li>
    <t>
-   The ARO Status indicating a "Registration Refresh Request" applies to prefixes
+   The EARO status indicating a "Registration Refresh Request" applies to prefixes
    as well.
    </t>
    <t>
@@ -755,7 +784,7 @@ MUST be ignored by the receiver.</dd>
    <t>
    A device that wishes to refresh its state, e.g., upon reboot if it may have
    lost some registration state, SHOULD send an asynchronous NA(EARO) with this
-   new status value. That asynchronous NA(ARO) SHOULD be sent to the all-nodes
+   new status value. That asynchronous NA(EARO) SHOULD be sent to the all-nodes
    link-scope multicast address (ff02::1) and Target MUST be set to the 
    link-local address that was exposed previously by this node to accept 
    registrations, and the TID MUST be set to 0; the ROVR field MUST be set to 

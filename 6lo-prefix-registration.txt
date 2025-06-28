@@ -3,10 +3,10 @@
 
 
 6lo                                                      P. Thubert, Ed.
-Internet-Draft                                               6 June 2025
+Internet-Draft                                              28 June 2025
 Updates: 6550, 8505, 8928, 9010 (if approved)                           
 Intended status: Standards Track                                        
-Expires: 8 December 2025
+Expires: 30 December 2025
 
 
               IPv6 Neighbor Discovery Prefix Registration
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 December 2025.
+   This Internet-Draft will expire on 30 December 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert                  Expires 8 December 2025                [Page 1]
+Thubert                 Expires 30 December 2025                [Page 1]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -81,18 +81,18 @@ Table of Contents
      6.3.  New EARO Prefix Length Field and F flag . . . . . . . . .  11
      6.4.  New EDAR Prefix Length Field  . . . . . . . . . . . . . .  13
      6.5.  Amending the Registration Operation . . . . . . . . . . .  14
-   7.  Updating RFC 9010 . . . . . . . . . . . . . . . . . . . . . .  16
+   7.  Updating RFC 9010 . . . . . . . . . . . . . . . . . . . . . .  17
    8.  Updating RFC 8928 . . . . . . . . . . . . . . . . . . . . . .  17
    9.  Extending RFC 8929  . . . . . . . . . . . . . . . . . . . . .  18
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  18
-   11. Operational Considerations  . . . . . . . . . . . . . . . . .  18
+   10. Security Considerations . . . . . . . . . . . . . . . . . . .  19
+   11. Operational Considerations  . . . . . . . . . . . . . . . . .  19
      11.1.  Partially Upgraded Networks  . . . . . . . . . . . . . .  19
-     11.2.  Application to RPL-Based Route-Over LLNs . . . . . . . .  19
+     11.2.  Application to RPL-Based Route-Over LLNs . . . . . . . .  20
      11.3.  Application to a Shared Link . . . . . . . . . . . . . .  21
      11.4.  Application to a Hub Link with Stub Spokes . . . . . . .  22
    12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  23
      12.1.  Updated P-Field Registry . . . . . . . . . . . . . . . .  23
-     12.2.  New 6LoWPAN Capability Bit . . . . . . . . . . . . . . .  23
+     12.2.  New 6LoWPAN Capability Bit . . . . . . . . . . . . . . .  24
    13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  24
    14. Normative References  . . . . . . . . . . . . . . . . . . . .  24
    15. Informative References  . . . . . . . . . . . . . . . . . . .  26
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert                  Expires 8 December 2025                [Page 2]
+Thubert                 Expires 30 December 2025                [Page 2]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -165,7 +165,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
 
 
-Thubert                  Expires 8 December 2025                [Page 3]
+Thubert                 Expires 30 December 2025                [Page 3]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -221,7 +221,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
 
 
-Thubert                  Expires 8 December 2025                [Page 4]
+Thubert                 Expires 30 December 2025                [Page 4]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -277,7 +277,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
 
 
-Thubert                  Expires 8 December 2025                [Page 5]
+Thubert                 Expires 30 December 2025                [Page 5]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -300,10 +300,10 @@ Internet-Draft             Prefix Registration                 June 2025
 
    This document uses the following abbreviations:
 
-   *6CIO:*  (6LoWPAN) Capability Indication Option [RFC7400]
-   *6LBR:*  (6LoWPAN) Border Router [RFC6775]
-   *6LN:*  (6LoWPAN) Node [RFC6775]
-   *6LR:*  (6LoWPAN) Router [RFC6775]
+   *6CIO:*  6LoWPAN Capability Indication Option [RFC7400]
+   *6LBR:*  6LoWPAN Border Router [RFC6775]
+   *6LN:*  6LoWPAN Node [RFC6775]
+   *6LR:*  6LoWPAN Router [RFC6775]
    *ARO:*  Address Registration Option [RFC6775]
    *DAD:*  Duplicate Address Detection [RFC4861]
    *DAO:*  Destination Advertisement Object [RFC6550]
@@ -333,7 +333,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
 
 
-Thubert                  Expires 8 December 2025                [Page 6]
+Thubert                 Expires 30 December 2025                [Page 6]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -389,7 +389,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
 
 
-Thubert                  Expires 8 December 2025                [Page 7]
+Thubert                 Expires 30 December 2025                [Page 7]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -445,7 +445,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
 
 
-Thubert                  Expires 8 December 2025                [Page 8]
+Thubert                 Expires 30 December 2025                [Page 8]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -501,7 +501,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
 
 
-Thubert                  Expires 8 December 2025                [Page 9]
+Thubert                 Expires 30 December 2025                [Page 9]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -553,11 +553,11 @@ Internet-Draft             Prefix Registration                 June 2025
    case, the Target Address field must contain an address that is
    derived from the registered prefix, and the prefix length is
    indicated in the EARO of the NS message, overloading the field that
-   is used in the NA response for the Status.
+   is used in the NA response in the Status field.
 
 
 
-Thubert                  Expires 8 December 2025               [Page 10]
+Thubert                 Expires 30 December 2025               [Page 10]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -613,7 +613,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
 
 
-Thubert                  Expires 8 December 2025               [Page 11]
+Thubert                 Expires 30 December 2025               [Page 11]
 
 Internet-Draft             Prefix Registration                 June 2025
 
@@ -653,7 +653,7 @@ Internet-Draft             Prefix Registration                 June 2025
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-            Figure 2: EARO Option Format for Use in NS Messages
+                Figure 2: EARO Format for Use in NS Messages
 
    New and updated Option Fields:
 
@@ -663,21 +663,20 @@ Internet-Draft             Prefix Registration                 June 2025
       prefix.
 
    *Prefix Length:*  A 7-bit unsigned integer.  When the P-Field is set
-      to 3 and the EARO is included in a Neighbor Solicitation (NS)
-      message, this field MUST contain a prefix length expressed in
-      bits, with a value between 16 and 120 inclusive.  When the EARO is
+      to 3 and the EARO is included in an NS message, this field MUST
+      contain a prefix length expressed in bits, with a value between 16
+      and 120 inclusive.  When the EARO is included in an NA message,
 
 
 
-Thubert                  Expires 8 December 2025               [Page 12]
+Thubert                 Expires 30 December 2025               [Page 12]
 
 Internet-Draft             Prefix Registration                 June 2025
 
 
-      included in a Neighbor Advertisement (NA) message, this field MUST
-      carry a Status value, regardless of the setting of the P-Field.
-      In all other cases, this field is reserved; it MUST be set to zero
-      by the sender and MUST be ignored by the receiver.
+      this field MUST carry a status value, regardless of the setting of
+      the P-Field.  In all other cases, this field is reserved; it MUST
+      be set to zero by the sender and MUST be ignored by the receiver.
 
    *r* (reserved):  A 1-bit reserved field.  It MUST be set to zero by
       the sender and MUST be ignored by the receiver.
@@ -687,11 +686,12 @@ Internet-Draft             Prefix Registration                 June 2025
    This specification adds the new value of 3 to the P-Field to signal
    that the Registered Address is a prefix.  When that is the case, the
    prefix is assumed to be at most 120 bits long, padded with zeros up
-   to 120 bits, and the remaining 8 bits are dedicated to the prefix
-   length.
+   to 120 bits, and the remaining byte is dedicated to one reserved bit
+   and the prefix length.
 
    Figure 3 illustrates the EDAR message when the value of the P-Field
-   is 3.
+   is 3.  Figure 4 shows the response EDAC message, with the Status
+   field and the echoed Prefix.
 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -715,21 +715,49 @@ Internet-Draft             Prefix Registration                 June 2025
 
                  Figure 3: EDAR Message Format with P == 3
 
+
+
+
+
+
+
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 13]
+
+Internet-Draft             Prefix Registration                 June 2025
+
+
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |     Type      |CodePfx|CodeSfx|          Checksum             |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |    Status     |     TID       |     Registration Lifetime     |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                                                               |
+    ...                          ROVR                               ...
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                                                               |
+     +                           Prefix                              +
+     |                                                               |
+     +                 (up to 120 bits, padded with 0s)              +
+     |                                                               |
+     +                                               +-+-+-+-+-+-+-+-+
+     |                                               |r|Prefix Length|
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+                       Figure 4: EDAC Message Format
+
    New and updated Option Fields:
 
    *Reserved:*  A 6-bit field reserved for future use.  It MUST be set
       to zero by the sender and MUST be ignored by the receiver.
 
    *Prefix:*  A 15-byte field that carries up to 120 bits of the prefix.
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 13]
-
-Internet-Draft             Prefix Registration                 June 2025
-
-
       If the prefix isshorter than 120 bits, the remaining bits MUST be
       padded with zeros.  The receiver MUST treat the padding as zeroed
       and MUST overwrite any unused bits with zeros before using the
@@ -742,9 +770,21 @@ Internet-Draft             Prefix Registration                 June 2025
       the prefix in bits.  The value MUST be in the inclusive range of
       16 to 120.
 
+   All other fields follow the same definition as specified in [RFC8505]
+
 6.5.  Amending the Registration Operation
 
    With [RFC8505]:
+
+
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 14]
+
+Internet-Draft             Prefix Registration                 June 2025
+
 
    *  A router that expects to reboot may send a final RA message, upon
       which nodes should register elsewhere or redo the registration to
@@ -773,18 +813,8 @@ Internet-Draft             Prefix Registration                 June 2025
    specification adds the following behavior, similar to that introduced
    by [RFC9685] for multicast addresses:
 
-   *  The ARO Status indicating a "Registration Refresh Request" applies
-      to prefixes as well.
-
-
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 14]
-
-Internet-Draft             Prefix Registration                 June 2025
-
+   *  The EARO status indicating a "Registration Refresh Request"
+      applies to prefixes as well.
 
       This status is used in asynchronous NA(EARO) messages to indicate
       to peer 6LNs that they are requested to reregister all addresses
@@ -797,12 +827,20 @@ Internet-Draft             Prefix Registration                 June 2025
 
       A device that wishes to refresh its state, e.g., upon reboot if it
       may have lost some registration state, SHOULD send an asynchronous
-      NA(EARO) with this new status value.  That asynchronous NA(ARO)
+      NA(EARO) with this new status value.  That asynchronous NA(EARO)
       SHOULD be sent to the all-nodes link-scope multicast address
       (ff02::1) and Target MUST be set to the link-local address that
       was exposed previously by this node to accept registrations, and
       the TID MUST be set to 0; the ROVR field MUST be set to all zeroes
       and ignored by the receiver.
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 15]
+
+Internet-Draft             Prefix Registration                 June 2025
+
 
       In an environment with unreliable transmissions, the multicast
       NA(EARO) message may be resent in a fast sequence, in which case
@@ -833,15 +871,6 @@ Internet-Draft             Prefix Registration                 June 2025
       installed towards the node that registered with the longest prefix
       match, all the way to /128.
 
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 15]
-
-Internet-Draft             Prefix Registration                 June 2025
-
-
    *  If the 6LR acts as a border router to external prefixes or owns
       the prefixes entirely, it SHOULD register all those prefixes on
       all interfaces from which it might be needed to relay traffic to
@@ -861,6 +890,13 @@ Internet-Draft             Prefix Registration                 June 2025
       The 6LR MUST NOT reregister that prefix to yet another router
       unless loops are avoided some way, e.g., following a tree
       structure.
+
+
+
+Thubert                 Expires 30 December 2025               [Page 16]
+
+Internet-Draft             Prefix Registration                 June 2025
+
 
    *  The 6LR and the 6LBR are extended to accept more than one
       registration for the same prefix, since multiple 6LNs may register
@@ -890,14 +926,6 @@ Internet-Draft             Prefix Registration                 June 2025
 
    This specification adds the following behavior:
 
-
-
-
-Thubert                  Expires 8 December 2025               [Page 16]
-
-Internet-Draft             Prefix Registration                 June 2025
-
-
    *  Upon a registration with the R flag set to 1 and the P-Field set
       to 3 in the EARO, the 6LR injects the prefix in RPL using a prefix
       RTO.  The P-Field in the RTP MUST be set to 3.
@@ -918,6 +946,13 @@ Internet-Draft             Prefix Registration                 June 2025
    public and private keys and use them to sign the registration of
    addresses that are either autoconfigured or obtained through other
    methods.
+
+
+
+Thubert                 Expires 30 December 2025               [Page 17]
+
+Internet-Draft             Prefix Registration                 June 2025
+
 
    The first hop router (the 6LR) can then validate a registration and
    perform source address validation on packets coming from the sender
@@ -946,14 +981,6 @@ Internet-Draft             Prefix Registration                 June 2025
    Requested", the node that registered the address or prefix performs
    the proof of ownership based on that longest prefix match.
 
-
-
-
-Thubert                  Expires 8 December 2025               [Page 17]
-
-Internet-Draft             Prefix Registration                 June 2025
-
-
 9.  Extending RFC 8929
 
    "IPv6 Backbone Router" [RFC8929] defines a proxy operation whereby a
@@ -972,6 +999,16 @@ Internet-Draft             Prefix Registration                 June 2025
    NS(EARO) message to generate the proxied NS(EARO), and it MUST use
    the exact same prefix and prefix length as received in the case of a
    prefix registration.
+
+
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 18]
+
+Internet-Draft             Prefix Registration                 June 2025
+
 
 10.  Security Considerations
 
@@ -999,17 +1036,6 @@ Internet-Draft             Prefix Registration                 June 2025
 
 11.  Operational Considerations
 
-
-
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 18]
-
-Internet-Draft             Prefix Registration                 June 2025
-
-
 11.1.  Partially Upgraded Networks
 
    A mix of devices that support only [RFC8505], both [RFC8505] and
@@ -1028,6 +1054,18 @@ Internet-Draft             Prefix Registration                 June 2025
       that it is duplicate in the EDAC status.  The 6LR MUST ignore a
       duplicate status in the EDAR for prefixes.
 
+
+
+
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 19]
+
+Internet-Draft             Prefix Registration                 June 2025
+
+
 11.2.  Application to RPL-Based Route-Over LLNs
 
    This specification also extends [RFC6550] and [RFC9010] in the case
@@ -1036,35 +1074,9 @@ Internet-Draft             Prefix Registration                 June 2025
    support in both Storing and Non-Storing modes.  A 6LR that implements
    the RPL extensions specified therein MUST also implement [RFC9010].
 
-   Figure 4 illustrates the classical situation of an LLN as a single
+   Figure 5 illustrates the classical situation of an LLN as a single
    IPv6 Subnet, with a 6LoWPAN Border Router (6LBR) that acts as Root
    for RPL operations and as Address Registrar for 6LowPAN ND.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 19]
-
-Internet-Draft             Prefix Registration                 June 2025
-
 
             .- -- .
          .-(        ).
@@ -1089,7 +1101,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
      o : LLN node
 
-                     Figure 4: RPL-Based Route-Over LLN
+                     Figure 5: RPL-Based Route-Over LLN
 
    A RPL leaf L acting as a 6LN registers its addresses and prefixes to
    a RPL router acting as a 6LR, using a layer-2 unicast NS message with
@@ -1102,6 +1114,14 @@ Internet-Draft             Prefix Registration                 June 2025
    The registration state is periodically renewed by the Registering
    Node (the 6LN), before the lifetime indicated in the EARO expires (at
    the 6LR).  As for unicast IPv6 addresses, the 6LR uses an Extended
+
+
+
+Thubert                 Expires 30 December 2025               [Page 20]
+
+Internet-Draft             Prefix Registration                 June 2025
+
+
    Duplicate Address Request/Confirmation (EDAR/EDAC) exchange with the
    6LBR to notify the 6LBR of the presence of the listeners.  With this
    specification, a router that owns a prefix or provides reachability
@@ -1109,25 +1129,12 @@ Internet-Draft             Prefix Registration                 June 2025
    prefixes with the R flag set, to enable reachability to the Prefix
    within the RPL domain.
 
-
-
-
-
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 20]
-
-Internet-Draft             Prefix Registration                 June 2025
-
-
 11.3.  Application to a Shared Link
 
    A shared link is a situation where more than one prefix is deployed
    over a L2 link (say a switched Ethernet fabric, or a Wi-Fi Extended
    Service Set (ESS) federating multiple Access Points (APs)), and not
-   necessarily all nodes are aware of all prefixes.  Figure 5 depicts
+   necessarily all nodes are aware of all prefixes.  Figure 6 depicts
    such a situation, with 2 routers 6LR1 and 6LR2 that own respective
    prefixes P1:: and P2::, and expose those in their RA messages over
    the same link.  Note that the shared link maybe operated with any
@@ -1151,7 +1158,7 @@ Internet-Draft             Prefix Registration                 June 2025
       +-----+   +-----+   +-----+   +-----+   +-----+
 
 
-                           Figure 5: Shared Link
+                           Figure 6: Shared Link
 
    Say that 6LR1 is the router providing access to the outside, and 6LR2
    is aware of 6LR1 as its default gateway.  With this specification,
@@ -1161,6 +1168,16 @@ Internet-Draft             Prefix Registration                 June 2025
    messages [RFC4861] to shorten the path between 6LR1 and the nodes
    that own those addresses.
 
+
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 21]
+
+Internet-Draft             Prefix Registration                 June 2025
+
+
    If P2 was delegated by 6LR1, e.g., using the "Dynamic Host
    Configuration Protocol for IPv6" [RFC8415] (DHCPv6), then the
    expectation is that 6LR1 aggregates P1:: and P2:: in its
@@ -1169,19 +1186,10 @@ Internet-Draft             Prefix Registration                 June 2025
    configuration, 6LR2 SHOULD set the R flag requesting 6LR1 to
    advertise P2:: so as to obtain reachability.
 
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 21]
-
-Internet-Draft             Prefix Registration                 June 2025
-
-
 11.4.  Application to a Hub Link with Stub Spokes
 
    A hub link is a situation where stub links are deployed around a
-   backbone and interconnected by routers.  Figure 6 depicts such a
+   backbone and interconnected by routers.  Figure 7 depicts such a
    situation, with one router 6LR1 serving the hub link and at least one
    router like 6LR2 and 6LR3 providing connectivity from the stub links
    to the hub link.  In this example, say that there is one prefix on
@@ -1214,7 +1222,17 @@ Internet-Draft             Prefix Registration                 June 2025
       +-----+   +-----+   +-----+         +-----+
 
 
-                          Figure 6: Hub and Stubs
+                          Figure 7: Hub and Stubs
+
+
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 22]
+
+Internet-Draft             Prefix Registration                 June 2025
+
 
    As before, say that 6LR1 is the router providing access to the
    outside, and 6LR2 is aware of 6LR1 as its default gateway.  With this
@@ -1223,16 +1241,6 @@ Internet-Draft             Prefix Registration                 June 2025
    derive their addresses from P2:: can still be reached via 6LR1 and
    then 6LR2.  The same goes for 6LR3 and any other routers serving stub
    links.
-
-
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 22]
-
-Internet-Draft             Prefix Registration                 June 2025
-
 
    If P2 was delegated by 6LR1, then the expectation is that 6LR1
    aggregates P1:: and P2:: in its advertisements to the outside, and
@@ -1272,6 +1280,16 @@ Internet-Draft             Prefix Registration                 June 2025
 
                          Table 2: New P-Field value
 
+
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 23]
+
+Internet-Draft             Prefix Registration                 June 2025
+
+
 12.2.  New 6LoWPAN Capability Bit
 
    IANA is requested to make an addition to the "6LoWPAN Capability
@@ -1281,14 +1299,6 @@ Internet-Draft             Prefix Registration                 June 2025
 
    IANA is also requested to fix the description of bit 9 (the "A" flag
    defined in [RFC8928]).  It is not called "1" but "A".
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 23]
-
-Internet-Draft             Prefix Registration                 June 2025
-
 
        +------------------+---------------------------+-----------+
        | Bit              | Description               | Reference |
@@ -1327,24 +1337,21 @@ Internet-Draft             Prefix Registration                 June 2025
               DOI 10.17487/RFC4862, September 2007,
               <https://www.rfc-editor.org/info/rfc4862>.
 
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 24]
+
+Internet-Draft             Prefix Registration                 June 2025
+
+
    [RFC6550]  Winter, T., Ed., Thubert, P., Ed., Brandt, A., Hui, J.,
               Kelsey, R., Levis, P., Pister, K., Struik, R., Vasseur,
               JP., and R. Alexander, "RPL: IPv6 Routing Protocol for
               Low-Power and Lossy Networks", RFC 6550,
               DOI 10.17487/RFC6550, March 2012,
               <https://www.rfc-editor.org/info/rfc6550>.
-
-
-
-
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 24]
-
-Internet-Draft             Prefix Registration                 June 2025
-
 
    [RFC6775]  Shelby, Z., Ed., Chakrabarti, S., Nordmark, E., and C.
               Bormann, "Neighbor Discovery Optimization for IPv6 over
@@ -1386,21 +1393,19 @@ Internet-Draft             Prefix Registration                 June 2025
               Leaves", RFC 9010, DOI 10.17487/RFC9010, April 2021,
               <https://www.rfc-editor.org/info/rfc9010>.
 
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 25]
+
+Internet-Draft             Prefix Registration                 June 2025
+
+
    [RFC9685]  Thubert, P., Ed., "Listener Subscription for IPv6 Neighbor
               Discovery Multicast and Anycast Addresses", RFC 9685,
               DOI 10.17487/RFC9685, November 2024,
               <https://www.rfc-editor.org/info/rfc9685>.
-
-
-
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 25]
-
-Internet-Draft             Prefix Registration                 June 2025
-
 
    [IANA.ICMP]
               IANA, "IANA Registry for ICMPv6", IANA,
@@ -1443,20 +1448,20 @@ Internet-Draft             Prefix Registration                 June 2025
               RFC 8415, DOI 10.17487/RFC8415, November 2018,
               <https://www.rfc-editor.org/info/rfc8415>.
 
+
+
+
+
+
+Thubert                 Expires 30 December 2025               [Page 26]
+
+Internet-Draft             Prefix Registration                 June 2025
+
+
    [RFC9030]  Thubert, P., Ed., "An Architecture for IPv6 over the Time-
               Slotted Channel Hopping Mode of IEEE 802.15.4 (6TiSCH)",
               RFC 9030, DOI 10.17487/RFC9030, May 2021,
               <https://www.rfc-editor.org/info/rfc9030>.
-
-
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 26]
-
-Internet-Draft             Prefix Registration                 June 2025
-
 
    [I-D.ietf-6man-ipv6-over-wireless]
               Thubert, P. and M. Richardson, "Architecture and Framework
@@ -1504,9 +1509,4 @@ Author's Address
 
 
 
-
-
-
-
-
-Thubert                  Expires 8 December 2025               [Page 27]
+Thubert                 Expires 30 December 2025               [Page 27]
