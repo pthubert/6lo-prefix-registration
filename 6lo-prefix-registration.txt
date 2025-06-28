@@ -21,7 +21,7 @@ Abstract
    without a loop.  The unicast prefix registration allows the node to
    request neighbor router(s) to redistribute the prefix in another
    routing domain regardless of the routing protocol used in that
-   domain.  This document extends Routing Protocol for Low-Power and
+   domain.  This document updaties Routing Protocol for Low-Power and
    Lossy Networks (RPL) (RFC 6550, RFC 9010) to enable a 6LoWPAN Router
    (6LR) to inject the registered prefix in RPL.
 
@@ -73,17 +73,17 @@ Table of Contents
      2.3.  Acronyms and Initialisms  . . . . . . . . . . . . . . . .   6
      2.4.  New terms . . . . . . . . . . . . . . . . . . . . . . . .   7
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   7
-   4.  Extending RFC 7400  . . . . . . . . . . . . . . . . . . . . .   8
+   4.  Updating RFC 7400 . . . . . . . . . . . . . . . . . . . . . .   8
    5.  Updating RFC 6550 . . . . . . . . . . . . . . . . . . . . . .   9
    6.  Updating RFC 8505 . . . . . . . . . . . . . . . . . . . . . .  10
      6.1.  Leveraging the Target Address to Advertise a Prefix . . .  10
      6.2.  New P-Field value . . . . . . . . . . . . . . . . . . . .  11
      6.3.  New EARO Prefix Length Field and F flag . . . . . . . . .  11
      6.4.  New EDAR Prefix Length Field  . . . . . . . . . . . . . .  13
-     6.5.  Amending the Registration Operation . . . . . . . . . . .  14
+     6.5.  Updating the Registration Operation . . . . . . . . . . .  14
    7.  Updating RFC 9010 . . . . . . . . . . . . . . . . . . . . . .  17
    8.  Updating RFC 8928 . . . . . . . . . . . . . . . . . . . . . .  17
-   9.  Extending RFC 8929  . . . . . . . . . . . . . . . . . . . . .  18
+   9.  Updating RFC 8929 . . . . . . . . . . . . . . . . . . . . . .  18
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  19
    11. Operational Considerations  . . . . . . . . . . . . . . . . .  19
      11.1.  Partially Upgraded Networks  . . . . . . . . . . . . . .  19
@@ -228,15 +228,15 @@ Internet-Draft             Prefix Registration                 June 2025
 
    *  "IPv6 Neighbor Discovery Multicast Address Listener Subscription"
       [RFC9685] updates [RFC8505] to enable a listener to subscribe to
-      an IPv6 anycast or multicast address; the draft also extends
+      an IPv6 anycast or multicast address; the draft also updaties
       [RFC9010] to enable a 6LR to inject the anycast and multicast
-      addresses in RPL.  Similarly, this specification extends [RFC8505]
-      and [RFC9010] to add the capability for a 6LN to register unicast
-      prefixes up to 120 bits long, as opposed to addresses, and to
-      signal in a routing-protocol-independent fashion to a 6LR that it
-      is expected to redistribute the prefixes.
+      addresses in RPL.  Similarly, this specification updaties
+      [RFC8505] and [RFC9010] to add the capability for a 6LN to
+      register unicast prefixes up to 120 bits long, as opposed to
+      addresses, and to signal in a routing-protocol-independent fashion
+      to a 6LR that it is expected to redistribute the prefixes.
 
-   This specification extends the above registration and subscription
+   This specification updaties the above registration and subscription
    methods to enable a node to register a unicast prefix to the routing
    system and get it injected in the routing protocol.  As with
    [RFC8505], the prefix registration is agnostic to the routing
@@ -426,7 +426,7 @@ Internet-Draft             Prefix Registration                 June 2025
    the 6LN from the routing protocol that the 6LRs run in the main LLN
    and provide signaling to stimulate the redistribution.
 
-4.  Extending RFC 7400
+4.  Updating RFC 7400
 
    This specification Extends "6LoWPAN-GHC: Generic Header Compression
    for IPv6 over Low-Power Wireless Personal Area Networks (6LoWPANs)"
@@ -546,10 +546,10 @@ Internet-Draft             Prefix Registration                 June 2025
 
    [RFC4861] expects that the NS/NA exchange is for a unicast address,
    which is indicated in the Target Address field of the ND message.
-   Section 5.5 of [RFC8505] extends [RFC4861] to signal the Registered
+   Section 5.5 of [RFC8505] updaties [RFC4861] to signal the Registered
    Address in the Target Address field.
 
-   This specification extends the above to register a prefix.  In that
+   This specification updaties the above to register a prefix.  In that
    case, the Target Address field must contain an address that is
    derived from the registered prefix, and the prefix length is
    indicated in the EARO of the NS message, overloading the field that
@@ -772,7 +772,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
    All other fields follow the same definition as specified in [RFC8505]
 
-6.5.  Amending the Registration Operation
+6.5.  Updating the Registration Operation
 
    With [RFC8505]:
 
@@ -981,7 +981,7 @@ Internet-Draft             Prefix Registration                 June 2025
    Requested", the node that registered the address or prefix performs
    the proof of ownership based on that longest prefix match.
 
-9.  Extending RFC 8929
+9.  Updating RFC 8929
 
    "IPv6 Backbone Router" [RFC8929] defines a proxy operation whereby a
    6LoWPAN Border Router (6LBR) may impersonate a 6LN when performing an
@@ -1012,7 +1012,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
 10.  Security Considerations
 
-   This specification extends [RFC8505], and the security section of
+   This specification updaties [RFC8505], and the security section of
    that document also applies to this document.  In particular, the link
    layer SHOULD be sufficiently protected to prevent rogue access, else
    a rogue node with physical Access to the network may inject packets
@@ -1068,7 +1068,7 @@ Internet-Draft             Prefix Registration                 June 2025
 
 11.2.  Application to RPL-Based Route-Over LLNs
 
-   This specification also extends [RFC6550] and [RFC9010] in the case
+   This specification also updaties [RFC6550] and [RFC9010] in the case
    of a route-over multilink subnet based on the RPL routing protocol,
    to add multicast ingress replication in Non-Storing Mode and anycast
    support in both Storing and Non-Storing modes.  A 6LR that implements

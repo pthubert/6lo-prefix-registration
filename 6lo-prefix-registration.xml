@@ -48,7 +48,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="6550, 8505, 8928, 9010
    prefix can be reached via the advertising node without a loop.  The
    unicast prefix registration allows the node to request neighbor router(s) to
    redistribute the prefix in another routing domain regardless of the
-   routing protocol used in that domain.  This document extends
+   routing protocol used in that domain.  This document updaties
    Routing Protocol for Low-Power and Lossy Networks (RPL) (RFC 6550,
    RFC 9010) to enable a 6LoWPAN Router (6LR) to inject the
    registered prefix in RPL.
@@ -182,15 +182,15 @@ submissionType="IETF" xml:lang="en" version="3"  updates="6550, 8505, 8928, 9010
    <xref target="RFC9685">
    "IPv6 Neighbor Discovery Multicast Address Listener Subscription"</xref>
    updates <xref target="RFC8505"/> to enable a listener to subscribe to an IPv6
-    anycast or multicast address; the draft also extends <xref target="RFC9010"/>
+    anycast or multicast address; the draft also updaties <xref target="RFC9010"/>
     to enable a 6LR to inject the anycast and multicast addresses in RPL.
-    Similarly, this specification extends <xref target="RFC8505"/> and
+    Similarly, this specification updaties <xref target="RFC8505"/> and
     <xref target="RFC9010"/> to add the capability for a 6LN to register unicast
     prefixes up to 120 bits long, as opposed to addresses, and to signal in a routing-protocol-independent
     fashion to a 6LR that it is expected to redistribute the prefixes.
 </li></ul>
 <t>
-This specification extends the above registration and subscription methods
+This specification updaties the above registration and subscription methods
 to enable a node to register a unicast prefix to the routing system and get it injected in the routing protocol. As with <xref target="RFC8505"/>, the prefix registration is agnostic to the routing protocol in which the router injects the prefix, and the router is agnostic to the method that was used to allocate the prefix to the node.
 The energy conservation principles in <xref target="RFC8505"/> are retained as well, 
 meaning that the node does not have to send or expect asynchronous multicast messages. 
@@ -224,7 +224,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
        <!-- <dt><strong>updates/Amended by:</strong></dt> -->
 			<!-- <dd>This tag pair is used with an amending RFC that changes the amended RFC. This could include bug fixes, behavior changes etc. This is intended to specify mandatory changes to the protocol. The goal of this tag pair is to signal to anyone looking to implement the amended RFC that they MUST also implement the amending RFC. </dd> -->
 	   <!-- <dt><strong>Extends/Extended by:</strong></dt> -->
-			<!-- <dd> This tag pair is used with an extending RFC that defines an optional addition to the extended RFC. This can be used by documents that use existing extension points or clarifications that do not change existing protocol behavior. This signals to implementers and protocol designers that there are changes to the extended RFC that they need to consider but not necessarily implement.</dd> -->
+			<!-- <dd> This tag pair is used with an updating RFC that defines an optional addition to the extended RFC. This can be used by documents that use existing extension points or clarifications that do not change existing protocol behavior. This signals to implementers and protocol designers that there are changes to the extended RFC that they need to consider but not necessarily implement.</dd> -->
        <!-- </dl> -->
 
   
@@ -393,7 +393,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 </section> <!-- end section "Overview" -->
 
 
-    <section anchor="CIO"><name>Extending RFC 7400</name>
+    <section anchor="CIO"><name>Updating RFC 7400</name>
 
     <t>
    This specification Extends <xref target="RFC7400"> "6LoWPAN-GHC: Generic
@@ -435,7 +435,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 	<dt><strong>F:</strong></dt><dd> 1-bit flag, set to 1 to indicate "Registration for prefixes Supported" </dd>
 	</dl>
 
-    </section>	<!-- end section "Extending RFC 7400" -->
+    </section>	<!-- end section "Updating RFC 7400" -->
 
 
 
@@ -504,11 +504,11 @@ This specification Extends the EARO and EDAR messages to enable the registration
    <t>
    <xref target="RFC4861"/> expects that the NS/NA exchange is for a unicast
    address, which is indicated in the Target Address field of the ND message.
-   Section 5.5 of <xref target="RFC8505"/> extends <xref target="RFC4861"/>
+   Section 5.5 of <xref target="RFC8505"/> updaties <xref target="RFC4861"/>
    to signal the Registered Address in the Target Address field.
    </t>
    <t>
-   This specification extends the above to register a prefix. In that case, 
+   This specification updaties the above to register a prefix. In that case, 
    the Target Address field must contain an address that is derived from the
    registered prefix, and the
    prefix length is indicated in the EARO of the NS message, overloading the
@@ -731,7 +731,7 @@ MUST be ignored by the receiver.</dd>
 
 
 
-<section anchor="multireg"><name>Amending the Registration Operation</name>
+<section anchor="multireg"><name>Updating the Registration Operation</name>
 <t>
    With <xref target="RFC8505"/>:
    </t>
@@ -860,7 +860,7 @@ MUST be ignored by the receiver.</dd>
 
    </ul>
 
-</section> <!-- end section "Amending the Registration Operation"-->
+</section> <!-- end section "Updating the Registration Operation"-->
 
 </section> <!-- end section "Updating RFC 8505"-->
 
@@ -955,7 +955,7 @@ MUST be ignored by the receiver.</dd>
 </section>  <!-- Updating RFC 8928 -->
 
 
-<section  anchor="ext8929"><name>Extending RFC 8929</name>
+<section  anchor="ext8929"><name>Updating RFC 8929</name>
 <t>
   <xref target="RFC8929">"IPv6 Backbone Router"</xref> defines a proxy 
   operation whereby a 6LoWPAN Border Router (6LBR)
@@ -979,7 +979,7 @@ MUST be ignored by the receiver.</dd>
 
 <section  anchor="sec"><name>Security Considerations</name>
 <t>
-    This specification extends <xref target="RFC8505"/>, and
+    This specification updaties <xref target="RFC8505"/>, and
     the security section of that document also applies to this document.
     In particular, the link layer SHOULD be sufficiently
     protected to prevent rogue access, else a rogue node with physical Access
@@ -1035,7 +1035,7 @@ MUST be ignored by the receiver.</dd>
 </section> <!-- end section "Partially Upgraded Networks" -->
 <section anchor="LLN"><name>Application to RPL-Based Route-Over LLNs</name>
    <t>
-   This specification also extends <xref target="RFC6550"/> and
+   This specification also updaties <xref target="RFC6550"/> and
    <xref target="RFC9010"/> in the case of a route-over multilink subnet based
    on the RPL routing protocol, to add multicast ingress replication in
    Non-Storing Mode and anycast support in both Storing and Non-Storing modes.
