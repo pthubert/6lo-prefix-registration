@@ -15,7 +15,7 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-14" >
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-15" >
  
 <front>
 
@@ -49,7 +49,7 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928
    prefix can be reached via the advertising node without a loop.  The
    unicast prefix registration allows the node to request neighbor router(s) to
    redistribute the prefix in another routing domain regardless of the
-   routing protocol used in that domain.  This document updaties
+   routing protocol used in that domain.  This document updates
    Routing Protocol for Low-Power and Lossy Networks (RPL) (RFC 6550,
    RFC 9010) to enable a 6LoWPAN Router (6LR) to inject the
    registered prefix in RPL.
@@ -183,15 +183,15 @@ submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928
    <xref target="RFC9685">
    "IPv6 Neighbor Discovery Multicast Address Listener Subscription"</xref>
    updates <xref target="RFC8505"/> to enable a listener to subscribe to an IPv6
-    anycast or multicast address; the draft also updaties <xref target="RFC9010"/>
+    anycast or multicast address; the draft also updates <xref target="RFC9010"/>
     to enable a 6LR to inject the anycast and multicast addresses in RPL.
-    Similarly, this specification updaties <xref target="RFC8505"/> and
+    Similarly, this specification updates <xref target="RFC8505"/> and
     <xref target="RFC9010"/> to add the capability for a 6LN to register unicast
     prefixes up to 120 bits long, as opposed to addresses, and to signal in a routing-protocol-independent
     fashion to a 6LR that it is expected to redistribute the prefixes.
 </li></ul>
 <t>
-This specification updaties the above registration and subscription methods
+This specification updates the above registration and subscription methods
 to enable a node to register a unicast prefix to the routing system and get it injected in the routing protocol. As with <xref target="RFC8505"/>, the prefix registration is agnostic to the routing protocol in which the router injects the prefix, and the router is agnostic to the method that was used to allocate the prefix to the node.
 The energy conservation principles in <xref target="RFC8505"/> are retained as well, 
 meaning that the node does not have to send or expect asynchronous multicast messages. 
@@ -987,7 +987,7 @@ MUST be ignored by the receiver.</dd>
 
 <section  anchor="sec"><name>Security Considerations</name>
 <t>
-    This specification updaties <xref target="RFC8505"/>, and
+    This specification updates <xref target="RFC8505"/>, and
     the security section of that document also applies to this document.
     In particular, the link layer SHOULD be sufficiently
     protected to prevent rogue access, else a rogue node with physical Access
@@ -1043,7 +1043,7 @@ MUST be ignored by the receiver.</dd>
 </section> <!-- end section "Partially Upgraded Networks" -->
 <section anchor="LLN"><name>Application to RPL-Based Route-Over LLNs</name>
    <t>
-   This specification also updaties <xref target="RFC6550"/> and
+   This specification also updates <xref target="RFC6550"/> and
    <xref target="RFC9010"/> in the case of a route-over multilink subnet based
    on the RPL routing protocol, to add multicast ingress replication in
    Non-Storing Mode and anycast support in both Storing and Non-Storing modes.

@@ -11,7 +11,7 @@ Expires: 5 January 2026
 
 
               IPv6 Neighbor Discovery Prefix Registration
-                 draft-ietf-6lo-prefix-registration-14
+                 draft-ietf-6lo-prefix-registration-15
 
 Abstract
 
@@ -23,7 +23,7 @@ Abstract
    unicast prefix registration allows the node to request neighbor
    router(s) to redistribute the prefix in another routing domain
    regardless of the routing protocol used in that domain.  This
-   document updaties Routing Protocol for Low-Power and Lossy Networks
+   document updates Routing Protocol for Low-Power and Lossy Networks
    (RPL) (RFC 6550, RFC 9010) to enable a 6LoWPAN Router (6LR) to inject
    the registered prefix in RPL.
 
@@ -228,15 +228,15 @@ Internet-Draft             Prefix Registration                 July 2025
 
    *  "IPv6 Neighbor Discovery Multicast Address Listener Subscription"
       [RFC9685] updates [RFC8505] to enable a listener to subscribe to
-      an IPv6 anycast or multicast address; the draft also updaties
+      an IPv6 anycast or multicast address; the draft also updates
       [RFC9010] to enable a 6LR to inject the anycast and multicast
-      addresses in RPL.  Similarly, this specification updaties
-      [RFC8505] and [RFC9010] to add the capability for a 6LN to
-      register unicast prefixes up to 120 bits long, as opposed to
-      addresses, and to signal in a routing-protocol-independent fashion
-      to a 6LR that it is expected to redistribute the prefixes.
+      addresses in RPL.  Similarly, this specification updates [RFC8505]
+      and [RFC9010] to add the capability for a 6LN to register unicast
+      prefixes up to 120 bits long, as opposed to addresses, and to
+      signal in a routing-protocol-independent fashion to a 6LR that it
+      is expected to redistribute the prefixes.
 
-   This specification updaties the above registration and subscription
+   This specification updates the above registration and subscription
    methods to enable a node to register a unicast prefix to the routing
    system and get it injected in the routing protocol.  As with
    [RFC8505], the prefix registration is agnostic to the routing
@@ -1012,7 +1012,7 @@ Internet-Draft             Prefix Registration                 July 2025
 
 12.  Security Considerations
 
-   This specification updaties [RFC8505], and the security section of
+   This specification updates [RFC8505], and the security section of
    that document also applies to this document.  In particular, the link
    layer SHOULD be sufficiently protected to prevent rogue access, else
    a rogue node with physical Access to the network may inject packets
@@ -1068,7 +1068,7 @@ Internet-Draft             Prefix Registration                 July 2025
 
 13.2.  Application to RPL-Based Route-Over LLNs
 
-   This specification also updaties [RFC6550] and [RFC9010] in the case
+   This specification also updates [RFC6550] and [RFC9010] in the case
    of a route-over multilink subnet based on the RPL routing protocol,
    to add multicast ingress replication in Non-Storing Mode and anycast
    support in both Storing and Non-Storing modes.  A 6LR that implements
