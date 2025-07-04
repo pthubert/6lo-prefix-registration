@@ -417,8 +417,6 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    NS(EARO) message. Else, it MUST indicate the prefix padded with 0s
    in the Target Address field. 
    </t>
-    </section ><!-- Updating RFC 4861 -->
-    <section anchor="TAddr"><name></name>
 </section> <!-- end section "Updating RFC 4861" -->
 
 
@@ -1292,7 +1290,7 @@ MUST be ignored by the receiver.</dd>
 <t>
    Many thanks to Dave Thaler and Dan Romascanu for their early reviews, Adnan Rashid for all his contributions,
    and Eric Vyncke for his in-depth AD review.
-   Many thanks as well to the reviewers of the IETF last call and IESG rounds,
+   Many thanks as well to the reviewers of the IETF last call and IESG rounds, Dan Romascanu,
    Shuping Peng, Mohamed Boucadair, Paul Wouters, Ketan Talaulikar, Gunter Van de Velde, Mike Bishop, Roman Danyliw, ...
 </t>
 </section> <!-- title="Acknowledgments" -->
