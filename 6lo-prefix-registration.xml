@@ -15,7 +15,7 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-14" >
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-14" >
  
 <front>
 
@@ -42,7 +42,8 @@ submissionType="IETF" xml:lang="en" version="3"  updates="6550, 8505, 8928, 9010
    <t>
    
 
-    This document updates Subnet Neighbor Discovery (RFC 8505, RFC 8928) to enable a node that
+   This document updates IPv6 Neighbor Discovery (RFC 4861) and IPv6
+   Subnet Neighbor Discovery (RFC 8505, RFC 8928) to enable a node that
    owns or is directly connected to a prefix to register that prefix to
    neighbor routers.  The registration indicates that the registered
    prefix can be reached via the advertising node without a loop.  The
@@ -217,13 +218,13 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
   </t>
 
 <!-- <t> -->
-  <!-- In addition, the terms "Extends" and "updates" are used as a more specific term for "Updates" per -->
+  <!-- In addition, the terms "updates" and "updates" are used as a more specific term for "Updates" per -->
   <!-- <xref target="I-D.kuehlewind-update-tag" /> section 3 as follows: -->
   <!-- </t> -->
    <!-- <dl newline="false" indent="7" spacing="compact" > -->
        <!-- <dt><strong>updates/Amended by:</strong></dt> -->
 			<!-- <dd>This tag pair is used with an amending RFC that changes the amended RFC. This could include bug fixes, behavior changes etc. This is intended to specify mandatory changes to the protocol. The goal of this tag pair is to signal to anyone looking to implement the amended RFC that they MUST also implement the amending RFC. </dd> -->
-	   <!-- <dt><strong>Extends/Extended by:</strong></dt> -->
+	   <!-- <dt><strong>updates/Extended by:</strong></dt> -->
 			<!-- <dd> This tag pair is used with an updating RFC that defines an optional addition to the extended RFC. This can be used by documents that use existing extension points or clarifications that do not change existing protocol behavior. This signals to implementers and protocol designers that there are changes to the extended RFC that they need to consider but not necessarily implement.</dd> -->
        <!-- </dl> -->
 
@@ -393,13 +394,41 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 </section> <!-- end section "Overview" -->
 
 
+
+   <section anchor="tgt4861"><name>Updating RFC 4861</name>
+   <t>
+   <xref target="RFC4861"/> expects that the NS/NA exchange is for a unicast
+   address, which is indicated in the Target Address field of the ND message.
+   Section 5.5 of <xref target="RFC8505"/> updates <xref target="RFC4861"/>
+   to signal the Registered Address in the Target Address field.
+   </t>
+   <t>
+   This specification updates <xref target="RFC4861"/> by allowing a 6LN to advertise a	 		
+   prefix in the Target Address field when the NS or NA message is used	 		
+   for a registration, per section 5.5 of <xref target="RFC8505"/>; in that case, the	 		
+   prefix length MUST be indicated in the EARO of the NS message, overloading	 		
+   the field that is used in the NA response for the Status.
+   
+   </t>
+   <t>
+   If the 6LN owns at least one an IPv6 address that is derived from the
+   registered prefix with a non-0 interface ID, then it MUST indicate 
+   one of these addresses in full in the Target Address field of the 
+   NS(EARO) message. Else, it MUST indicate the prefix padded with 0s
+   in the Target Address field. 
+   </t>
+    </section ><!-- Updating RFC 4861 -->
+    <section anchor="TAddr"><name></name>
+</section> <!-- end section "Updating RFC 4861" -->
+
+
     <section anchor="CIO"><name>Updating RFC 7400</name>
 
     <t>
-   This specification Extends <xref target="RFC7400"> "6LoWPAN-GHC: Generic
+   This specification updates <xref target="RFC7400"> "6LoWPAN-GHC: Generic
    Header Compression for IPv6 over Low-Power Wireless Personal Area Networks
    (6LoWPANs)"</xref> by defining a new capability bit for use in the
-   6CIO.  <xref target="RFC7400"/> was already extended by <xref target="RFC8505"/> for use in IPv6 ND messages.
+   6CIO.  <xref target="RFC7400"/> was already updated by <xref target="RFC8505"/> for use in IPv6 ND messages.
     </t>
     <t>
    The new "Registration for prefixes Supported" (F) flag indicates
@@ -465,7 +494,7 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
    origin is recognized across multiple hops.
 
 </t><t>
-   This specification Extends <xref target="RFC6550"/> to require that,
+   This specification updates <xref target="RFC6550"/> to require that,
    for prefix routes, the Path Sequence is used between and only between
    advertisements for the same Target and from the same origin (i.e., with the same ROVR value); in that case, only the freshest advertisement is retained. But the freshness comparison cannot apply if the
    origin is not determined (i.e., the origin did not support this specification).
@@ -497,29 +526,8 @@ It can be noted that an energy-conserving node is not necessarily a router, so e
 
 
 <t>
-This specification Extends the EARO and EDAR messages to enable the registration of prefixes and updates the Registration operation in the case of a prefix, in particular from the standpoint of the 6LR, e.g., to enable the Registration of overlapping prefixes.
+This specification updates the EARO and EDAR messages to enable the registration of prefixes and updates the Registration operation in the case of a prefix, in particular from the standpoint of the 6LR, e.g., to enable the Registration of overlapping prefixes.
 </t>
-
-   <section anchor="tgt4861"><name>Leveraging the Target Address to Advertise a Prefix</name>
-   <t>
-   <xref target="RFC4861"/> expects that the NS/NA exchange is for a unicast
-   address, which is indicated in the Target Address field of the ND message.
-   Section 5.5 of <xref target="RFC8505"/> updaties <xref target="RFC4861"/>
-   to signal the Registered Address in the Target Address field.
-   </t>
-   <t>
-   This specification updaties the above to register a prefix. In that case, 
-   the Target Address field must contain an address that is derived from the
-   registered prefix, and the
-   prefix length is indicated in the EARO of the NS message, overloading the
-   field that is used in the NA response in the Status field.
-   </t>
-   <t>
-   If the 6LN owns one or more address that matches the registered prefix, then it MUST use
-   that one of these addresses.
-    </t>
-   
-    </section ><!-- Updating RFC 4861 -->
 
 <section anchor="R8505EF"><name>New P-Field value</name>
 <!-- <t> <xref target="RFC9685"/> defines a 2-bits P-Field with values from 0 to 2, and reserves value 3. -->
@@ -967,7 +975,7 @@ MUST be ignored by the receiver.</dd>
   by the 6LBR, which generates an NS(EARO) upon receiving an EDAR message.
 </t>
 <t>
-  This specification Extends that proxy operation with the updates in <xref target="RFC9685"/>
+  This specification updates that proxy operation with the updates in <xref target="RFC9685"/>
   and this on the formats and content of the EARO, the EDAR, and the EDAC messages, 
   to support the P-Field and the signaling of prefixes. The proxy MUST use the P-Field as received 
   in the EDAR or NS(EARO) message to generate the proxied NS(EARO), and it MUST
