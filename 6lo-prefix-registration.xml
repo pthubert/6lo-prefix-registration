@@ -15,7 +15,7 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-15" >
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-16" >
  
 <front>
 
@@ -681,6 +681,8 @@ following complete set of defined values:
  +                                               +-+-+-+-+-+-+-+-+
  |                                               |r|Prefix Length|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   Options ...
+ +-+-+-+-+-+-+-+-+-+-+-+-
 </artwork>
  </figure><!-- end figure "EDAR Message Format with P == 3" -->
  
@@ -705,6 +707,8 @@ following complete set of defined values:
  +                                               +-+-+-+-+-+-+-+-+
  |                                               |r|Prefix Length|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   Options ...
+ +-+-+-+-+-+-+-+-+-+-+-+-
 </artwork>
  </figure><!-- end figure "EDAR Message Format with P == 3" -->
 
