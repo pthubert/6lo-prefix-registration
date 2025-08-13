@@ -15,7 +15,7 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-16" >
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-17" >
  
 <front>
 
@@ -712,10 +712,8 @@ following complete set of defined values:
 </artwork>
  </figure><!-- end figure "EDAR Message Format with P == 3" -->
 
-    <t> New and updated Option Fields:    </t>
+    <t> New and updated EDAR/EDAC Message Fields:    </t>
 	<dl>
-	<dt><strong>Reserved:</strong></dt><dd>A 6-bit field reserved for future use. It MUST be set to zero by the sender and
-MUST be ignored by the receiver.</dd>
 
 	<dt><strong>Prefix:</strong></dt><dd>A 15-byte field that carries up 
    to 120 bits of the prefix. If the prefix isshorter than 120 bits, the
@@ -734,7 +732,15 @@ MUST be ignored by the receiver.</dd>
 	</dl>
    
    <t>
-   All other fields follow the same definition as specified in <xref target="RFC8505"/>
+   The capability to place The P-Field and the contiguous "Reserved" field in the EDAR message are specified in <xref target="RFC9685"/>
+   </t>
+   <t>
+   The capability to append ND options to the EDAR and EDAC messages is specified in <xref target="RFC8929"/>
+   </t>
+   <t>
+   All other fields follow the same definition as specified in <xref target="RFC8505"/>. 
+   The values for these fields and RFC references are maintained by IANA under the "Internet Control Message
+    Protocol version 6 (ICMPv6) Parameters" <xref target="IANA.ICMP"/> registry grouping.
    </t>
 
 </section> <!-- end section "New EDAR Prefix Length Field" -->
