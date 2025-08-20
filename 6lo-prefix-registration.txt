@@ -3,15 +3,15 @@
 
 
 6lo                                                      P. Thubert, Ed.
-Internet-Draft                                            13 August 2025
+Internet-Draft                                            20 August 2025
 Updates: 4861, 6550, 8505, 8928, 9010 (if                               
          approved)                                                      
 Intended status: Standards Track                                        
-Expires: 14 February 2026
+Expires: 21 February 2026
 
 
               IPv6 Neighbor Discovery Prefix Registration
-                 draft-ietf-6lo-prefix-registration-17
+                 draft-ietf-6lo-prefix-registration-18
 
 Abstract
 
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 February 2026.
+   This Internet-Draft will expire on 21 February 2026.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert                 Expires 14 February 2026                [Page 1]
+Thubert                 Expires 21 February 2026                [Page 1]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert                 Expires 14 February 2026                [Page 2]
+Thubert                 Expires 21 February 2026                [Page 2]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -165,7 +165,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026                [Page 3]
+Thubert                 Expires 21 February 2026                [Page 3]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -221,7 +221,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026                [Page 4]
+Thubert                 Expires 21 February 2026                [Page 4]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -277,7 +277,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026                [Page 5]
+Thubert                 Expires 21 February 2026                [Page 5]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -333,7 +333,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026                [Page 6]
+Thubert                 Expires 21 February 2026                [Page 6]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -389,7 +389,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026                [Page 7]
+Thubert                 Expires 21 February 2026                [Page 7]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -445,7 +445,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026                [Page 8]
+Thubert                 Expires 21 February 2026                [Page 8]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -501,7 +501,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026                [Page 9]
+Thubert                 Expires 21 February 2026                [Page 9]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -557,7 +557,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 10]
+Thubert                 Expires 21 February 2026               [Page 10]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -613,7 +613,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 11]
+Thubert                 Expires 21 February 2026               [Page 11]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -669,7 +669,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 12]
+Thubert                 Expires 21 February 2026               [Page 12]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -725,7 +725,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 13]
+Thubert                 Expires 21 February 2026               [Page 13]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -781,7 +781,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 14]
+Thubert                 Expires 21 February 2026               [Page 14]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -802,10 +802,10 @@ Internet-Draft             Prefix Registration               August 2025
       16 to 120.
 
    The capability to place The P-Field and the contiguous "Reserved"
-   field in the EDAR message are specified in [RFC9685]
+   field in the EDAR message are specified in section 7.2 of [RFC9685].
 
    The capability to append ND options to the EDAR and EDAC messages is
-   specified in [RFC8929]
+   specified in section 3.1 of [RFC8929].
 
    All other fields follow the same definition as specified in
    [RFC8505].  The values for these fields and RFC references are
@@ -837,7 +837,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 15]
+Thubert                 Expires 21 February 2026               [Page 15]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -893,7 +893,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 16]
+Thubert                 Expires 21 February 2026               [Page 16]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -949,7 +949,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 17]
+Thubert                 Expires 21 February 2026               [Page 17]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1005,7 +1005,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 18]
+Thubert                 Expires 21 February 2026               [Page 18]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1061,7 +1061,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 19]
+Thubert                 Expires 21 February 2026               [Page 19]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1117,7 +1117,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 20]
+Thubert                 Expires 21 February 2026               [Page 20]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1173,7 +1173,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 21]
+Thubert                 Expires 21 February 2026               [Page 21]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1229,7 +1229,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 22]
+Thubert                 Expires 21 February 2026               [Page 22]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1285,7 +1285,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 23]
+Thubert                 Expires 21 February 2026               [Page 23]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1341,7 +1341,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 24]
+Thubert                 Expires 21 February 2026               [Page 24]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1397,7 +1397,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 25]
+Thubert                 Expires 21 February 2026               [Page 25]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1453,7 +1453,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 26]
+Thubert                 Expires 21 February 2026               [Page 26]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1509,7 +1509,7 @@ Internet-Draft             Prefix Registration               August 2025
 
 
 
-Thubert                 Expires 14 February 2026               [Page 27]
+Thubert                 Expires 21 February 2026               [Page 27]
 
 Internet-Draft             Prefix Registration               August 2025
 
@@ -1565,4 +1565,4 @@ Author's Address
 
 
 
-Thubert                 Expires 14 February 2026               [Page 28]
+Thubert                 Expires 21 February 2026               [Page 28]

@@ -15,7 +15,7 @@
 <?rfc tocappendix="yes"?>
 <rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="std" ipr="trust200902"
 tocInclude="true" indexInclude="true" obsoletes=""  consensus="true"
-submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-17" >
+submissionType="IETF" xml:lang="en" version="3"  updates="4861, 6550, 8505, 8928, 9010" docName="draft-ietf-6lo-prefix-registration-18" >
  
 <front>
 
@@ -732,10 +732,10 @@ following complete set of defined values:
 	</dl>
    
    <t>
-   The capability to place The P-Field and the contiguous "Reserved" field in the EDAR message are specified in <xref target="RFC9685"/>
+   The capability to place The P-Field and the contiguous "Reserved" field in the EDAR message are specified in section 7.2 of <xref target="RFC9685"/>.
    </t>
    <t>
-   The capability to append ND options to the EDAR and EDAC messages is specified in <xref target="RFC8929"/>
+   The capability to append ND options to the EDAR and EDAC messages is specified in section 3.1 of <xref target="RFC8929"/>.
    </t>
    <t>
    All other fields follow the same definition as specified in <xref target="RFC8505"/>. 
