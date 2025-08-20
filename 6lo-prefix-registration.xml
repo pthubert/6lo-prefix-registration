@@ -735,7 +735,7 @@ following complete set of defined values:
    The capability to place The P-Field and the contiguous "Reserved" field in the EDAR message are specified in section 7.2 of <xref target="RFC9685"/>.
    </t>
    <t>
-   The capability to append ND options to the EDAR and EDAC messages is specified in section 3.1 of <xref target="RFC8929"/>.
+   The capability to append ND options to the EDAR and EDAC messages is introduced in section 3.1 of <xref target="RFC8929"/>.
    </t>
    <t>
    All other fields follow the same definition as specified in <xref target="RFC8505"/>. 

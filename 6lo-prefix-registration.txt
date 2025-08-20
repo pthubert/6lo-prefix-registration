@@ -805,7 +805,7 @@ Internet-Draft             Prefix Registration               August 2025
    field in the EDAR message are specified in section 7.2 of [RFC9685].
 
    The capability to append ND options to the EDAR and EDAC messages is
-   specified in section 3.1 of [RFC8929].
+   introduced in section 3.1 of [RFC8929].
 
    All other fields follow the same definition as specified in
    [RFC8505].  The values for these fields and RFC references are
